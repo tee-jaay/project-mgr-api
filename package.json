@@ -1,0 +1,26 @@
+{
+  "name": "taskeon",
+  "version": "1.0.0",
+  "description": "express js api",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/tjiddev/taskeon.git"
+  },
+  "keywords": [
+    "express",
+    "js",
+    "api",
+    "mongo",
+    "mongodb"
+  ],
+  "author": "Tam jid",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/tjiddev/taskeon/issues"
+  },
+  "homepage": "https://gitlab.com/tjiddev/taskeon#readme"
+}
