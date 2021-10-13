@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 
 import projectRoutes from "./routes/projects/projects.js";
 import userRoutes from "./routes/users/users.js";
+import profileRoutes from "./routes/profiles/profiles.js";
 import authRoutes from "./routes/auth/auth.js";
 
 const app = express();
@@ -31,6 +32,8 @@ app.get("/", (req, res) => {
 app.use("/projects", projectRoutes);
 // User
 app.use("/users", userRoutes);
+// Profile
+app.use("/profiles", profileRoutes);
 // Auth
 app.use("/auth", authRoutes);
 // ---- Routes ----

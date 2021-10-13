@@ -10,6 +10,7 @@ const ProjectSchema = new mongoose.Schema({
   url_one: { type: String, required: false },
   url_two: { type: String, required: false },
   color: { type: String, required: false },
+  image: { type: String, required: true },
 });
 
 const Project = mongoose.model("Project", ProjectSchema);

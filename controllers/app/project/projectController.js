@@ -17,6 +17,7 @@ export const store = async (req, res) => {
     url_one: req.body.url_one,
     url_two: req.body.url_two,
     color: req.body.color,
+    image: req.body.image,
   });
   try {
     const savedProject = await newProject.save();
