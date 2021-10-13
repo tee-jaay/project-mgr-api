@@ -1,31 +1,39 @@
-let projects = [];
+import { v4 as uuidv4 } from "uuid";
+import Project from "../../../models/app/Project.js";
 
-export const index = (req, res) => {
-  res.send(projects);
+export const index = async (req, res) => {
+  const projects = await Project.find();
+  res.status(200).json(projects);
 };
 
-export const store = (req, res) => {
-  // let user = req.body;
-
-  // for (let index = 0; index < 5; index++) {
-  //   users.push({
-  //     ...user,
-  //     id: uuidv4(),
-  //     firstName: faker.name.firstName(),
-  //     lastName: faker.name.lastName(),
-  //     age: faker.random.number(99),
-  //   });
-  // }
-  // res.send(`Project added to the collection`);
-  res.send(`store`);
+export const store = async (req, res) => {
+  const newProject = new Project({
+    title: req.body.title,
+    slug: uuidv4(),
+    created_by: req.body.created_by,
+    status: req.body.status,
+    description: req.body.description,
+    repo_link: req.body.repo_link,
+    url_one: req.body.url_one,
+    url_two: req.body.url_two,
+    color: req.body.color,
+  });
+  try {
+    const savedProject = await newProject.save();
+    res.status(201).json(savedProject);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json(err);
+  }
 };
 
-export const show = (req, res) => {
-  // const { id } = req.params;
-
-  // const getUesr = users.find((user) => user.id === id);
-
-  res.send("show");
+export const show = async (req, res) => {
+  try {
+    const getProject = await Project.find({ slug: req.params.slug });
+    res.status(200).json(getProject);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 };
 
 export const update = (req, res) => {
