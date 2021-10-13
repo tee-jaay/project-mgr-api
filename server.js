@@ -3,8 +3,9 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 
-import projects from "./routes/projects/projects.js";
-import users from "./routes/users/users.js";
+import projectRoutes from "./routes/projects/projects.js";
+import userRoutes from "./routes/users/users.js";
+import authRoutes from "./routes/auth/auth.js";
 
 const app = express();
 const PORT = 5555;
@@ -27,9 +28,11 @@ app.get("/", (req, res) => {
   res.send('Welcome to the "tackeon" app\'s Express.js powered api.');
 });
 // Project
-app.use("/projects", projects);
+app.use("/projects", projectRoutes);
 // User
-app.use("/users", users);
+app.use("/users", userRoutes);
+// Auth
+app.use("/auth", authRoutes);
 // ---- Routes ----
 
 // Initiate server
