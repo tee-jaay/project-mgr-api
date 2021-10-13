@@ -14,10 +14,10 @@ router.get("/", index);
 // Store
 router.post("/", store);
 // Show
-router.get("/:id", show);
+router.get("/:slug", show);
 // Update
-router.patch("/:id", update);
+router.patch("/:slug", update);
 // destroy
-router.delete("/:id", destroy);
+router.delete("/:slug", destroy);
 
 export default router;
