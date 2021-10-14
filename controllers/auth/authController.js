@@ -62,7 +62,7 @@ export const fakerRegisters = (req, res) => {
   var randomName = faker.name.findName();
   var randomEmail = faker.internet.email();
   var randomPassword = faker.internet.password();
-  for (var i = 0; i < 25; i++) {
+  for (var i = 0; i < 5; i++) {
     var fakeeUser = new User({
       username: randomUsername,
       name: randomName,

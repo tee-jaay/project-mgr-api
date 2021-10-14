@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 
+import authRoutes from "./routes/auth/auth.js";
 import projectRoutes from "./routes/projects/projects.js";
 import userRoutes from "./routes/users/users.js";
 import profileRoutes from "./routes/profiles/profiles.js";
@@ -10,7 +11,8 @@ import taskRoutes from "./routes/tasks/tasks.js";
 import todoRoutes from "./routes/todos/todos.js";
 import commentRoutes from "./routes/comments/comments.js";
 import issueRoutes from "./routes/issues/issues.js";
-import authRoutes from "./routes/auth/auth.js";
+import meetingRoutes from "./routes/meetings/meetings.js";
+import timesheetRoutes from "./routes/timesheets/timesheets.js";
 
 // ============ faker
 import { fakerProjects } from "./controllers/app/project/projectController.js";
@@ -24,7 +26,8 @@ dotenv.config();
 // Database
 mongoose
   .connect(
-    `mongodb+srv://${process.env.MONGO_USR}:${process.env.MONGO_PWD}@${process.env.MONGO_HOST}/${process.env.MONGO_DB}?${process.env.MONGO_OPT}`
+    // `mongodb+srv://${process.env.MONGO_USR}:${process.env.MONGO_PWD}@${process.env.MONGO_CLUSTER}.mongodb.net/${process.env.MONGO_DB}?${process.env.MONGO_OPT}`
+    `mongodb://${process.env.MONGO_USR}:${process.env.MONGO_PWD}@${process.env.MONGO_HOST}/${process.env.MONGO_DB}`
   )
   .then(() => console.log("Database connection successful"))
   .catch((err) => console.error(err));
@@ -53,6 +56,10 @@ app.use("/todos", todoRoutes);
 app.use("/comments", commentRoutes);
 // Issue
 app.use("/issues", issueRoutes);
+// Meeting
+app.use("/meetings", meetingRoutes);
+// Timesheet
+app.use("/timesheets", timesheetRoutes);
 // ========== fakers=========== //
 app.use("/faker-projects", fakerProjects);
 // ========== fakers=========== //
