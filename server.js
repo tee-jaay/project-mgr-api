@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 import projectRoutes from "./routes/projects/projects.js";
 import userRoutes from "./routes/users/users.js";
 import profileRoutes from "./routes/profiles/profiles.js";
+import taskRoutes from "./routes/tasks/tasks.js";
 import authRoutes from "./routes/auth/auth.js";
 
 const app = express();
@@ -28,14 +29,17 @@ app.use(bodyParser.json());
 app.get("/", (req, res) => {
   res.send('Welcome to the "tackeon" app\'s Express.js powered api.');
 });
-// Project
-app.use("/projects", projectRoutes);
+// Auth
+app.use("/auth", authRoutes);
 // User
 app.use("/users", userRoutes);
 // Profile
 app.use("/profiles", profileRoutes);
-// Auth
-app.use("/auth", authRoutes);
+
+// Project
+app.use("/projects", projectRoutes);
+// Task
+app.use("/tasks", taskRoutes);
 // ---- Routes ----
 
 // Initiate server
