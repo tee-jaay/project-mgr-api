@@ -7,6 +7,8 @@ import projectRoutes from "./routes/projects/projects.js";
 import userRoutes from "./routes/users/users.js";
 import profileRoutes from "./routes/profiles/profiles.js";
 import taskRoutes from "./routes/tasks/tasks.js";
+import todoRoutes from "./routes/todos/todos.js";
+import commentRoutes from "./routes/comments/comments.js";
 import authRoutes from "./routes/auth/auth.js";
 
 const app = express();
@@ -40,6 +42,10 @@ app.use("/profiles", profileRoutes);
 app.use("/projects", projectRoutes);
 // Task
 app.use("/tasks", taskRoutes);
+// Todo
+app.use("/todos", todoRoutes);
+// Comment
+app.use("/comments", commentRoutes);
 // ---- Routes ----
 
 // Initiate server
