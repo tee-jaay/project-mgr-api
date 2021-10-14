@@ -1,6 +1,7 @@
 import CryptoJS from "crypto-js";
 import jwt from "jsonwebtoken";
 import User from "../../models/auth/User.js";
+import faker from "faker";
 
 export const register = async (req, res) => {
   const newUser = new User({
@@ -53,4 +54,29 @@ export const login = async (req, res) => {
 
 export const logout = (req, res) => {
   res.send("logout");
+};
+
+// Faker entries
+export const fakerRegisters = (req, res) => {
+  var randomUsername = faker.internet.userName();
+  var randomName = faker.name.findName();
+  var randomEmail = faker.internet.email();
+  var randomPassword = faker.internet.password();
+  for (var i = 0; i < 25; i++) {
+    var fakeeUser = new User({
+      username: randomUsername,
+      name: randomName,
+      email: randomEmail,
+      password: CryptoJS.AES.encrypt(
+        randomPassword,
+        process.env.JWT_SEC
+      ).toString(),
+    });
+    fakeeUser.save((err, data) => {
+      if (err) {
+        console.log(err);
+      }
+    });
+  }
+  res.send("faker registers");
 };

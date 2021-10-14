@@ -3,12 +3,12 @@ import mongoose from "mongoose";
 const ProjectSchema = new mongoose.Schema({
   title: { type: String, required: true },
   slug: { type: String, required: true, unique: true },
-  created_by: { type: String, required: true },
+  createdBy: { type: String, required: true },
   status: { type: Number, default: 0 },
   description: { type: String, default: "Please add project description" },
-  repo_link: { type: String, required: false },
-  url_one: { type: String, required: false },
-  url_two: { type: String, required: false },
+  repoLink: { type: String, required: false },
+  urlOne: { type: String, required: false },
+  urlTwo: { type: String, required: false },
   color: { type: String, required: false },
   image: { type: String, required: true },
 });

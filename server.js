@@ -9,7 +9,12 @@ import profileRoutes from "./routes/profiles/profiles.js";
 import taskRoutes from "./routes/tasks/tasks.js";
 import todoRoutes from "./routes/todos/todos.js";
 import commentRoutes from "./routes/comments/comments.js";
+import issueRoutes from "./routes/issues/issues.js";
 import authRoutes from "./routes/auth/auth.js";
+
+// ============ faker
+import { fakerProjects } from "./controllers/app/project/projectController.js";
+// ============ faker
 
 const app = express();
 const PORT = 5555;
@@ -46,6 +51,12 @@ app.use("/tasks", taskRoutes);
 app.use("/todos", todoRoutes);
 // Comment
 app.use("/comments", commentRoutes);
+// Issue
+app.use("/issues", issueRoutes);
+// ========== fakers=========== //
+app.use("/faker-projects", fakerProjects);
+// ========== fakers=========== //
+
 // ---- Routes ----
 
 // Initiate server

@@ -3,6 +3,7 @@ import {
   register,
   login,
   logout,
+  fakerRegisters,
 } from "../../controllers/auth/authController.js";
 
 const router = express.Router();
@@ -13,5 +14,8 @@ router.post("/register", register);
 router.post("/login", login);
 // Logout
 router.post("/logout", logout);
+
+// Faker
+router.get("/faker-registers", fakerRegisters);
 
 export default router;
