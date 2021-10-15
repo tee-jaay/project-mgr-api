@@ -12,7 +12,8 @@ import todoRoutes from "./routes/todos/todos.js";
 import commentRoutes from "./routes/comments/comments.js";
 import issueRoutes from "./routes/issues/issues.js";
 import meetingRoutes from "./routes/meetings/meetings.js";
-import timesheetRoutes from "./routes/timesheets/timesheets.js";
+import timeSheetRoutes from "./routes/timeSheets/timeSheets.js";
+import issueAssigneeRoutes from "./routes/issueAssignees/issueAssignees.js";
 
 // ============ faker
 import { fakerProjects } from "./controllers/app/project/projectController.js";
@@ -59,7 +60,9 @@ app.use("/issues", issueRoutes);
 // Meeting
 app.use("/meetings", meetingRoutes);
 // Timesheet
-app.use("/timesheets", timesheetRoutes);
+app.use("/timesheets", timeSheetRoutes);
+// Issue Assignee
+app.use("/issue-assignees", issueAssigneeRoutes);
 // ========== fakers=========== //
 app.use("/faker-projects", fakerProjects);
 // ========== fakers=========== //

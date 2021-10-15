@@ -5,7 +5,7 @@ import {
   show,
   update,
   destroy,
-} from "../../controllers/app/timeSheet/timesheetController.js";
+} from "../../controllers/app/issueAssignee/IssueAssigneeController.js";
 
 const router = express.Router();
 
