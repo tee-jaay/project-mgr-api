@@ -60,17 +60,25 @@ export const destroy = (req, res) => {
 };
 
 // Faker entries
-export const fakerProjects = (req, res) => {
-  var title = faker.lorem.sentence();
-  var createdBy = faker.random.alphaNumeric();
-  var status = faker.datatype.number(8);
-  var description = faker.lorem.paragraph();
-  var repoLink = faker.internet.url();
-  var urlOne = faker.internet.url();
-  var urlTwo = faker.internet.url();
-  var color = faker.internet.color();
-  var image = faker.image.imageUrl();
-  for (var i = 0; i < 3; i++) {
+export const fakerProjects = async (req, res) => {
+  var db = mongoose.connection;
+  // count users
+  var usersCount = await db.collection("users").count();
+  // get users
+  var getData = await db.collection("users").find().toArray();
+  for (let i = 0; i < usersCount; i++) {
+    var userId = getData[i]._id;
+
+    var title = faker.lorem.sentence();
+    var createdBy = userId;
+    var status = faker.datatype.number(8);
+    var description = faker.lorem.paragraph();
+    var repoLink = faker.internet.url();
+    var urlOne = faker.internet.url();
+    var urlTwo = faker.internet.url();
+    var color = faker.internet.color();
+    var image = faker.image.imageUrl();
+
     var fakeProject = new Project({
       title,
       slug: uuidv4(),
@@ -88,7 +96,14 @@ export const fakerProjects = (req, res) => {
         console.log(err);
       }
     });
-  }
+  } // for
 
-  res.send("faker projects");
+  // var getData = await db.collection("users").findOne({
+  //   username: "Jarrod.Witting",
+  // });
+  // var data = getData._id;
+
+  // console.log("result # ", size);
+
+  res.status(200).json("faker projects");
 };

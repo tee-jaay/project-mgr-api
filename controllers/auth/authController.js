@@ -57,22 +57,22 @@ export const logout = (req, res) => {
 };
 
 // Faker entries
-export const fakerRegisters = (req, res) => {
+export const fakerRegisters = async (req, res) => {
   var randomUsername = faker.internet.userName();
   var randomName = faker.name.findName();
   var randomEmail = faker.internet.email();
   var randomPassword = faker.internet.password();
   for (var i = 0; i < 5; i++) {
     var fakeeUser = new User({
-      username: randomUsername,
+      username: randomUsername + i,
       name: randomName,
-      email: randomEmail,
+      email: i + randomEmail,
       password: CryptoJS.AES.encrypt(
         randomPassword,
         process.env.JWT_SEC
       ).toString(),
     });
-    fakeeUser.save((err, data) => {
+    await fakeeUser.save((err, data) => {
       if (err) {
         console.log(err);
       }
