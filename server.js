@@ -2,6 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import cors from "cors";
 
 import authRoutes from "./routes/auth/auth.js";
 import projectRoutes from "./routes/projects/projects.js";
@@ -30,13 +31,16 @@ dotenv.config();
 // Database
 mongoose
   .connect(
-    // `mongodb+srv://${process.env.MONGO_USR}:${process.env.MONGO_PWD}@${process.env.MONGO_CLUSTER}.mongodb.net/${process.env.MONGO_DB}?${process.env.MONGO_OPT}`
-    `mongodb://${process.env.MONGO_USR}:${process.env.MONGO_PWD}@${process.env.MONGO_HOST}/${process.env.MONGO_DB}`
+    `mongodb+srv://${process.env.MONGO_USR}:${process.env.MONGO_PWD}@${process.env.MONGO_CLUSTER}.mongodb.net/${process.env.MONGO_DB}?${process.env.MONGO_OPT}`
+    // `mongodb://${process.env.MONGO_USR}:${process.env.MONGO_PWD}@${process.env.MONGO_HOST}/${process.env.MONGO_DB}`
   )
   .then(() => console.log("Database connection successful"))
   .catch((err) => console.error(err));
 
 app.use(bodyParser.json());
+
+// CORS
+app.use(cors());
 
 // ---- Routes ----
 // Root
