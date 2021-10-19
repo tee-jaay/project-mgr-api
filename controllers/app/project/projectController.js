@@ -56,7 +56,7 @@ export const update = (req, res) => {
 };
 
 export const destroy = (req, res) => {
-  res.send(`destroy`);
+  res.send("destroy");
 };
 
 // Faker entries
@@ -71,7 +71,12 @@ export const fakerProjects = async (req, res) => {
 
     var title = faker.lorem.sentence();
     var createdBy = userId;
-    var status = faker.datatype.number(8);
+    var status = faker.random.arrayElement(
+      "active",
+      "cancelled",
+      "completed",
+      "review"
+    );
     var description = faker.lorem.paragraph();
     var repoLink = faker.internet.url();
     var urlOne = faker.internet.url();

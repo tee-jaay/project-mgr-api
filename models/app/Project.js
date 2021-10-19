@@ -5,7 +5,7 @@ const ProjectSchema = new mongoose.Schema(
     title: { type: String, required: true },
     slug: { type: String, required: true, unique: true },
     createdBy: { type: String, required: true },
-    status: { type: Number, default: 0 },
+    status: { type: String },
     description: { type: String, default: "Please add project description" },
     repoLink: { type: String, required: false },
     urlOne: { type: String, required: false },

@@ -7,7 +7,7 @@ const TaskSchema = new mongoose.Schema(
     title: { type: String, required: true },
     description: { type: String },
     bookmark: { type: Number },
-    status: { type: Number, default: 0 },
+    status: { type: String },
     plannedStart: { type: String },
     plannedEnd: { type: String },
     actualStart: { type: String },
