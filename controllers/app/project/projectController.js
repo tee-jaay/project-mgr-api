@@ -71,12 +71,8 @@ export const fakerProjects = async (req, res) => {
 
     var title = faker.lorem.sentence();
     var createdBy = userId;
-    var status = faker.random.arrayElement(
-      "active",
-      "cancelled",
-      "completed",
-      "review"
-    );
+    var allStatus = ["active", "cancelled", "completed", "review"];
+    var status = allStatus[(Math.random() * allStatus.length) | 0];
     var description = faker.lorem.paragraph();
     var repoLink = faker.internet.url();
     var urlOne = faker.internet.url();
