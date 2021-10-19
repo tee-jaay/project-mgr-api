@@ -5,6 +5,7 @@ import {
   show,
   update,
   destroy,
+  tasksByProject,
 } from "../../controllers/app/task/taskController.js";
 
 const router = express.Router();
@@ -17,7 +18,9 @@ router.post("/", store);
 router.get("/:id", show);
 // Update
 router.patch("/:id", update);
-// destroy
+// Destroy
 router.delete("/:id", destroy);
+// Tasks by project
+router.get("/project/:projectSlug", tasksByProject);
 
 export default router;

@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import Project from "../../../models/app/Project.js";
+import Task from "../../../models/app/Task.js";
 import faker from "faker";
 import User from "../../../models/auth/User.js";
 import mongoose from "mongoose";
@@ -43,8 +44,9 @@ export const store = async (req, res) => {
 };
 
 export const show = async (req, res) => {
+  const { slug } = req.params;
   try {
-    const getProject = await Project.find({ slug: req.params.slug });
+    const getProject = await Project.find({ slug: slug });
     res.status(200).json(getProject);
   } catch (err) {
     res.status(500).json(err);

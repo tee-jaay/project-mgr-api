@@ -81,3 +81,12 @@ export const destroy = (req, res) => {
   // res.send(`User with id ${id} deleted`);
   res.send(`destroy`);
 };
+
+export const tasksByProject = async (req, res) => {
+  try {
+    const tasks = await Task.find({ projectSlug: req.params.projectSlug });
+    res.status(200).json(tasks);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
