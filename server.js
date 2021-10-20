@@ -20,7 +20,8 @@ import meetingParticipantRoutes from "./routes/meetingParticipants/meetingPartic
 import projectBudgetRoutes from "./routes/projectBudgets/projectBudgets.js";
 
 // ============ faker
-import { fakerProjects } from "./controllers/app/project/projectController.js";
+import { fakerRegisters } from "./controllers/faker/fakerController.js";
+import { fakerProjects } from "./controllers/faker/fakerController.js";
 import { fakerTasks } from "./controllers/app/task/taskController.js";
 // ============ faker
 
@@ -30,11 +31,15 @@ const PORT = 5555;
 dotenv.config();
 
 // Database
+let DB_CONN_URI = "";
+if (process.env.MONGO_NETWORK === "localnet") {
+  DB_CONN_URI = `mongodb://${process.env.MONGO_USR}:${process.env.MONGO_PWD}@${process.env.MONGO_HOST_LOCALNET}/${process.env.MONGO_DB}`;
+} else {
+  DB_CONN_URI = `mongodb+srv://${process.env.MONGO_USR}:${process.env.MONGO_PWD}@${process.env.MONGO_CLUSTER}.mongodb.net/${process.env.MONGO_DB}?${process.env.MONGO_OPT}`;
+}
+
 mongoose
-  .connect(
-    `mongodb+srv://${process.env.MONGO_USR}:${process.env.MONGO_PWD}@${process.env.MONGO_CLUSTER}.mongodb.net/${process.env.MONGO_DB}?${process.env.MONGO_OPT}`
-    // `mongodb://${process.env.MONGO_USR}:${process.env.MONGO_PWD}@${process.env.MONGO_HOST}/${process.env.MONGO_DB}`
-  )
+  .connect(DB_CONN_URI)
   .then(() => console.log("Database connection successful"))
   .catch((err) => console.error(err));
 
@@ -79,6 +84,7 @@ app.use("/meeting-participants", meetingParticipantRoutes);
 app.use("/project-budgets", projectBudgetRoutes);
 //
 // ========== fakers=========== //
+app.use("/faker-registers", fakerRegisters);
 app.use("/faker-projects", fakerProjects);
 app.use("/faker-tasks", fakerTasks);
 // ========== fakers=========== //
