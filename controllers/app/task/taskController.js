@@ -1,5 +1,10 @@
 import Task from "../../../models/app/Task.js";
 
+// faker
+import mongoose from "mongoose";
+import faker from "faker";
+// faker
+
 export const index = async (req, res) => {
   const tasks = await Task.find();
   res.status(200).json(tasks);
@@ -53,32 +58,10 @@ export const show = async (req, res) => {
 };
 
 export const update = (req, res) => {
-  // const { id } = req.params;
-
-  // const { firstName, lastName, age } = req.body;
-
-  // const user = users.find((user) => user.id === id);
-
-  // if (firstName) {
-  //   user.firstName = firstName;
-  // }
-  // if (lastName) {
-  //   user.lastName = lastName;
-  // }
-  // if (age) {
-  //   user.age = age;
-  // }
-
-  // res.send(`User with the id ${user.id} updated`);
   res.send("update");
 };
 
 export const destroy = (req, res) => {
-  // const { id } = req.params;
-
-  // users = users.filter((user) => user.id !== id);
-
-  // res.send(`User with id ${id} deleted`);
   res.send(`destroy`);
 };
 
@@ -89,4 +72,61 @@ export const tasksByProject = async (req, res) => {
   } catch (err) {
     res.status(500).json(err);
   }
+};
+
+export const fakerTasks = async (req, res) => {
+  var db = mongoose.connection;
+  // count projects
+  var projectsCount = await db.collection("projects").count();
+  // get projects
+  var getData = await db.collection("projects").find().toArray();
+
+  for (let i = 0; i < projectsCount; i++) {
+    var projectSlug = getData[i].slug;
+    var createdBy = getData[i].createdBy;
+    var title = faker.lorem.sentence();
+    var description = faker.lorem.paragraph();
+    var bookmark = "1";
+
+    var statusArr = [
+      "active",
+      "cancelled",
+      "completed",
+      "review",
+      "not started",
+    ];
+    var status = statusArr[(Math.random() * statusArr.length) | 0];
+
+    var plannedStart = faker.date.past();
+    var plannedEnd = faker.date.future();
+    var actualStart = faker.date.future();
+    var actualEnd = faker.date.past();
+
+    var priorityArr = ["critical", "low", "medium", "high"];
+    var priority = priorityArr[(Math.random() * priorityArr.length) | 0];
+
+    var color = faker.internet.color();
+
+    var fakeTask = new Task({
+      projectSlug,
+      createdBy,
+      title,
+      description,
+      bookmark,
+      status,
+      plannedStart,
+      plannedEnd,
+      actualStart,
+      actualEnd,
+      priority,
+      color,
+    });
+    fakeTask.save((err, data) => {
+      if (err) {
+        console.log(err);
+      }
+    });
+  } // for
+
+  res.status(200).json("faker tasks");
 };

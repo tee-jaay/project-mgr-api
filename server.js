@@ -21,6 +21,7 @@ import projectBudgetRoutes from "./routes/projectBudgets/projectBudgets.js";
 
 // ============ faker
 import { fakerProjects } from "./controllers/app/project/projectController.js";
+import { fakerTasks } from "./controllers/app/task/taskController.js";
 // ============ faker
 
 const app = express();
@@ -79,6 +80,7 @@ app.use("/project-budgets", projectBudgetRoutes);
 //
 // ========== fakers=========== //
 app.use("/faker-projects", fakerProjects);
+app.use("/faker-tasks", fakerTasks);
 // ========== fakers=========== //
 
 // ---- Routes ----
