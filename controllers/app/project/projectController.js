@@ -7,16 +7,28 @@ export const index = async (req, res) => {
 };
 
 export const store = async (req, res) => {
+  const {
+    title,
+    createdBy,
+    status,
+    description,
+    repoLink,
+    urlOne,
+    urlTwo,
+    color,
+    image,
+  } = req.body;
   const newProject = new Project({
-    title: req.body.title,
+    title,
     slug: uuidv4(),
-    created_by: req.body.created_by,
-    status: req.body.status,
-    description: req.body.description,
-    repo_link: req.body.repo_link,
-    url_one: req.body.url_one,
-    url_two: req.body.url_two,
-    color: req.body.color,
+    createdBy,
+    status,
+    description,
+    repoLink,
+    urlOne,
+    urlTwo,
+    color,
+    image,
   });
   try {
     const savedProject = await newProject.save();
@@ -28,8 +40,9 @@ export const store = async (req, res) => {
 };
 
 export const show = async (req, res) => {
+  const { slug } = req.params;
   try {
-    const getProject = await Project.find({ slug: req.params.slug });
+    const getProject = await Project.find({ slug: slug });
     res.status(200).json(getProject);
   } catch (err) {
     res.status(500).json(err);
@@ -37,31 +50,9 @@ export const show = async (req, res) => {
 };
 
 export const update = (req, res) => {
-  // const { id } = req.params;
-
-  // const { firstName, lastName, age } = req.body;
-
-  // const user = users.find((user) => user.id === id);
-
-  // if (firstName) {
-  //   user.firstName = firstName;
-  // }
-  // if (lastName) {
-  //   user.lastName = lastName;
-  // }
-  // if (age) {
-  //   user.age = age;
-  // }
-
-  // res.send(`User with the id ${user.id} updated`);
   res.send("update");
 };
 
 export const destroy = (req, res) => {
-  // const { id } = req.params;
-
-  // users = users.filter((user) => user.id !== id);
-
-  // res.send(`User with id ${id} deleted`);
-  res.send(`destroy`);
+  res.send("destroy");
 };
