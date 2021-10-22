@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from "uuid";
 import Todo from "../../../models/app/Todo.js";
 
 export const index = async (req, res) => {
@@ -8,6 +9,7 @@ export const index = async (req, res) => {
 export const store = async (req, res) => {
   const { taskId, createdBy, todo, done, end_date } = req.body;
   const newTodo = new Todo({
+    id: uuidv4(),
     taskId,
     createdBy,
     todo,

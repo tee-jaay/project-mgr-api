@@ -1,7 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import Issue from "../../../models/app/Issue.js";
 import faker from "faker";
-import mongoose from "mongoose";
 
 export const index = async (req, res) => {
   const issues = await Issue.find();
@@ -23,6 +22,7 @@ export const store = async (req, res) => {
     severity,
   } = req.body;
   const newIssue = new Issue({
+    id: uuidv4(),
     taskId,
     createdBy,
     title,

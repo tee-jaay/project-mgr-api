@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from "uuid";
 import Comment from "../../../models/app/Comment.js";
 
 export const index = async (req, res) => {
@@ -8,6 +9,7 @@ export const index = async (req, res) => {
 export const store = async (req, res) => {
   const { taskId, commenterId, comment, file } = req.body;
   const newComment = new Comment({
+    id: uuidv4(),
     taskId,
     commenterId,
     comment,

@@ -1,7 +1,9 @@
+import { v4 as uuid } from "uuid";
 import Profile from "../../models/user/Profile.js";
 
 export const store = async (req, res) => {
   const profile = new Profile({
+    id: uuid(),
     userId: req.body.userId,
     title: req.body.title,
     industry: req.body.industry,

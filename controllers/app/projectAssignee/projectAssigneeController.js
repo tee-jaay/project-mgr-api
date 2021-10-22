@@ -11,7 +11,9 @@ export const index = async (req, res) => {
 
 export const store = async (req, res) => {
   const {} = req.body;
-  const newProjectAssignee = new ProjectAssignee({});
+  const newProjectAssignee = new ProjectAssignee({
+    id: uuidv4(),
+  });
   try {
     const savedProjectAssignee = await newProjectAssignee.save();
     res.status(201).json(savedProjectAssignee);

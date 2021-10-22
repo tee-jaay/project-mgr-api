@@ -21,6 +21,7 @@ export const store = async (req, res) => {
     agenda,
   } = req.body;
   const newMeeting = new Meeting({
+    id: uuidv4(),
     taskId,
     createdBy,
     title,

@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from "uuid";
 import Task from "../../../models/app/Task.js";
 
 // faker
@@ -26,6 +27,7 @@ export const store = async (req, res) => {
     color,
   } = req.body;
   const newTask = new Task({
+    id: uuidv4(),
     projectSlug,
     createdBy,
     title,
@@ -108,6 +110,7 @@ export const fakerTasks = async (req, res) => {
     var color = faker.internet.color();
 
     var fakeTask = new Task({
+      id: uuidv4(),
       projectSlug,
       createdBy,
       title,

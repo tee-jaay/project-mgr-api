@@ -19,6 +19,7 @@ export const store = async (req, res) => {
     image,
   } = req.body;
   const newProject = new Project({
+    id: uuidv4(),
     title,
     slug: uuidv4(),
     createdBy,

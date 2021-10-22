@@ -1,9 +1,11 @@
 import CryptoJS from "crypto-js";
 import jwt from "jsonwebtoken";
+import { v4 as uuid } from "uuid";
 import User from "../../models/auth/User.js";
 
 export const register = async (req, res) => {
   const newUser = new User({
+    id: uuid(),
     username: req.body.username,
     name: req.body.name,
     email: req.body.email,
@@ -36,7 +38,7 @@ export const login = async (req, res) => {
 
     const accessToken = jwt.sign(
       {
-        id: user._id,
+        id: user.id,
         isAdmin: user.isAdmin,
       },
       process.env.JWT_SEC,

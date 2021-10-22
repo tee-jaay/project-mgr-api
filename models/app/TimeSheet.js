@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 const TimeSheetSchema = new mongoose.Schema(
   {
+    id: { type: "string", required: true, unique: true },
     taskId: { type: String, required: true },
     createdBy: { type: String, required: true },
     title: { type: String, required: true },

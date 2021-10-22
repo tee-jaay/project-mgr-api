@@ -11,6 +11,7 @@ export const index = async (req, res) => {
 export const store = async (req, res) => {
   const { taskId, createdBy, title, day, hour, min, note } = req.body;
   const newTimeSheet = new TimeSheet({
+    id: uuidv4(),
     taskId,
     createdBy,
     title,

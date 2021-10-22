@@ -12,6 +12,7 @@ export const fakerRegisters = async (req, res) => {
   var randomPassword = faker.internet.password();
   for (var i = 0; i < 5; i++) {
     var fakeeUser = new User({
+      id: uuidv4(),
       username: randomUsername + i,
       name: randomName,
       email: i + randomEmail,
@@ -36,7 +37,7 @@ export const fakerProjects = async (req, res) => {
   // get users
   var getData = await db.collection("users").find().toArray();
   for (let i = 0; i < usersCount; i++) {
-    var userId = getData[i]._id;
+    var userId = getData[i].id;
 
     var title = faker.lorem.sentence();
     var createdBy = userId;

@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from "uuid";
 import MeetingParticipant from "../../../models/app/MeetingParticipant.js";
 
 export const index = async (req, res) => {
