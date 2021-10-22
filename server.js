@@ -19,11 +19,13 @@ import projectAssigneeRoutes from "./routes/projectAssignees/projectAssignees.js
 import meetingParticipantRoutes from "./routes/meetingParticipants/meetingParticipants.js";
 import projectBudgetRoutes from "./routes/projectBudgets/projectBudgets.js";
 
-// ============ faker
-import { fakerRegisters } from "./controllers/faker/fakerController.js";
-import { fakerProjects } from "./controllers/faker/fakerController.js";
-import { fakerTasks } from "./controllers/app/task/taskController.js";
-// ============ faker
+// ============ faker ============ //
+import {
+  fakerRegisters,
+  fakerProjects,
+  fakerTasks,
+} from "./controllers/faker/fakerController.js";
+// ============ faker ============ //
 
 const app = express();
 const PORT = 5555;
@@ -83,11 +85,11 @@ app.use("/meeting-participants", meetingParticipantRoutes);
 // Project Budget
 app.use("/project-budgets", projectBudgetRoutes);
 //
-// ========== fakers=========== //
+// ========== faker =========== //
 app.use("/faker-registers", fakerRegisters);
 app.use("/faker-projects", fakerProjects);
 app.use("/faker-tasks", fakerTasks);
-// ========== fakers=========== //
+// ========== faker =========== //
 
 // ---- Routes ----
 

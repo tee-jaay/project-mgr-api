@@ -10,7 +10,7 @@ export const fakerRegisters = async (req, res) => {
   var randomName = faker.name.findName();
   var randomEmail = faker.internet.email();
   var randomPassword = faker.internet.password();
-  for (var i = 0; i < 5; i++) {
+  for (var i = 0; i < 35; i++) {
     var fakeeUser = new User({
       id: uuidv4(),
       username: randomUsername + i,
@@ -27,7 +27,7 @@ export const fakerRegisters = async (req, res) => {
       }
     });
   }
-  res.send("faker register store successful");
+  res.status(201).json("faker users created");
 };
 
 export const fakerProjects = async (req, res) => {
@@ -71,5 +71,63 @@ export const fakerProjects = async (req, res) => {
       }
     });
   }
-  res.status(200).json("faker project store successful");
+  res.status(201).json("faker projects created");
+};
+
+export const fakerTasks = async (req, res) => {
+  var db = mongoose.connection;
+  // count projects
+  var projectsCount = await db.collection("projects").count();
+  // get projects
+  var getData = await db.collection("projects").find().toArray();
+
+  for (let i = 0; i < projectsCount; i++) {
+    var projectSlug = getData[i].slug;
+    var createdBy = getData[i].createdBy;
+    var title = faker.lorem.sentence();
+    var description = faker.lorem.paragraph();
+    var bookmark = "1";
+
+    var statusArr = [
+      "active",
+      "cancelled",
+      "completed",
+      "review",
+      "not started",
+    ];
+    var status = statusArr[(Math.random() * statusArr.length) | 0];
+
+    var plannedStart = faker.date.past();
+    var plannedEnd = faker.date.future();
+    var actualStart = faker.date.future();
+    var actualEnd = faker.date.past();
+
+    var priorityArr = ["critical", "low", "medium", "high"];
+    var priority = priorityArr[(Math.random() * priorityArr.length) | 0];
+
+    var color = faker.internet.color();
+
+    var fakeTask = new Task({
+      id: uuidv4(),
+      projectSlug,
+      createdBy,
+      title,
+      description,
+      bookmark,
+      status,
+      plannedStart,
+      plannedEnd,
+      actualStart,
+      actualEnd,
+      priority,
+      color,
+    });
+    fakeTask.save((err, data) => {
+      if (err) {
+        console.log(err);
+      }
+    });
+  } // for
+
+  res.status(201).json("faker tasks created");
 };
