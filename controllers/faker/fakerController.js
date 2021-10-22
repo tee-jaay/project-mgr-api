@@ -49,10 +49,13 @@ export const fakerProjects = async (req, res) => {
     var urlTwo = faker.internet.url();
     var color = faker.internet.color();
     var image = faker.image.imageUrl();
+    var id = uuidv4();
+    var slug = uuidv4();
 
     var fakeProject = new Project({
+      id,
       title,
-      slug: uuidv4(),
+      slug,
       createdBy,
       status,
       description,

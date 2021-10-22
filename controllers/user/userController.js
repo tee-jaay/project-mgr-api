@@ -1,3 +1,4 @@
+import CryptoJS from "crypto-js";
 import User from "../../models/auth/User.js";
 
 export const index = async (req, res) => {
@@ -18,8 +19,25 @@ export const show = async (req, res) => {
   }
 };
 
-export const update = (req, res) => {
-  res.send("update");
+export const update = async (req, res) => {
+  if (req.body.password) {
+    req.body.password = CryptoJS.AES.encrypt(
+      req.body.password,
+      process.env.JWT_SEC
+    ).toString();
+  }
+  try {
+    const updatedUser = await User.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set: req.body,
+      },
+      { new: true }
+    );
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    res.status(500).json(error);
+  }
 };
 
 export const destroy = (req, res) => {
