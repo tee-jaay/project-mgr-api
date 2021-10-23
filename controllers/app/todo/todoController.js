@@ -7,14 +7,14 @@ export const index = async (req, res) => {
 };
 
 export const store = async (req, res) => {
-  const { taskId, createdBy, todo, done, end_date } = req.body;
+  const { taskId, createdBy, todo, done, endDate } = req.body;
   const newTodo = new Todo({
     id: uuidv4(),
     taskId,
     createdBy,
     todo,
     done,
-    end_date,
+    endDate,
   });
   try {
     const savedTodo = await newTodo.save();
@@ -39,5 +39,14 @@ export const update = (req, res) => {
 };
 
 export const destroy = (req, res) => {
-  res.send(`destroy`);
+  res.send("destroy");
+};
+
+export const todosByTask = async (req, res) => {
+  try {
+    const todos = await Todo.find({ taskId: req.params.taskId });
+    res.status(200).json(todos);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 };

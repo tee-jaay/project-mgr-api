@@ -6,8 +6,8 @@ const TodoSchema = new mongoose.Schema(
     taskId: { type: String, required: true },
     createdBy: { type: String, required: true },
     todo: { type: String, required: true },
-    done: { type: Number, default: 0 },
-    end_date: { type: String },
+    done: { type: Boolean, default: false },
+    endDate: { type: String },
   },
   { timestamps: true }
 );

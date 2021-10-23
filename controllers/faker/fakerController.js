@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import faker from "faker";
 import User from "../../models/auth/User.js";
 import Project from "../../models/app/Project.js";
+import Todo from "../../models/app/Todo.js";
 
 export const fakerRegisters = async (req, res) => {
   var randomUsername = faker.internet.userName();
@@ -130,4 +131,36 @@ export const fakerTasks = async (req, res) => {
   } // for
 
   res.status(201).json("faker tasks created");
+};
+
+export const fakerTodos = async (req, res) => {
+  var db = mongoose.connection;
+  // count tasks
+  var taskCount = await db.collection("tasks").count();
+  // get tasks
+  var getTaskData = await db.collection("tasks").find().toArray();
+
+  for (let i = 0; i < taskCount; i++) {
+    var taskId = getTaskData[i].id;
+    var createdBy = getTaskData[i].createdBy;
+    var todo = faker.lorem.sentence();
+    var done = faker.datatype.boolean();
+    var endDate = faker.date.past();
+
+    var fakeTodo = new Todo({
+      id: uuidv4(),
+      taskId,
+      createdBy,
+      todo,
+      done,
+      endDate,
+    });
+    fakeTodo.save((err, data) => {
+      if (err) {
+        console.log(err);
+      }
+    });
+  } // for
+
+  res.status(201).json("faker todos created");
 };
