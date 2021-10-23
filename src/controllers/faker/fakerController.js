@@ -12,12 +12,15 @@ export const fakerRegisters = async (req, res) => {
   var randomName = faker.name.findName();
   var randomEmail = faker.internet.email();
   var randomPassword = faker.internet.password();
+  var isAdmin = faker.datatype.boolean();
   for (var i = 0; i < 35; i++) {
     var fakeeUser = new User({
       id: uuidv4(),
       username: randomUsername + i,
       name: randomName,
       email: i + randomEmail,
+      isAdmin,
+
       password: CryptoJS.AES.encrypt(
         randomPassword,
         process.env.JWT_SEC

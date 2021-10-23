@@ -12,7 +12,7 @@ export const index = async (req, res) => {
 
 export const show = async (req, res) => {
   try {
-    const user = await User.find({ _id: req.params.id });
+    const user = await User.find({ id: req.params.id });
     res.status(200).json(user);
   } catch (err) {
     res.status(500).json(err);
@@ -20,6 +20,7 @@ export const show = async (req, res) => {
 };
 
 export const update = async (req, res) => {
+  console.log("update");
   if (req.body.password) {
     req.body.password = CryptoJS.AES.encrypt(
       req.body.password,

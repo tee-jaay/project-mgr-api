@@ -8,7 +8,7 @@ const UserSchema = new mongoose.Schema(
     email: { type: String, required: true, unique: true },
     emailVerifiedAt: { type: String },
     password: { type: String, required: true },
-    isAdmin: { type: Boolean, default: false },
+    isAdmin: { type: Boolean, required: true },
   },
   { timestamps: true }
 );
