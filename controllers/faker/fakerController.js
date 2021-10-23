@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import faker from "faker";
 import User from "../../models/auth/User.js";
 import Project from "../../models/app/Project.js";
+import Task from "../../models/app/Task.js";
 import Todo from "../../models/app/Todo.js";
 
 export const fakerRegisters = async (req, res) => {
