@@ -9,6 +9,7 @@ export const register = async (req, res) => {
     username: req.body.username,
     name: req.body.name,
     email: req.body.email,
+    role: "user",
     password: CryptoJS.AES.encrypt(
       req.body.password,
       process.env.JWT_SEC
@@ -39,7 +40,7 @@ export const login = async (req, res) => {
     const accessToken = jwt.sign(
       {
         id: user.id,
-        isAdmin: user.isAdmin,
+        role: user.role,
       },
       process.env.JWT_SEC,
       { expiresIn: "3d" }
