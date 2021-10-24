@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
+import slugify from "slugify";
 import Project from "../../../models/app/Project.js";
 
 export const index = async (req, res) => {
@@ -7,6 +8,14 @@ export const index = async (req, res) => {
 };
 
 export const store = async (req, res) => {
+  const slugifyOptions = {
+    replacement: "-", // replace spaces with replacement character, defaults to `-`
+    remove: /[*+~.()'"!:@]/g, // remove characters that match regex, defaults to `undefined`
+    lower: true, // convert to lower case, defaults to `false`
+    strict: false, // strip special characters except replacement, defaults to `false`
+    locale: "vi", // language code of the locale to use
+    trim: true,
+  };
   const {
     title,
     createdBy,
@@ -21,7 +30,7 @@ export const store = async (req, res) => {
   const newProject = new Project({
     id: uuidv4(),
     title,
-    slug: uuidv4(),
+    slug: slugify(title, slugifyOptions),
     createdBy,
     status,
     description,

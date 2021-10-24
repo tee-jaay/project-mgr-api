@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import CryptoJS from "crypto-js";
 import { v4 as uuidv4 } from "uuid";
+import slugify from "slugify";
 import faker from "faker";
 import User from "../../models/auth/User.js";
 import Project from "../../models/app/Project.js";
@@ -42,6 +43,16 @@ export const fakerProjects = async (req, res) => {
   var usersCount = await db.collection("users").count();
   // get users
   var getData = await db.collection("users").find().toArray();
+
+  const slugifyOptions = {
+    replacement: "-",
+    remove: /[*+~.()'"!:@]/g,
+    lower: true,
+    strict: false,
+    locale: "vi",
+    trim: true,
+  };
+
   for (let i = 0; i < usersCount; i++) {
     var userId = getData[i].id;
 
@@ -56,7 +67,7 @@ export const fakerProjects = async (req, res) => {
     var color = faker.internet.color();
     var image = faker.image.imageUrl();
     var id = uuidv4();
-    var slug = uuidv4();
+    var slug = slugify(title, slugifyOptions);
 
     var fakeProject = new Project({
       id,

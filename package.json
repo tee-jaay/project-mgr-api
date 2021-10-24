@@ -36,6 +36,7 @@
     "faker": "^5.5.3",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.10",
+    "slugify": "^1.6.1",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
