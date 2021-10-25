@@ -34,8 +34,19 @@ export const show = async (req, res) => {
   }
 };
 
-export const update = (req, res) => {
-  res.send("update");
+export const update = async (req, res) => {
+  const findTodo = Todo.find({ id: req.params.id });
+  try {
+    const updatedTodo = await findTodo.updateOne(findTodo, {
+      todo: req.body.todo,
+      done: req.body.done,
+      // endDate: { type: String },
+    });
+    res.status(200).json(updatedTodo);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json(error);
+  }
 };
 
 export const destroy = (req, res) => {
