@@ -20,6 +20,7 @@ import meetingParticipantRoutes from "./src/routes/meetingParticipants/meetingPa
 import projectBudgetRoutes from "./src/routes/projectBudgets/projectBudgets.js";
 
 // ============ faker ============ //
+import { databaseDrop } from "./src/controllers/faker/databaseDrop.js";
 import {
   fakerRegisters,
   fakerProjects,
@@ -87,6 +88,7 @@ app.use("/meeting-participants", meetingParticipantRoutes);
 app.use("/project-budgets", projectBudgetRoutes);
 //
 // ========== faker =========== //
+app.use("/drop/:db", databaseDrop);
 app.use("/faker-registers", fakerRegisters);
 app.use("/faker-projects", fakerProjects);
 app.use("/faker-tasks", fakerTasks);
