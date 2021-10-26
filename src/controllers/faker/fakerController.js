@@ -9,11 +9,11 @@ import Task from "../../models/app/Task.js";
 import Todo from "../../models/app/Todo.js";
 
 export const fakerRegisters = async (req, res) => {
-  var randomUsername = faker.internet.userName();
-  var randomName = faker.name.findName();
-  var randomEmail = faker.internet.email();
   var randomPassword = faker.internet.password();
   for (var i = 0; i < 35; i++) {
+    var randomUsername = faker.internet.userName();
+    var randomName = faker.name.findName();
+    var randomEmail = faker.internet.email();
     var allRoles = ["admin", "user", "client", "visitor"];
     var role = allRoles[(Math.random() * allRoles.length) | 0];
     var fakeeUser = new User({
