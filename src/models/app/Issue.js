@@ -8,12 +8,15 @@ const IssueSchema = new mongoose.Schema(
     title: { type: String, required: true },
     description: { type: String },
     bookmark: { type: Number },
-    status: { type: Number },
+    status: { type: String, enum: ["open", "closed"] },
     plannedStart: { type: String },
     plannedEnd: { type: String },
-    priority: { type: Number },
-    type: { type: Number },
-    severity: { type: Number },
+    priority: { type: String, enum: ["critical", "low", "medium", "high"] },
+    type: { type: String },
+    severity: {
+      type: String,
+      enum: ["minor", "major", "moderate", "critical"],
+    },
   },
   { timestamps: true }
 );

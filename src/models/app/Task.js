@@ -8,12 +8,15 @@ const TaskSchema = new mongoose.Schema(
     title: { type: String, required: true },
     description: { type: String },
     bookmark: { type: String },
-    status: { type: String },
+    status: {
+      type: String,
+      enum: ["active", "cancelled", "completed", "review", "not started"],
+    },
     plannedStart: { type: String },
     plannedEnd: { type: String },
     actualStart: { type: String },
     actualEnd: { type: String },
-    priority: { type: String },
+    priority: { type: String, enum: ["critical", "low", "medium", "high"] },
     color: { type: String },
   },
   { timestamps: true }
