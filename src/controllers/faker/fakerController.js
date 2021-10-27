@@ -54,10 +54,10 @@ export const fakerProjects = async (req, res) => {
   };
 
   for (let i = 0; i < usersCount; i++) {
-    var userId = getData[i].id;
+    var userName = getData[i].username;
 
     var title = faker.lorem.sentence();
-    var createdBy = userId;
+    var createdBy = userName;
     var allStatus = ["active", "cancelled", "completed", "review"];
     var status = allStatus[(Math.random() * allStatus.length) | 0];
     var description = faker.lorem.paragraph();
