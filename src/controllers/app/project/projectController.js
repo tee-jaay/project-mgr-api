@@ -7,6 +7,15 @@ export const index = async (req, res) => {
   res.status(200).json(projects);
 };
 
+export const byLimit = async (req, res) => {
+  const limit = req.params.limit;
+  console.log(limit);
+  const projects = await Project.find({})
+    .sort({ "data.eTimeStamp": -1 })
+    .limit(parseInt(limit));
+  res.status(200).json(projects);
+};
+
 export const store = async (req, res) => {
   const slugifyOptions = {
     replacement: "-",

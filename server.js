@@ -18,6 +18,7 @@ import issueAssigneeRoutes from "./src/routes/issueAssignees/issueAssignees.js";
 import projectAssigneeRoutes from "./src/routes/projectAssignees/projectAssignees.js";
 import meetingParticipantRoutes from "./src/routes/meetingParticipants/meetingParticipants.js";
 import projectBudgetRoutes from "./src/routes/projectBudgets/projectBudgets.js";
+import { byLimit } from "./src/controllers/app/project/projectController.js";
 
 // ============ faker ============ //
 import { databaseDrop } from "./src/controllers/faker/databaseDrop.js";
@@ -66,6 +67,7 @@ app.use("/profiles", profileRoutes);
 
 // Project
 app.use("/projects", projectRoutes);
+app.use("/projects-by-limit/:limit", byLimit);
 // Task
 app.use("/tasks", taskRoutes);
 // Todo
