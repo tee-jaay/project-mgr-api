@@ -4,26 +4,31 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
 
-import authRoutes from "./routes/auth/auth.js";
-import projectRoutes from "./routes/projects/projects.js";
-import userRoutes from "./routes/users/users.js";
-import profileRoutes from "./routes/profiles/profiles.js";
-import taskRoutes from "./routes/tasks/tasks.js";
-import todoRoutes from "./routes/todos/todos.js";
-import commentRoutes from "./routes/comments/comments.js";
-import issueRoutes from "./routes/issues/issues.js";
-import meetingRoutes from "./routes/meetings/meetings.js";
-import timeSheetRoutes from "./routes/timeSheets/timeSheets.js";
-import issueAssigneeRoutes from "./routes/issueAssignees/issueAssignees.js";
-import projectAssigneeRoutes from "./routes/projectAssignees/projectAssignees.js";
-import meetingParticipantRoutes from "./routes/meetingParticipants/meetingParticipants.js";
-import projectBudgetRoutes from "./routes/projectBudgets/projectBudgets.js";
+import authRoutes from "./src/routes/auth/auth.js";
+import projectRoutes from "./src/routes/projects/projects.js";
+import userRoutes from "./src/routes/users/users.js";
+import profileRoutes from "./src/routes/profiles/profiles.js";
+import taskRoutes from "./src/routes/tasks/tasks.js";
+import todoRoutes from "./src/routes/todos/todos.js";
+import commentRoutes from "./src/routes/comments/comments.js";
+import issueRoutes from "./src/routes/issues/issues.js";
+import meetingRoutes from "./src/routes/meetings/meetings.js";
+import timeSheetRoutes from "./src/routes/timeSheets/timeSheets.js";
+import issueAssigneeRoutes from "./src/routes/issueAssignees/issueAssignees.js";
+import projectAssigneeRoutes from "./src/routes/projectAssignees/projectAssignees.js";
+import meetingParticipantRoutes from "./src/routes/meetingParticipants/meetingParticipants.js";
+import projectBudgetRoutes from "./src/routes/projectBudgets/projectBudgets.js";
+import { byLimit } from "./src/controllers/app/project/projectController.js";
 
-// ============ faker
-import { fakerRegisters } from "./controllers/faker/fakerController.js";
-import { fakerProjects } from "./controllers/faker/fakerController.js";
-import { fakerTasks } from "./controllers/app/task/taskController.js";
-// ============ faker
+// ============ faker ============ //
+import { databaseDrop } from "./src/controllers/faker/databaseDrop.js";
+import {
+  fakerRegisters,
+  fakerProjects,
+  fakerTasks,
+  fakerTodos,
+} from "./src/controllers/faker/fakerController.js";
+// ============ faker ============ //
 
 const app = express();
 const PORT = 5555;
@@ -62,6 +67,7 @@ app.use("/profiles", profileRoutes);
 
 // Project
 app.use("/projects", projectRoutes);
+app.use("/projects-by-limit/:limit", byLimit);
 // Task
 app.use("/tasks", taskRoutes);
 // Todo
@@ -83,11 +89,13 @@ app.use("/meeting-participants", meetingParticipantRoutes);
 // Project Budget
 app.use("/project-budgets", projectBudgetRoutes);
 //
-// ========== fakers=========== //
+// ========== faker =========== //
+app.use("/drop/:db", databaseDrop);
 app.use("/faker-registers", fakerRegisters);
 app.use("/faker-projects", fakerProjects);
 app.use("/faker-tasks", fakerTasks);
-// ========== fakers=========== //
+app.use("/faker-todos", fakerTodos);
+// ========== faker =========== //
 
 // ---- Routes ----
 
