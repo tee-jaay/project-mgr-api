@@ -7,6 +7,7 @@ import User from "../../models/auth/User.js";
 import Project from "../../models/app/Project.js";
 import Task from "../../models/app/Task.js";
 import Todo from "../../models/app/Todo.js";
+import Issue from "../../models/app/Issue.js";
 
 export const fakerRegisters = async (req, res) => {
   var randomPassword = faker.internet.password();
@@ -179,4 +180,60 @@ export const fakerTodos = async (req, res) => {
   } // for
 
   res.status(201).json("faker todos created");
+};
+
+export const fakerIssues = async (req, res) => {
+  var db = mongoose.connection;
+  // count projects
+  var projectsCount = await db.collection("projects").count();
+  // get projects
+  var getData = await db.collection("projects").find().toArray();
+
+  for (let i = 0; i < projectsCount; i++) {
+    var projectId = getData[i].id;
+    var createdBy = getData[i].createdBy;
+    var title = faker.lorem.sentence();
+    var description = faker.lorem.paragraph();
+
+    var bookmarkArr = ["1", "0"];
+    var bookmark = bookmarkArr[(Math.random() * bookmarkArr.length) | 0];
+
+    var statusArr = ["open", "closed"];
+    var status = statusArr[(Math.random() * statusArr.length) | 0];
+
+    var start = faker.date.past();
+    var end = faker.date.future();
+
+    var priorityArr = ["critical", "low", "medium", "high"];
+    var priority = priorityArr[(Math.random() * priorityArr.length) | 0];
+
+    var severityArr = ["minor", "major", "moderate", "critical"];
+    var severity = severityArr[(Math.random() * severityArr.length) | 0];
+
+    var issueTypeArr = ["bug", "feature", "upgrade", "update", "maintenance"];
+    var issueType = issueTypeArr[(Math.random() * issueTypeArr.length) | 0];
+
+    var fakeIssue = new Issue({
+      id: uuidv4(),
+      taskId: req.body.taskId,
+      projectId,
+      createdBy,
+      title,
+      description,
+      bookmark,
+      status,
+      start,
+      end,
+      priority,
+      type: issueType,
+      severity,
+    });
+    fakeIssue.save((err, data) => {
+      if (err) {
+        console.log(err);
+      }
+    });
+  } // for
+
+  res.status(201).json("faker issues created");
 };
