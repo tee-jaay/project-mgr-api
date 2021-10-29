@@ -240,35 +240,55 @@ export const fakerIssues = async (req, res) => {
 };
 
 // Faker entries
-export const fakerMeetings = (req, res) => {
-  var title = faker.lorem.sentence();
-  var createdBy = faker.random.alphaNumeric();
-  var status = faker.datatype.number(8);
-  var description = faker.lorem.paragraph();
-  var repoLink = faker.internet.url();
-  var urlOne = faker.internet.url();
-  var urlTwo = faker.internet.url();
-  var color = faker.internet.color();
-  var image = faker.image.imageUrl();
-  for (var i = 0; i < 3; i++) {
-    var fakeMeeting = new Meeting({
-      title,
-      slug: uuidv4(),
-      createdBy,
-      status,
-      description,
-      repoLink,
-      urlOne,
-      urlTwo,
-      color,
-      image,
-    });
-    fakeMeeting.save((err, data) => {
-      if (err) {
-        console.log(err);
-      }
-    });
-  }
+export const fakerMeetings = async (req, res) => {
+   console.log('faker meetings');
+   var db = mongoose.connection;
+   // count projects
+   var projectsCount = await db.collection("projects").count();
+   // get projects
+   var getData = await db.collection("projects").find().toArray();
+
+   for (let i = 0; i < projectsCount; i++) {
+     var projectId = getData[i].id;
+     var taskId = '';
+     var createdBy = getData[i].createdBy;
+     var title = faker.lorem.sentence();
+     var agenda = faker.lorem.paragraph();
+     var bookmark = "1";
+
+     var statusArr = [
+       "active",
+       "cancelled",
+       "completed",
+       "review",
+       "not started",
+     ];
+     var status = statusArr[(Math.random() * statusArr.length) | 0];
+
+     var date = faker.date.past();
+     var time = faker.date.future();
+     var duration = faker.date.future();
+
+     var fakeMeeting = new Meeting({
+       id: uuidv4(),
+       projectId,
+       taskId,
+       createdBy,
+       title,
+       agenda,
+       bookmark,
+       status,
+       date,
+       time,
+       duration,
+
+     });
+     fakeMeeting.save((err, data) => {
+       if (err) {
+         console.log(err);
+       }
+     });
+   } // for
 
   res.send("faker meetings");
 };

@@ -9,7 +9,6 @@ export const index = async (req, res) => {
 
 export const byLimit = async (req, res) => {
   const limit = req.params.limit;
-  console.log(limit);
   const projects = await Project.find({})
     .sort({ "data.eTimeStamp": -1 })
     .limit(parseInt(limit));
@@ -59,9 +58,9 @@ export const store = async (req, res) => {
 };
 
 export const show = async (req, res) => {
-  const { slug } = req.params;
+  const { id } = req.params;
   try {
-    const getProject = await Project.find({ slug: slug });
+    const getProject = await Project.find({ id: id });
     res.status(200).json(getProject);
   } catch (err) {
     res.status(500).json(err);

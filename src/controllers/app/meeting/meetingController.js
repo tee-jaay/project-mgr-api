@@ -1,7 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
 import Meeting from "../../../models/app/Meeting.js";
-import faker from "faker";
-import mongoose from "mongoose";
 
 export const index = async (req, res) => {
   const meetings = await Meeting.find();
@@ -12,6 +10,7 @@ export const store = async (req, res) => {
   const {
     taskId,
     createdBy,
+    projectId,
     title,
     bookmark,
     status,
@@ -24,6 +23,7 @@ export const store = async (req, res) => {
     id: uuidv4(),
     taskId,
     createdBy,
+    projectId,
     title,
     bookmark,
     status,
@@ -58,7 +58,7 @@ export const destroy = (req, res) => {
   res.send(`destroy`);
 };
 
-export const meetingsByProject = async (req, res) => {
+export const meetingsByProjectId = async (req, res) => {
   try {
     const meetings = await Meeting.find({ projectId: req.params.projectId });
     res.status(200).json(meetings);

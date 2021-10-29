@@ -4,6 +4,7 @@ const MeetingSchema = new mongoose.Schema(
   {
     id: { type: String, required: true, unique: true },
     projectId: { type: String, required: true },
+    taskId: { type: String, },
     createdBy: { type: String, required: true },
     title: { type: String, required: true },
     bookmark: { type: String },

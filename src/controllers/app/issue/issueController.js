@@ -62,7 +62,7 @@ export const destroy = (req, res) => {
   res.send(`destroy`);
 };
 
-export const issuesByProject = async (req, res) => {
+export const issuesByProjectId = async (req, res) => {
   try {
     const issues = await Issue.find({ projectId: req.params.projectId });
     res.status(200).json(issues);

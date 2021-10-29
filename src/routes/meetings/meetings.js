@@ -5,6 +5,7 @@ import {
   show,
   update,
   destroy,
+  meetingsByProjectId,
 } from "../../controllers/app/meeting/meetingController.js";
 
 const router = express.Router();
@@ -19,5 +20,7 @@ router.get("/:slug", show);
 router.patch("/:slug", update);
 // destroy
 router.delete("/:slug", destroy);
+// By by project
+router.get("/project/:projectId", meetingsByProjectId);
 
 export default router;
