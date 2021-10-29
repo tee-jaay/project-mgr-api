@@ -1,6 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
 import Issue from "../../../models/app/Issue.js";
-import faker from "faker";
 
 export const index = async (req, res) => {
   const issues = await Issue.find();
@@ -63,36 +62,11 @@ export const destroy = (req, res) => {
   res.send(`destroy`);
 };
 
-// Faker entries
-export const fakerIssues = (req, res) => {
-  var title = faker.lorem.sentence();
-  var createdBy = faker.random.alphaNumeric();
-  var status = faker.datatype.number(8);
-  var description = faker.lorem.paragraph();
-  var repoLink = faker.internet.url();
-  var urlOne = faker.internet.url();
-  var urlTwo = faker.internet.url();
-  var color = faker.internet.color();
-  var image = faker.image.imageUrl();
-  for (var i = 0; i < 3; i++) {
-    var fakeIssue = new Issue({
-      title,
-      slug: uuidv4(),
-      createdBy,
-      status,
-      description,
-      repoLink,
-      urlOne,
-      urlTwo,
-      color,
-      image,
-    });
-    fakeIssue.save((err, data) => {
-      if (err) {
-        console.log(err);
-      }
-    });
+export const issuesByProject = async (req, res) => {
+  try {
+    const issues = await Issue.find({ projectId: req.params.projectId });
+    res.status(200).json(issues);
+  } catch (err) {
+    res.status(500).json(err);
   }
-
-  res.send("faker Issues");
 };

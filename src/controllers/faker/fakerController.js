@@ -8,6 +8,7 @@ import Project from "../../models/app/Project.js";
 import Task from "../../models/app/Task.js";
 import Todo from "../../models/app/Todo.js";
 import Issue from "../../models/app/Issue.js";
+import Meeting from "../../models/app/Meeting.js";
 
 export const fakerRegisters = async (req, res) => {
   var randomPassword = faker.internet.password();
@@ -100,7 +101,7 @@ export const fakerTasks = async (req, res) => {
   var getData = await db.collection("projects").find().toArray();
 
   for (let i = 0; i < projectsCount; i++) {
-    var projectSlug = getData[i].slug;
+    var projectId = getData[i].id;
     var createdBy = getData[i].createdBy;
     var title = faker.lorem.sentence();
     var description = faker.lorem.paragraph();
@@ -127,7 +128,7 @@ export const fakerTasks = async (req, res) => {
 
     var fakeTask = new Task({
       id: uuidv4(),
-      projectSlug,
+      projectId,
       createdBy,
       title,
       description,
@@ -236,4 +237,38 @@ export const fakerIssues = async (req, res) => {
   } // for
 
   res.status(201).json("faker issues created");
+};
+
+// Faker entries
+export const fakerMeetings = (req, res) => {
+  var title = faker.lorem.sentence();
+  var createdBy = faker.random.alphaNumeric();
+  var status = faker.datatype.number(8);
+  var description = faker.lorem.paragraph();
+  var repoLink = faker.internet.url();
+  var urlOne = faker.internet.url();
+  var urlTwo = faker.internet.url();
+  var color = faker.internet.color();
+  var image = faker.image.imageUrl();
+  for (var i = 0; i < 3; i++) {
+    var fakeMeeting = new Meeting({
+      title,
+      slug: uuidv4(),
+      createdBy,
+      status,
+      description,
+      repoLink,
+      urlOne,
+      urlTwo,
+      color,
+      image,
+    });
+    fakeMeeting.save((err, data) => {
+      if (err) {
+        console.log(err);
+      }
+    });
+  }
+
+  res.send("faker meetings");
 };

@@ -5,7 +5,7 @@ import {
   show,
   update,
   destroy,
-  tasksByProject,
+  tasksByProjectId,
 } from "../../controllers/app/task/taskController.js";
 
 const router = express.Router();
@@ -21,6 +21,6 @@ router.patch("/:id", update);
 // Destroy
 router.delete("/:id", destroy);
 // Tasks by project
-router.get("/project/:projectSlug", tasksByProject);
+router.get("/project/:projectId", tasksByProjectId);
 
 export default router;
