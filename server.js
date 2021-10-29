@@ -29,6 +29,7 @@ import {
   fakerTodos,
   fakerIssues,
   fakerMeetings,
+  fakerTimeSheets,
 } from "./src/controllers/faker/fakerController.js";
 // ============ faker ============ //
 
@@ -99,6 +100,7 @@ app.use("/faker-tasks", fakerTasks);
 app.use("/faker-todos", fakerTodos);
 app.use("/faker-issues", fakerIssues);
 app.use("/faker-meetings", fakerMeetings);
+app.use("/faker-timesheets", fakerTimeSheets);
 // ========== faker =========== //
 
 // ---- Routes ----

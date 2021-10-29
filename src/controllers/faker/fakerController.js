@@ -9,6 +9,7 @@ import Task from "../../models/app/Task.js";
 import Todo from "../../models/app/Todo.js";
 import Issue from "../../models/app/Issue.js";
 import Meeting from "../../models/app/Meeting.js";
+import TimeSheet from "../../models/app/TimeSheet.js";
 
 export const fakerRegisters = async (req, res) => {
   var randomPassword = faker.internet.password();
@@ -54,41 +55,42 @@ export const fakerProjects = async (req, res) => {
     locale: "vi",
     trim: true,
   };
+  for (let index = 0; index < 5; index++) {
+    for (let i = 0; i < usersCount; i++) {
+      var userName = getData[i].username;
 
-  for (let i = 0; i < usersCount; i++) {
-    var userName = getData[i].username;
+      var title = faker.lorem.sentence();
+      var createdBy = userName;
+      var allStatus = ["active", "cancelled", "completed", "review"];
+      var status = allStatus[(Math.random() * allStatus.length) | 0];
+      var description = faker.lorem.paragraph();
+      var repoLink = faker.internet.url();
+      var urlOne = faker.internet.url();
+      var urlTwo = faker.internet.url();
+      var color = faker.internet.color();
+      var image = faker.image.imageUrl();
+      var id = uuidv4();
+      var slug = slugify(title, slugifyOptions);
 
-    var title = faker.lorem.sentence();
-    var createdBy = userName;
-    var allStatus = ["active", "cancelled", "completed", "review"];
-    var status = allStatus[(Math.random() * allStatus.length) | 0];
-    var description = faker.lorem.paragraph();
-    var repoLink = faker.internet.url();
-    var urlOne = faker.internet.url();
-    var urlTwo = faker.internet.url();
-    var color = faker.internet.color();
-    var image = faker.image.imageUrl();
-    var id = uuidv4();
-    var slug = slugify(title, slugifyOptions);
-
-    var fakeProject = new Project({
-      id,
-      title,
-      slug,
-      createdBy,
-      status,
-      description,
-      repoLink,
-      urlOne,
-      urlTwo,
-      color,
-      image,
-    });
-    fakeProject.save((err, data) => {
-      if (err) {
-        console.log(err);
-      }
-    });
+      var fakeProject = new Project({
+        id,
+        title,
+        slug,
+        createdBy,
+        status,
+        description,
+        repoLink,
+        urlOne,
+        urlTwo,
+        color,
+        image,
+      });
+      fakeProject.save((err, data) => {
+        if (err) {
+          console.log(err);
+        }
+      });
+    }
   }
   res.status(201).json("faker projects created");
 };
@@ -100,53 +102,55 @@ export const fakerTasks = async (req, res) => {
   // get projects
   var getData = await db.collection("projects").find().toArray();
 
-  for (let i = 0; i < projectsCount; i++) {
-    var projectId = getData[i].id;
-    var createdBy = getData[i].createdBy;
-    var title = faker.lorem.sentence();
-    var description = faker.lorem.paragraph();
-    var bookmark = "1";
+  for (let index = 0; index < 10; index++) {
+    for (let i = 0; i < projectsCount; i++) {
+      var projectId = getData[i].id;
+      var createdBy = getData[i].createdBy;
+      var title = faker.lorem.sentence();
+      var description = faker.lorem.paragraph();
+      var bookmark = "1";
 
-    var statusArr = [
-      "active",
-      "cancelled",
-      "completed",
-      "review",
-      "not started",
-    ];
-    var status = statusArr[(Math.random() * statusArr.length) | 0];
+      var statusArr = [
+        "active",
+        "cancelled",
+        "completed",
+        "review",
+        "not started",
+      ];
+      var status = statusArr[(Math.random() * statusArr.length) | 0];
 
-    var plannedStart = faker.date.past();
-    var plannedEnd = faker.date.future();
-    var actualStart = faker.date.future();
-    var actualEnd = faker.date.past();
+      var plannedStart = faker.date.past();
+      var plannedEnd = faker.date.future();
+      var actualStart = faker.date.future();
+      var actualEnd = faker.date.past();
 
-    var priorityArr = ["critical", "low", "medium", "high"];
-    var priority = priorityArr[(Math.random() * priorityArr.length) | 0];
+      var priorityArr = ["critical", "low", "medium", "high"];
+      var priority = priorityArr[(Math.random() * priorityArr.length) | 0];
 
-    var color = faker.internet.color();
+      var color = faker.internet.color();
 
-    var fakeTask = new Task({
-      id: uuidv4(),
-      projectId,
-      createdBy,
-      title,
-      description,
-      bookmark,
-      status,
-      plannedStart,
-      plannedEnd,
-      actualStart,
-      actualEnd,
-      priority,
-      color,
-    });
-    fakeTask.save((err, data) => {
-      if (err) {
-        console.log(err);
-      }
-    });
-  } // for
+      var fakeTask = new Task({
+        id: uuidv4(),
+        projectId,
+        createdBy,
+        title,
+        description,
+        bookmark,
+        status,
+        plannedStart,
+        plannedEnd,
+        actualStart,
+        actualEnd,
+        priority,
+        color,
+      });
+      fakeTask.save((err, data) => {
+        if (err) {
+          console.log(err);
+        }
+      });
+    } // for
+  }
 
   res.status(201).json("faker tasks created");
 };
@@ -158,27 +162,29 @@ export const fakerTodos = async (req, res) => {
   // get tasks
   var getTaskData = await db.collection("tasks").find().toArray();
 
-  for (let i = 0; i < taskCount; i++) {
-    var taskId = getTaskData[i].id;
-    var createdBy = getTaskData[i].createdBy;
-    var todo = faker.lorem.sentence();
-    var done = faker.datatype.boolean();
-    var endDate = faker.date.past();
+  for (let index = 0; index < 5; index++) {
+    for (let i = 0; i < taskCount; i++) {
+      var taskId = getTaskData[i].id;
+      var createdBy = getTaskData[i].createdBy;
+      var todo = faker.lorem.sentence();
+      var done = faker.datatype.boolean();
+      var endDate = faker.date.past();
 
-    var fakeTodo = new Todo({
-      id: uuidv4(),
-      taskId,
-      createdBy,
-      todo,
-      done,
-      endDate,
-    });
-    fakeTodo.save((err, data) => {
-      if (err) {
-        console.log(err);
-      }
-    });
-  } // for
+      var fakeTodo = new Todo({
+        id: uuidv4(),
+        taskId,
+        createdBy,
+        todo,
+        done,
+        endDate,
+      });
+      fakeTodo.save((err, data) => {
+        if (err) {
+          console.log(err);
+        }
+      });
+    } // for
+  }
 
   res.status(201).json("faker todos created");
 };
@@ -190,105 +196,146 @@ export const fakerIssues = async (req, res) => {
   // get projects
   var getData = await db.collection("projects").find().toArray();
 
-  for (let i = 0; i < projectsCount; i++) {
-    var projectId = getData[i].id;
-    var createdBy = getData[i].createdBy;
-    var title = faker.lorem.sentence();
-    var description = faker.lorem.paragraph();
+  for (let index = 0; index < 5; index++) {
+    for (let i = 0; i < projectsCount; i++) {
+      var projectId = getData[i].id;
+      var createdBy = getData[i].createdBy;
+      var title = faker.lorem.sentence();
+      var description = faker.lorem.paragraph();
 
-    var bookmarkArr = ["1", "0"];
-    var bookmark = bookmarkArr[(Math.random() * bookmarkArr.length) | 0];
+      var bookmarkArr = ["1", "0"];
+      var bookmark = bookmarkArr[(Math.random() * bookmarkArr.length) | 0];
 
-    var statusArr = ["open", "closed"];
-    var status = statusArr[(Math.random() * statusArr.length) | 0];
+      var statusArr = ["open", "closed"];
+      var status = statusArr[(Math.random() * statusArr.length) | 0];
 
-    var start = faker.date.past();
-    var end = faker.date.future();
+      var start = faker.date.past();
+      var end = faker.date.future();
 
-    var priorityArr = ["critical", "low", "medium", "high"];
-    var priority = priorityArr[(Math.random() * priorityArr.length) | 0];
+      var priorityArr = ["critical", "low", "medium", "high"];
+      var priority = priorityArr[(Math.random() * priorityArr.length) | 0];
 
-    var severityArr = ["minor", "major", "moderate", "critical"];
-    var severity = severityArr[(Math.random() * severityArr.length) | 0];
+      var severityArr = ["minor", "major", "moderate", "critical"];
+      var severity = severityArr[(Math.random() * severityArr.length) | 0];
 
-    var issueTypeArr = ["bug", "feature", "upgrade", "update", "maintenance"];
-    var issueType = issueTypeArr[(Math.random() * issueTypeArr.length) | 0];
+      var issueTypeArr = ["bug", "feature", "upgrade", "update", "maintenance"];
+      var issueType = issueTypeArr[(Math.random() * issueTypeArr.length) | 0];
 
-    var fakeIssue = new Issue({
-      id: uuidv4(),
-      taskId: req.body.taskId,
-      projectId,
-      createdBy,
-      title,
-      description,
-      bookmark,
-      status,
-      start,
-      end,
-      priority,
-      type: issueType,
-      severity,
-    });
-    fakeIssue.save((err, data) => {
-      if (err) {
-        console.log(err);
-      }
-    });
-  } // for
+      var fakeIssue = new Issue({
+        id: uuidv4(),
+        taskId: req.body.taskId,
+        projectId,
+        createdBy,
+        title,
+        description,
+        bookmark,
+        status,
+        start,
+        end,
+        priority,
+        type: issueType,
+        severity,
+      });
+      fakeIssue.save((err, data) => {
+        if (err) {
+          console.log(err);
+        }
+      });
+    } // for
+  }
 
   res.status(201).json("faker issues created");
 };
 
-// Faker entries
 export const fakerMeetings = async (req, res) => {
-   console.log('faker meetings');
-   var db = mongoose.connection;
-   // count projects
-   var projectsCount = await db.collection("projects").count();
-   // get projects
-   var getData = await db.collection("projects").find().toArray();
+  var db = mongoose.connection;
+  // count projects
+  var projectsCount = await db.collection("projects").count();
+  // get projects
+  var getData = await db.collection("projects").find().toArray();
 
-   for (let i = 0; i < projectsCount; i++) {
-     var projectId = getData[i].id;
-     var taskId = '';
-     var createdBy = getData[i].createdBy;
-     var title = faker.lorem.sentence();
-     var agenda = faker.lorem.paragraph();
-     var bookmark = "1";
+  for (let index = 0; index < 4; index++) {
+    for (let i = 0; i < projectsCount; i++) {
+      var projectId = getData[i].id;
+      var taskId = "";
+      var createdBy = getData[i].createdBy;
+      var title = faker.lorem.sentence();
+      var agenda = faker.lorem.paragraph();
+      var bookmark = "1";
 
-     var statusArr = [
-       "active",
-       "cancelled",
-       "completed",
-       "review",
-       "not started",
-     ];
-     var status = statusArr[(Math.random() * statusArr.length) | 0];
+      var statusArr = [
+        "active",
+        "cancelled",
+        "completed",
+        "review",
+        "not started",
+      ];
+      var status = statusArr[(Math.random() * statusArr.length) | 0];
 
-     var date = faker.date.past();
-     var time = faker.date.future();
-     var duration = faker.date.future();
+      var date = faker.date.past();
+      var time = faker.date.future();
+      var duration = faker.date.future();
 
-     var fakeMeeting = new Meeting({
-       id: uuidv4(),
-       projectId,
-       taskId,
-       createdBy,
-       title,
-       agenda,
-       bookmark,
-       status,
-       date,
-       time,
-       duration,
-
-     });
-     fakeMeeting.save((err, data) => {
-       if (err) {
-         console.log(err);
-       }
-     });
-   } // for
+      var fakeMeeting = new Meeting({
+        id: uuidv4(),
+        projectId,
+        taskId,
+        createdBy,
+        title,
+        agenda,
+        bookmark,
+        status,
+        date,
+        time,
+        duration,
+      });
+      fakeMeeting.save((err, data) => {
+        if (err) {
+          console.log(err);
+        }
+      });
+    } // for
+  }
 
   res.send("faker meetings");
+};
+
+export const fakerTimeSheets = async (req, res) => {
+  var db = mongoose.connection;
+  // count projects
+  var projectsCount = await db.collection("projects").count();
+  // get projects
+  var getData = await db.collection("projects").find().toArray();
+
+  for (let index = 0; index < 6; index++) {
+    for (let i = 0; i < projectsCount; i++) {
+      var projectId = getData[i].id;
+      var taskId = "";
+      var createdBy = getData[i].createdBy;
+      var title = faker.lorem.sentence();
+      var day = faker.date.weekday();
+      var hour = faker.datatype.number(8);
+      var min = faker.datatype.number(59);
+      var note = faker.lorem.paragraph();
+
+      var fakeTimeSheet = new TimeSheet({
+        id: uuidv4(),
+        projectId,
+        taskId,
+        createdBy,
+        title,
+        day,
+        hour,
+        min,
+        note,
+      });
+      fakeTimeSheet.save((err, data) => {
+        if (err) {
+          console.log(err);
+        }
+      });
+    } // for
+  }
+
+  res.send("faker timesheets");
 };
