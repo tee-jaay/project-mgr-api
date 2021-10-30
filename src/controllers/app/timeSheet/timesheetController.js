@@ -44,8 +44,7 @@ export const destroy = (req, res) => {
   res.send(`destroy`);
 };
 
-export const timeSheetsByProjectId = async (req, res) => {
-  console.log("timesheets by id");
+export const timeSheetsByProjectId = async (req, res) => {  
   try {
     const timeSheets = await TimeSheet.find({
       projectId: req.params.projectId,
