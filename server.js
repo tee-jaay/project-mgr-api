@@ -34,7 +34,6 @@ import {
 // ============ faker ============ //
 
 const app = express();
-const PORT = 5555;
 
 dotenv.config();
 
@@ -106,6 +105,6 @@ app.use("/faker-timesheets", fakerTimeSheets);
 // ---- Routes ----
 
 // Initiate server
-app.listen(PORT, () => {
-  console.log(`Server is running on port:${PORT}`);
+app.listen(process.env.PORT || 5000, () => {
+  console.log(`Server is running...`);
 });
