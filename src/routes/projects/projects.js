@@ -14,10 +14,10 @@ const router = express.Router();
 // Store
 router.post("/", store);
 // Show
-router.get("/:slug", show);
+router.get("/:id", show);
 // Update
-router.patch("/:slug", update);
+router.patch("/:id", update);
 // destroy
-router.delete("/:slug", destroy);
+router.delete("/:id", destroy);
 
 export default router;

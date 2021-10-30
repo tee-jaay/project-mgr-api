@@ -5,6 +5,7 @@ import {
   show,
   update,
   destroy,
+  issuesByProjectId,
 } from "../../controllers/app/issue/issueController.js";
 
 const router = express.Router();
@@ -19,5 +20,7 @@ router.get("/:slug", show);
 router.patch("/:slug", update);
 // destroy
 router.delete("/:slug", destroy);
+// By by project
+router.get("/project/:projectId", issuesByProjectId);
 
 export default router;

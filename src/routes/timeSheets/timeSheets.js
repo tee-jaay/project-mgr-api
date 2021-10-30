@@ -5,6 +5,7 @@ import {
   show,
   update,
   destroy,
+  timeSheetsByProjectId,
 } from "../../controllers/app/timeSheet/timesheetController.js";
 
 const router = express.Router();
@@ -14,10 +15,12 @@ router.get("/", index);
 // Store
 router.post("/", store);
 // Show
-router.get("/:slug", show);
+router.get("/:timeSheetId", show);
 // Update
-router.patch("/:slug", update);
+router.patch("/:timeSheetId", update);
 // destroy
-router.delete("/:slug", destroy);
+router.delete("/:timeSheetId", destroy);
+// destroy
+router.get("/project/:projectId", timeSheetsByProjectId);
 
 export default router;

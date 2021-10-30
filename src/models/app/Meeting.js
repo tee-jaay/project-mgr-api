@@ -2,12 +2,13 @@ import mongoose from "mongoose";
 
 const MeetingSchema = new mongoose.Schema(
   {
-    id: { type: "string", required: true, unique: true },
-    taskId: { type: String, required: true },
+    id: { type: String, required: true, unique: true },
+    projectId: { type: String, required: true },
+    taskId: { type: String, },
     createdBy: { type: String, required: true },
     title: { type: String, required: true },
-    bookmark: { type: Number },
-    status: { type: Number },
+    bookmark: { type: String },
+    status: { type: String },
     date: { type: String },
     time: { type: String },
     duration: { type: String },
