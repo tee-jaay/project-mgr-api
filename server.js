@@ -106,5 +106,5 @@ app.use("/faker-timesheets", fakerTimeSheets);
 
 // Initiate server
 app.listen(process.env.PORT || 5000, () => {
-  console.log(`Server is running...`);
+  console.log(`Server is running on port ${process.env.PORT}...`);
 });

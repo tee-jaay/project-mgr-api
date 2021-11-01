@@ -44,12 +44,12 @@ export const destroy = (req, res) => {
   res.send(`destroy`);
 };
 
-export const timeSheetsByProjectId = async (req, res) => {  
+export const timeSheetsByProjectId = async (req, res) => {
   try {
     const timeSheets = await TimeSheet.find({
       projectId: req.params.projectId,
     });
-    console.log("timeSheets", timeSheets);
+    // console.log("timeSheets", timeSheets);
     res.status(200).json(timeSheets);
   } catch (err) {
     res.status(500).json(err);
