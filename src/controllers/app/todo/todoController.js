@@ -8,6 +8,7 @@ export const index = async (req, res) => {
 
 export const store = async (req, res) => {
   const { taskId, createdBy, todo, done, endDate } = req.body;
+
   const newTodo = new Todo({
     id: uuidv4(),
     taskId,
@@ -27,7 +28,7 @@ export const store = async (req, res) => {
 
 export const show = async (req, res) => {
   try {
-    const getTodo = await Todo.find({ _id: req.params.id });
+    const getTodo = await Todo.find({ id: req.params.id });
     res.status(200).json(getTodo);
   } catch (err) {
     res.status(500).json(err);
@@ -60,5 +61,4 @@ export const todosByTask = async (req, res) => {
   } catch (err) {
     res.status(500).json(err);
   }
-  console.log("todosByTask");
 };
