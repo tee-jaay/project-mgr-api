@@ -57,6 +57,7 @@ export const destroy = (req, res) => {
 export const todosByTask = async (req, res) => {
   try {
     const todos = await Todo.find({ taskId: req.params.taskId });
+    todos.sort((a, b) => b.createdAt - a.createdAt);
     res.status(200).json(todos);
   } catch (err) {
     res.status(500).json(err);

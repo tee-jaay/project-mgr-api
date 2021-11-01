@@ -65,6 +65,7 @@ export const destroy = (req, res) => {
 export const issuesByProjectId = async (req, res) => {
   try {
     const issues = await Issue.find({ projectId: req.params.projectId });
+    issues.sort((a, b) => b.createdAt - a.createdAt);
     res.status(200).json(issues);
   } catch (err) {
     res.status(500).json(err);
