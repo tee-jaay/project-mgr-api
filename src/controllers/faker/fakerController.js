@@ -10,6 +10,13 @@ import Todo from "../../models/app/Todo.js";
 import Issue from "../../models/app/Issue.js";
 import Meeting from "../../models/app/Meeting.js";
 import TimeSheet from "../../models/app/TimeSheet.js";
+import moment from "moment";
+
+const makeDate = (val) => {
+  let result = moment(val).format("YYYY-M-D");
+  console.log(result);
+  return result;
+};
 
 export const fakerRegisters = async (req, res) => {
   var randomPassword = faker.internet.password();
@@ -37,7 +44,7 @@ export const fakerRegisters = async (req, res) => {
       }
     });
   }
-  res.status(201).json("faker users created");
+  return res.status(201).json("faker users created");
 };
 
 export const fakerProjects = async (req, res) => {
@@ -119,10 +126,10 @@ export const fakerTasks = async (req, res) => {
       ];
       var status = statusArr[(Math.random() * statusArr.length) | 0];
 
-      var plannedStart = faker.date.past().toString();
-      var plannedEnd = faker.date.future().toString();
-      var actualStart = faker.date.future().toString();
-      var actualEnd = faker.date.past().toString();
+      var plannedStart = makeDate(faker.date.past().toString());
+      var plannedEnd = makeDate(faker.date.future().toString());
+      var actualStart = makeDate(faker.date.future().toString());
+      var actualEnd = makeDate(faker.date.past().toString());
 
       var priorityArr = ["critical", "low", "medium", "high"];
       var priority = priorityArr[(Math.random() * priorityArr.length) | 0];
@@ -152,7 +159,7 @@ export const fakerTasks = async (req, res) => {
     } // for
   }
 
-  res.status(201).json("faker tasks created");
+  return res.status(201).json("faker tasks created");
 };
 
 export const fakerTodos = async (req, res) => {
@@ -168,7 +175,7 @@ export const fakerTodos = async (req, res) => {
       var createdBy = getTaskData[i].createdBy;
       var todo = faker.lorem.sentence();
       var done = faker.datatype.boolean();
-      var endDate = faker.date.past();
+      var endDate = makeDate(faker.date.past());
 
       var fakeTodo = new Todo({
         id: uuidv4(),
@@ -209,8 +216,8 @@ export const fakerIssues = async (req, res) => {
       var statusArr = ["open", "closed"];
       var status = statusArr[(Math.random() * statusArr.length) | 0];
 
-      var start = faker.date.past();
-      var end = faker.date.future();
+      var start = makeDate(faker.date.past());
+      var end = makeDate(faker.date.future());
 
       var priorityArr = ["critical", "low", "medium", "high"];
       var priority = priorityArr[(Math.random() * priorityArr.length) | 0];
@@ -272,9 +279,9 @@ export const fakerMeetings = async (req, res) => {
       ];
       var status = statusArr[(Math.random() * statusArr.length) | 0];
 
-      var date = faker.date.past();
-      var time = faker.date.future();
-      var duration = faker.date.future();
+      var date = makeDate(faker.date.past());
+      var time = faker.datatype.number({ min: 1, max: 23 });
+      var duration = faker.datatype.number({ min: 1, max: 15 });
 
       var fakeMeeting = new Meeting({
         id: uuidv4(),
@@ -314,8 +321,8 @@ export const fakerTimeSheets = async (req, res) => {
       var createdBy = getData[i].createdBy;
       var title = faker.lorem.sentence();
       var day = faker.date.weekday();
-      var hour = faker.datatype.number(8);
-      var min = faker.datatype.number(59);
+      var hour = faker.datatype.number({ min: 1, max: 8 });
+      var min = faker.datatype.number({ min: 1, max: 59 });
       var note = faker.lorem.paragraph();
 
       var fakeTimeSheet = new TimeSheet({
@@ -338,4 +345,10 @@ export const fakerTimeSheets = async (req, res) => {
   }
 
   res.send("faker timesheets");
+};
+
+export const fakerDbSeed = async (req, res) => {
+  await fakerRegisters();
+  await fakerProjects();
+  console.log("faker db seed");
 };
