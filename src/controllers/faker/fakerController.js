@@ -119,10 +119,10 @@ export const fakerTasks = async (req, res) => {
       ];
       var status = statusArr[(Math.random() * statusArr.length) | 0];
 
-      var plannedStart = faker.date.past();
-      var plannedEnd = faker.date.future();
-      var actualStart = faker.date.future();
-      var actualEnd = faker.date.past();
+      var plannedStart = faker.date.past().toString();
+      var plannedEnd = faker.date.future().toString();
+      var actualStart = faker.date.future().toString();
+      var actualEnd = faker.date.past().toString();
 
       var priorityArr = ["critical", "low", "medium", "high"];
       var priority = priorityArr[(Math.random() * priorityArr.length) | 0];
