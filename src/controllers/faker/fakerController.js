@@ -13,8 +13,7 @@ import TimeSheet from "../../models/app/TimeSheet.js";
 import moment from "moment";
 
 const makeDate = (val) => {
-  let result = moment(val).format("YYYY-M-D");
-  console.log(result);
+  let result = moment(val).format("YYYY-MM-DD");
   return result;
 };
 
