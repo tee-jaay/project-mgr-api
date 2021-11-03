@@ -32,6 +32,7 @@ import {
   fakerTodos,
   fakerIssues,
   fakerMeetings,
+  fakerProfiles,
   fakerTimeSheets,
   fakerDbSeed,
 } from "./src/controllers/faker/fakerController.js";
@@ -106,6 +107,7 @@ app.use("/faker-todos", fakerTodos);
 app.use("/faker-issues", fakerIssues);
 app.use("/faker-meetings", fakerMeetings);
 app.use("/faker-timesheets", fakerTimeSheets);
+app.use("/faker-profiles", fakerProfiles);
 app.use("/faker-db-seed", fakerDbSeed);
 // ========== faker =========== //
 

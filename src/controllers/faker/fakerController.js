@@ -11,6 +11,7 @@ import Issue from "../../models/app/Issue.js";
 import Meeting from "../../models/app/Meeting.js";
 import TimeSheet from "../../models/app/TimeSheet.js";
 import moment from "moment";
+import Profile from "../../models/user/Profile.js";
 
 const makeDate = (val) => {
   let result = moment(val).format("YYYY-MM-DD");
@@ -344,6 +345,134 @@ export const fakerTimeSheets = async (req, res) => {
   }
 
   res.send("faker timesheets");
+};
+
+export const fakerProfiles = async (req, res) => {
+  var db = mongoose.connection;
+  // count users
+  var usersCount = await db.collection("users").count();
+  // get users
+  var getData = await db.collection("users").find().toArray();
+
+  for (let i = 0; i < usersCount; i++) {
+    var id = uuidv4();
+    var userId = getData[i].id;
+    var title = faker.lorem.sentence();
+    var bio = faker.lorem.sentence();
+
+    var OSArr = [
+      "windows 10",
+      "windows 11",
+      "windows 7",
+      "MacOS",
+      "Ubuntu",
+      "KaOS",
+      "Porteus",
+      "Android",
+      "FreeBSD",
+    ];
+    var favOs = OSArr[(Math.random() * OSArr.length) | 0];
+
+    var website = faker.internet.url();
+    var facebook = faker.internet.url();
+    var twitter = faker.internet.url();
+    var github = faker.internet.url();
+    var gitlab = faker.internet.url();
+    var instagram = faker.internet.url();
+    var linkedin = faker.internet.url();
+    var github = faker.internet.url();
+    var pinterest = faker.internet.url();
+
+    var industry = faker.company.companyName();
+    var address = faker.address.streetAddress();
+    var country = faker.address.country();
+    var phone = faker.phone.phoneNumber();
+
+    var langArr = [
+      "az",
+      "ar",
+      "cz",
+      "de",
+      "de_AT",
+      "de_CH",
+      "en",
+      "en_AU",
+      "en_AU_ocker",
+      "en_BORK",
+      "en_CA",
+      "en_GB",
+      "en_IE",
+      "en_IND",
+      "en_US",
+      "en_ZA",
+      "es",
+      "es_MX",
+      "fa",
+      "fi",
+      "fr",
+      "fr_CA",
+      "fr_CH",
+      "ge",
+      "id_ID",
+      "it",
+      "ja",
+      "ko",
+      "nb_NO",
+      "ne",
+      "nl",
+      "nl_BE",
+      "pl",
+      "pt_BR",
+      "pt_PT",
+      "ro",
+      "ru",
+      "sk",
+      "sv",
+      "tr",
+      "uk",
+      "vi",
+      "zh_CN",
+      "zh_TW",
+    ];
+    var language = langArr[(Math.random() * langArr.length) | 0];
+
+    var fdotWeek = faker.date.weekday();
+    var timezone = faker.address.timeZone();
+    var sidebar = faker.datatype.boolean();
+    var avatar = faker.image.avatar();
+
+    var fakeProfile = new Profile({
+      id,
+      userId,
+      title,
+      bio,
+      industry,
+      address,
+      country,
+      phone,
+      favOs,
+      website,
+      facebook,
+      twitter,
+      github,
+      gitlab,
+      instagram,
+      linkedin,
+      pinterest,
+      language,
+      fdotWeek,
+      timezone,
+      sidebar,
+      avatar,
+    });
+    fakeProfile.save((err, data) => {
+      if (err) {
+        console.log(err);
+      }
+    });
+  }
+
+  res.status(201).json("faker profiles created");
 };
 
 export const fakerDbSeed = async (req, res) => {
