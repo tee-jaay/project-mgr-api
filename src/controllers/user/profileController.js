@@ -47,3 +47,13 @@ export const update = (req, res) => {
 export const destroy = (req, res) => {
   res.send("destroy");
 };
+
+export const getProfileByUserId = async (req, res) => {
+  const userId = req.params.userId;
+  try {
+    const profile = await Profile.findOne({ userId });
+    res.status(200).json(profile);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};

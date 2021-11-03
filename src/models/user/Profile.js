@@ -5,6 +5,7 @@ const ProfileSchema = mongoose.Schema(
     userId: { type: String, required: true },
     title: { type: String, required: true },
     bio: { type: String },
+    headerBg: { type: String },
     industry: { type: String },
     address: { type: String },
     country: { type: String },

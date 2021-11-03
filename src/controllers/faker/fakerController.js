@@ -357,7 +357,7 @@ export const fakerProfiles = async (req, res) => {
   for (let i = 0; i < usersCount; i++) {
     var id = uuidv4();
     var userId = getData[i].id;
-    var title = faker.lorem.sentence();
+    var title = faker.name.jobTitle();
     var bio = faker.lorem.sentence();
 
     var OSArr = [
