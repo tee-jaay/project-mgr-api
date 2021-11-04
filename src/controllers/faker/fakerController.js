@@ -131,7 +131,7 @@ export const fakerTasks = async (req, res) => {
       var actualStart = makeDate(faker.date.future().toString());
       var actualEnd = makeDate(faker.date.past().toString());
 
-      var priorityArr = ["critical", "low", "medium", "high"];
+      var priorityArr = ["Critical", "Low", "Medium", "High"];
       var priority = priorityArr[(Math.random() * priorityArr.length) | 0];
 
       var color = faker.internet.color();
