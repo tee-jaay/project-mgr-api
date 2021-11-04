@@ -12,7 +12,7 @@ const IssueSchema = new mongoose.Schema(
     status: { type: String, enum: ["open", "closed"] },
     start: { type: String },
     end: { type: String },
-    priority: { type: String, enum: ["critical", "low", "medium", "high"] },
+    priority: { type: String, enum: ["urgent", "low", "medium", "high"] },
     type: {
       type: String,
       enum: ["bug", "feature", "upgrade", "update", "maintenance"],

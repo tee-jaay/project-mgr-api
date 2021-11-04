@@ -10,6 +10,13 @@ import Todo from "../../models/app/Todo.js";
 import Issue from "../../models/app/Issue.js";
 import Meeting from "../../models/app/Meeting.js";
 import TimeSheet from "../../models/app/TimeSheet.js";
+import moment from "moment";
+import Profile from "../../models/user/Profile.js";
+
+const makeDate = (val) => {
+  let result = moment(val).format("YYYY-MM-DD");
+  return result;
+};
 
 export const fakerRegisters = async (req, res) => {
   var randomPassword = faker.internet.password();
@@ -37,7 +44,7 @@ export const fakerRegisters = async (req, res) => {
       }
     });
   }
-  res.status(201).json("faker users created");
+  return res.status(201).json("faker users created");
 };
 
 export const fakerProjects = async (req, res) => {
@@ -119,12 +126,12 @@ export const fakerTasks = async (req, res) => {
       ];
       var status = statusArr[(Math.random() * statusArr.length) | 0];
 
-      var plannedStart = faker.date.past();
-      var plannedEnd = faker.date.future();
-      var actualStart = faker.date.future();
-      var actualEnd = faker.date.past();
+      var plannedStart = makeDate(faker.date.past().toString());
+      var plannedEnd = makeDate(faker.date.future().toString());
+      var actualStart = makeDate(faker.date.future().toString());
+      var actualEnd = makeDate(faker.date.past().toString());
 
-      var priorityArr = ["critical", "low", "medium", "high"];
+      var priorityArr = ["Critical", "Low", "Medium", "High"];
       var priority = priorityArr[(Math.random() * priorityArr.length) | 0];
 
       var color = faker.internet.color();
@@ -152,7 +159,7 @@ export const fakerTasks = async (req, res) => {
     } // for
   }
 
-  res.status(201).json("faker tasks created");
+  return res.status(201).json("faker tasks created");
 };
 
 export const fakerTodos = async (req, res) => {
@@ -168,7 +175,7 @@ export const fakerTodos = async (req, res) => {
       var createdBy = getTaskData[i].createdBy;
       var todo = faker.lorem.sentence();
       var done = faker.datatype.boolean();
-      var endDate = faker.date.past();
+      var endDate = makeDate(faker.date.past());
 
       var fakeTodo = new Todo({
         id: uuidv4(),
@@ -209,10 +216,10 @@ export const fakerIssues = async (req, res) => {
       var statusArr = ["open", "closed"];
       var status = statusArr[(Math.random() * statusArr.length) | 0];
 
-      var start = faker.date.past();
-      var end = faker.date.future();
+      var start = makeDate(faker.date.past());
+      var end = makeDate(faker.date.future());
 
-      var priorityArr = ["critical", "low", "medium", "high"];
+      var priorityArr = ["urgent", "low", "medium", "high"];
       var priority = priorityArr[(Math.random() * priorityArr.length) | 0];
 
       var severityArr = ["minor", "major", "moderate", "critical"];
@@ -272,9 +279,9 @@ export const fakerMeetings = async (req, res) => {
       ];
       var status = statusArr[(Math.random() * statusArr.length) | 0];
 
-      var date = faker.date.past();
-      var time = faker.date.future();
-      var duration = faker.date.future();
+      var date = makeDate(faker.date.past());
+      var time = faker.datatype.number({ min: 1, max: 23 });
+      var duration = faker.datatype.number({ min: 1, max: 15 });
 
       var fakeMeeting = new Meeting({
         id: uuidv4(),
@@ -314,8 +321,8 @@ export const fakerTimeSheets = async (req, res) => {
       var createdBy = getData[i].createdBy;
       var title = faker.lorem.sentence();
       var day = faker.date.weekday();
-      var hour = faker.datatype.number(8);
-      var min = faker.datatype.number(59);
+      var hour = faker.datatype.number({ min: 1, max: 8 });
+      var min = faker.datatype.number({ min: 1, max: 59 });
       var note = faker.lorem.paragraph();
 
       var fakeTimeSheet = new TimeSheet({
@@ -338,4 +345,138 @@ export const fakerTimeSheets = async (req, res) => {
   }
 
   res.send("faker timesheets");
+};
+
+export const fakerProfiles = async (req, res) => {
+  var db = mongoose.connection;
+  // count users
+  var usersCount = await db.collection("users").count();
+  // get users
+  var getData = await db.collection("users").find().toArray();
+
+  for (let i = 0; i < usersCount; i++) {
+    var id = uuidv4();
+    var userId = getData[i].id;
+    var title = faker.name.jobTitle();
+    var bio = faker.lorem.sentence();
+
+    var OSArr = [
+      "windows 10",
+      "windows 11",
+      "windows 7",
+      "MacOS",
+      "Ubuntu",
+      "KaOS",
+      "Porteus",
+      "Android",
+      "FreeBSD",
+    ];
+    var favOs = OSArr[(Math.random() * OSArr.length) | 0];
+
+    var website = faker.internet.url();
+    var facebook = faker.internet.url();
+    var twitter = faker.internet.url();
+    var github = faker.internet.url();
+    var gitlab = faker.internet.url();
+    var instagram = faker.internet.url();
+    var linkedin = faker.internet.url();
+    var github = faker.internet.url();
+    var pinterest = faker.internet.url();
+
+    var industry = faker.company.companyName();
+    var address = faker.address.streetAddress();
+    var country = faker.address.country();
+    var phone = faker.phone.phoneNumber();
+
+    var langArr = [
+      "az",
+      "ar",
+      "cz",
+      "de",
+      "de_AT",
+      "de_CH",
+      "en",
+      "en_AU",
+      "en_AU_ocker",
+      "en_BORK",
+      "en_CA",
+      "en_GB",
+      "en_IE",
+      "en_IND",
+      "en_US",
+      "en_ZA",
+      "es",
+      "es_MX",
+      "fa",
+      "fi",
+      "fr",
+      "fr_CA",
+      "fr_CH",
+      "ge",
+      "id_ID",
+      "it",
+      "ja",
+      "ko",
+      "nb_NO",
+      "ne",
+      "nl",
+      "nl_BE",
+      "pl",
+      "pt_BR",
+      "pt_PT",
+      "ro",
+      "ru",
+      "sk",
+      "sv",
+      "tr",
+      "uk",
+      "vi",
+      "zh_CN",
+      "zh_TW",
+    ];
+    var language = langArr[(Math.random() * langArr.length) | 0];
+
+    var fdotWeek = faker.date.weekday();
+    var timezone = faker.address.timeZone();
+    var sidebar = faker.datatype.boolean();
+    var avatar = faker.image.avatar();
+
+    var fakeProfile = new Profile({
+      id,
+      userId,
+      title,
+      bio,
+      industry,
+      address,
+      country,
+      phone,
+      favOs,
+      website,
+      facebook,
+      twitter,
+      github,
+      gitlab,
+      instagram,
+      linkedin,
+      pinterest,
+      language,
+      fdotWeek,
+      timezone,
+      sidebar,
+      avatar,
+    });
+    fakeProfile.save((err, data) => {
+      if (err) {
+        console.log(err);
+      }
+    });
+  }
+
+  res.status(201).json("faker profiles created");
+};
+
+export const fakerDbSeed = async (req, res) => {
+  await fakerRegisters();
+  await fakerProjects();
+  console.log("faker db seed");
 };

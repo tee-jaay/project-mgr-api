@@ -47,7 +47,7 @@ export const store = async (req, res) => {
 
 export const show = async (req, res) => {
   try {
-    const getTask = await Task.find({ _id: req.params.id });
+    const getTask = await Task.find({ id: req.params.taskId });
     res.status(200).json(getTask);
   } catch (err) {
     res.status(500).json(err);

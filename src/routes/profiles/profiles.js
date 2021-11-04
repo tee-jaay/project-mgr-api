@@ -4,6 +4,7 @@ import {
   show,
   update,
   destroy,
+  getProfileByUserId,
 } from "../../controllers/user/profileController.js";
 
 const router = express.Router();
@@ -16,5 +17,7 @@ router.get("/:id", show);
 router.patch("/:id", update);
 // Destroy
 router.delete("/:id", destroy);
+// Profile by user id
+router.get("/user/:userId", getProfileByUserId);
 
 export default router;
