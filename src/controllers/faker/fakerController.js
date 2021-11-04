@@ -219,7 +219,7 @@ export const fakerIssues = async (req, res) => {
       var start = makeDate(faker.date.past());
       var end = makeDate(faker.date.future());
 
-      var priorityArr = ["critical", "low", "medium", "high"];
+      var priorityArr = ["urgent", "low", "medium", "high"];
       var priority = priorityArr[(Math.random() * priorityArr.length) | 0];
 
       var severityArr = ["minor", "major", "moderate", "critical"];
