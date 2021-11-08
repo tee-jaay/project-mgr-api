@@ -18,6 +18,7 @@ import issueAssigneeRoutes from "./src/routes/issueAssignees/issueAssignees.js";
 import projectAssigneeRoutes from "./src/routes/projectAssignees/projectAssignees.js";
 import meetingParticipantRoutes from "./src/routes/meetingParticipants/meetingParticipants.js";
 import projectBudgetRoutes from "./src/routes/projectBudgets/projectBudgets.js";
+import dashboardRoutes from "./src/routes/dashboard/dashboard.route.js";
 import { byLimit } from "./src/controllers/app/project/projectController.js";
 
 // ============ faker ============ //
@@ -95,6 +96,8 @@ app.use("/project-assignees", projectAssigneeRoutes);
 app.use("/meeting-participants", meetingParticipantRoutes);
 // Project Budget
 app.use("/project-budgets", projectBudgetRoutes);
+// Dashboard
+app.use("/dashboard", dashboardRoutes);
 //
 // ========== faker =========== //
 app.use("/drop/all", collectionDropAll);
