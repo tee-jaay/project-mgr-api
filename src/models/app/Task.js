@@ -16,7 +16,7 @@ const TaskSchema = new mongoose.Schema(
     plannedEnd: { type: String },
     actualStart: { type: String },
     actualEnd: { type: String },
-    priority: { type: String, enum: ["critical", "low", "medium", "high"] },
+    priority: { type: String, enum: ["Critical", "Low", "Medium", "High"] },
     color: { type: String },
   },
   { timestamps: true }

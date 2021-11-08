@@ -19,7 +19,7 @@ const makeDate = (val) => {
 };
 
 export const fakerRegisters = async (req, res) => {
-  var randomPassword = faker.internet.password();
+  var randomPassword = '654321';
   for (var i = 0; i < 35; i++) {
     var randomUsername = faker.internet.userName();
     var randomName = faker.name.findName();
