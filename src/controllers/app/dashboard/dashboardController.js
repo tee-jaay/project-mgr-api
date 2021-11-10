@@ -11,6 +11,7 @@ export const index = async (req, res) => {
   let allMeetingsCount = null;
   let today = null;
   let recentProjects = null;
+  let latestOpenIssues = null;
   try {
     today = await moment(new Date()).format("MMMM Do YYYY");
     allTasksCount = await Task.countDocuments({});
@@ -20,13 +21,28 @@ export const index = async (req, res) => {
       {},
       { id: 1, title: 1, status: 1 }
     ).limit(5);
+    latestOpenIssues = await Issue.find(
+      { status: "open" },
+      {
+        _id: 0,
+        id: 1,
+        projectId: 1,
+        title: 1,
+        status: 1,
+        type: 1,
+        severity: 1,
+        createdBy: 1,
+        createdAt: 1,
+      }
+    ).limit(6);
     data = [
       {
-        today: today,
-        allTasksCount: allTasksCount,
-        allIssuesCount: allIssuesCount,
-        allMeetingsCount: allMeetingsCount,
+        today,
+        allTasksCount,
+        allIssuesCount,
+        allMeetingsCount,
         recentProjects,
+        latestOpenIssues,
       },
     ][0];
     res.status(200).json(data);
