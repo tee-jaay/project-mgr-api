@@ -19,8 +19,8 @@ const makeDate = (val) => {
 };
 
 export const fakerRegisters = async (req, res) => {
-  var randomPassword = '654321';
-  for (var i = 0; i < 35; i++) {
+  var randomPassword = "654321";
+  for (var i = 0; i < 15; i++) {
     var randomUsername = faker.internet.userName();
     var randomName = faker.name.findName();
     var randomEmail = faker.internet.email();
@@ -109,7 +109,7 @@ export const fakerTasks = async (req, res) => {
   // get projects
   var getData = await db.collection("projects").find().toArray();
 
-  for (let index = 0; index < 10; index++) {
+  for (let index = 0; index < 2; index++) {
     for (let i = 0; i < projectsCount; i++) {
       var projectId = getData[i].id;
       var createdBy = getData[i].createdBy;
@@ -169,7 +169,7 @@ export const fakerTodos = async (req, res) => {
   // get tasks
   var getTaskData = await db.collection("tasks").find().toArray();
 
-  for (let index = 0; index < 5; index++) {
+  for (let index = 0; index < 3; index++) {
     for (let i = 0; i < taskCount; i++) {
       var taskId = getTaskData[i].id;
       var createdBy = getTaskData[i].createdBy;
@@ -203,7 +203,7 @@ export const fakerIssues = async (req, res) => {
   // get projects
   var getData = await db.collection("projects").find().toArray();
 
-  for (let index = 0; index < 5; index++) {
+  for (let index = 0; index < 2; index++) {
     for (let i = 0; i < projectsCount; i++) {
       var projectId = getData[i].id;
       var createdBy = getData[i].createdBy;
@@ -261,7 +261,7 @@ export const fakerMeetings = async (req, res) => {
   // get projects
   var getData = await db.collection("projects").find().toArray();
 
-  for (let index = 0; index < 4; index++) {
+  for (let index = 0; index < 2; index++) {
     for (let i = 0; i < projectsCount; i++) {
       var projectId = getData[i].id;
       var taskId = "";
@@ -314,7 +314,7 @@ export const fakerTimeSheets = async (req, res) => {
   // get projects
   var getData = await db.collection("projects").find().toArray();
 
-  for (let index = 0; index < 6; index++) {
+  for (let index = 0; index < 2; index++) {
     for (let i = 0; i < projectsCount; i++) {
       var projectId = getData[i].id;
       var taskId = "";
