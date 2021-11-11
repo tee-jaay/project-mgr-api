@@ -3,6 +3,8 @@ import Task from "../../../models/app/Task.js";
 import Issue from "../../../models/app/Issue.js";
 import Meeting from "../../../models/app/Meeting.js";
 import Project from "../../../models/app/Project.js";
+import User from "../../../models/auth/User.js";
+import Profile from "../../../models/user/Profile.js";
 
 export const index = async (req, res) => {
   let data = null;
@@ -12,6 +14,7 @@ export const index = async (req, res) => {
   let today = null;
   let recentProjects = null;
   let latestOpenIssues = null;
+  let users = null;
   try {
     today = await moment(new Date()).format("MMMM Do YYYY");
     allTasksCount = await Task.countDocuments({});
@@ -19,7 +22,7 @@ export const index = async (req, res) => {
     allMeetingsCount = await Meeting.countDocuments({});
     recentProjects = await Project.find(
       {},
-      { id: 1, title: 1, status: 1 }
+      { _id: 0, id: 1, title: 1, status: 1 }
     ).limit(5);
     latestOpenIssues = await Issue.find(
       { status: "open" },
@@ -35,6 +38,9 @@ export const index = async (req, res) => {
         createdAt: 1,
       }
     ).limit(6);
+
+    users = await User.find({}, { id: 1, name: 1, email: 1, role: 1 }).limit(5);
+
     data = [
       {
         today,
@@ -43,6 +49,7 @@ export const index = async (req, res) => {
         allMeetingsCount,
         recentProjects,
         latestOpenIssues,
+        users,
       },
     ][0];
     res.status(200).json(data);
