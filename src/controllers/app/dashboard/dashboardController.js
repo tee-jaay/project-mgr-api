@@ -20,6 +20,8 @@ export const index = async (req, res) => {
   let highPriorityTasksCount = "";
   let criticalPriorityTasksCount = "";
   let priorities = [];
+  let taskStatuses = [];
+
   try {
     today = await moment(new Date()).format("MMMM Do YYYY");
     allTasksCount = await Task.countDocuments({});
@@ -61,6 +63,9 @@ export const index = async (req, res) => {
       criticalPriorityTasksCount
     );
 
+    let taskStatusReview = await Task.countDocuments({ status: "review" });
+    taskStatuses.push(["review", taskStatusReview]);
+
     data = [
       {
         today,
@@ -71,6 +76,7 @@ export const index = async (req, res) => {
         latestOpenIssues,
         users,
         priorities,
+        taskStatuses,
       },
     ][0];
     res.status(200).json(data);
