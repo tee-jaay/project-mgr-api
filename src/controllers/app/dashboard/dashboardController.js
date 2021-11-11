@@ -15,6 +15,11 @@ export const index = async (req, res) => {
   let recentProjects = null;
   let latestOpenIssues = null;
   let users = null;
+  let lowPriorityTasksCount = "";
+  let mediumPriorityTasksCount = "";
+  let highPriorityTasksCount = "";
+  let criticalPriorityTasksCount = "";
+  let priorities = [];
   try {
     today = await moment(new Date()).format("MMMM Do YYYY");
     allTasksCount = await Task.countDocuments({});
@@ -41,6 +46,21 @@ export const index = async (req, res) => {
 
     users = await User.find({}, { id: 1, name: 1, email: 1, role: 1 }).limit(5);
 
+    lowPriorityTasksCount = await Task.countDocuments({ priority: "Low" });
+    mediumPriorityTasksCount = await Task.countDocuments({
+      priority: "Medium",
+    });
+    highPriorityTasksCount = await Task.countDocuments({ priority: "High" });
+    criticalPriorityTasksCount = await Task.countDocuments({
+      priority: "Critical",
+    });
+    priorities.push(
+      lowPriorityTasksCount,
+      mediumPriorityTasksCount,
+      highPriorityTasksCount,
+      criticalPriorityTasksCount
+    );
+
     data = [
       {
         today,
@@ -50,6 +70,7 @@ export const index = async (req, res) => {
         recentProjects,
         latestOpenIssues,
         users,
+        priorities,
       },
     ][0];
     res.status(200).json(data);
