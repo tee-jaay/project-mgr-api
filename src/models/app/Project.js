@@ -4,7 +4,7 @@ const ProjectSchema = new mongoose.Schema(
   {
     id: { type: String, required: true, unique: true },
     title: { type: String, required: true },
-    slug: { type: String, required: true, unique: true },
+    slug: { type: String, unique: true },
     createdBy: { type: String, required: true },
     status: {
       type: String,
@@ -14,7 +14,6 @@ const ProjectSchema = new mongoose.Schema(
     repoLink: { type: String, required: false },
     urlOne: { type: String, required: false },
     urlTwo: { type: String, required: false },
-    color: { type: String, required: false },
     image: { type: String, required: true },
   },
   { timestamps: true }
