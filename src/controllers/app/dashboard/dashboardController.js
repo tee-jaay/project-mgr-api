@@ -25,11 +25,12 @@ export const index = async (req, res) => {
   try {
     today = await moment(new Date()).format("MMMM Do YYYY");
     allTasksCount = await Task.countDocuments({});
-    allIssuesCount = await Issue.countDocuments({});
     allMeetingsCount = await Meeting.countDocuments({});
+    allIssuesCount = await Issue.countDocuments({});
     recentProjects = await Project.find(
       {},
-      { _id: 0, id: 1, title: 1, status: 1 }
+      { _id: 0, id: 1, title: 1, status: 1 },
+      { sort: { createdAt: -1 } }
     ).limit(5);
     latestOpenIssues = await Issue.find(
       { status: "open" },

@@ -3,15 +3,18 @@ import slugify from "slugify";
 import Project from "../../../models/app/Project.js";
 
 export const index = async (req, res) => {
-  const projects = await Project.find();
+  const projects = await Project.find({});
   res.status(200).json(projects);
 };
 
 export const byLimit = async (req, res) => {
   const limit = req.params.limit;
-  const projects = await Project.find({})
-    .sort({ "data.eTimeStamp": -1 })
-    .limit(parseInt(limit));
+  const projects = await Project.find(
+    {},
+    { id: 1, title: 1, status: 1, image: 1 },
+    { sort: { createdAt: -1 } }
+  )
+  .limit(parseInt(limit));
   res.status(200).json(projects);
 };
 
@@ -32,20 +35,18 @@ export const store = async (req, res) => {
     repoLink,
     urlOne,
     urlTwo,
-    color,
     image,
   } = req.body;
   const newProject = new Project({
     id: uuidv4(),
     title,
-    slug: slugify(title, slugifyOptions),
+    slug: title.length > 0 ? slugify(title, slugifyOptions) : "no-slug",
     createdBy,
     status,
     description,
     repoLink,
     urlOne,
     urlTwo,
-    color,
     image,
   });
   try {

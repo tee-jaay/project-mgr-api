@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const TaskSchema = new mongoose.Schema(
   {
-    id: { type: "string", required: true, unique: true },
+    id: { type: String, required: true, unique: true },
     projectId: { type: String, required: true },
     createdBy: { type: String, required: true },
     title: { type: String, required: true },
@@ -18,6 +18,8 @@ const TaskSchema = new mongoose.Schema(
     actualEnd: { type: String },
     priority: { type: String, enum: ["Critical", "Low", "Medium", "High"] },
     color: { type: String },
+    month: { type: String },
+    year: { type: String },
   },
   { timestamps: true }
 );

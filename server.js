@@ -37,6 +37,8 @@ import {
   fakerTimeSheets,
   fakerDbSeed,
 } from "./src/controllers/faker/fakerController.js";
+import { tasksByMonth } from "./src/controllers/app/dashboard/tasksGroupByMonth.js";
+
 // ============ faker ============ //
 
 const app = express();
@@ -112,6 +114,8 @@ app.use("/faker-meetings", fakerMeetings);
 app.use("/faker-timesheets", fakerTimeSheets);
 app.use("/faker-profiles", fakerProfiles);
 app.use("/faker-db-seed", fakerDbSeed);
+
+app.use("/group-by/tasks/:year", tasksByMonth);
 // ========== faker =========== //
 
 // ---- Routes ----

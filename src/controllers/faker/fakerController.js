@@ -74,7 +74,6 @@ export const fakerProjects = async (req, res) => {
       var repoLink = faker.internet.url();
       var urlOne = faker.internet.url();
       var urlTwo = faker.internet.url();
-      var color = faker.internet.color();
       var image = faker.image.imageUrl();
       var id = uuidv4();
       var slug = slugify(title, slugifyOptions);
@@ -89,7 +88,6 @@ export const fakerProjects = async (req, res) => {
         repoLink,
         urlOne,
         urlTwo,
-        color,
         image,
       });
       fakeProject.save((err, data) => {
@@ -136,6 +134,25 @@ export const fakerTasks = async (req, res) => {
 
       var color = faker.internet.color();
 
+      let monthArr = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ];
+      let month = monthArr[(Math.random() * monthArr.length) | 0];
+
+      let yearArr = ["2015", "2016", "2017", "2018", "2019", "2020", "2021"];
+      let year = yearArr[(Math.random() * yearArr.length) | 0];
+
       var fakeTask = new Task({
         id: uuidv4(),
         projectId,
@@ -150,6 +167,8 @@ export const fakerTasks = async (req, res) => {
         actualEnd,
         priority,
         color,
+        month,
+        year,
       });
       fakeTask.save((err, data) => {
         if (err) {
