@@ -9,6 +9,7 @@ const ProjectSchema = new mongoose.Schema(
     status: {
       type: String,
       enum: ["active", "cancelled", "completed", "review"],
+      default: "active",
     },
     description: { type: String, default: "Please add project description" },
     repoLink: { type: String, required: false },
