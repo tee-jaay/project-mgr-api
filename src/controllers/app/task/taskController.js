@@ -8,7 +8,7 @@ export const index = async (req, res) => {
 
 export const store = async (req, res) => {
   const {
-    projectSlug,
+    projectId,
     createdBy,
     title,
     description,
@@ -23,7 +23,7 @@ export const store = async (req, res) => {
   } = req.body;
   const newTask = new Task({
     id: uuidv4(),
-    projectSlug,
+    projectId,
     createdBy,
     title,
     description,
