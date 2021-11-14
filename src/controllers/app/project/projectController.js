@@ -13,8 +13,7 @@ export const byLimit = async (req, res) => {
     {},
     { id: 1, title: 1, status: 1, image: 1 },
     { sort: { createdAt: -1 } }
-  )
-  .limit(parseInt(limit));
+  ).limit(parseInt(limit));
   res.status(200).json(projects);
 };
 
