@@ -15,7 +15,10 @@ const ProjectSchema = new mongoose.Schema(
     repoLink: { type: String, required: false },
     urlOne: { type: String, required: false },
     urlTwo: { type: String, required: false },
-    image: { type: String, required: true },
+    image: {
+      type: String,
+      default: "https://loremflickr.com/640/480/laptop",
+    },
   },
   { timestamps: true }
 );
