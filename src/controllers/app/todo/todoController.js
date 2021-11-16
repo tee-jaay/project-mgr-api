@@ -41,7 +41,7 @@ export const update = async (req, res) => {
     const updatedTodoResult = await findTodo.updateOne(findTodo, {
       todo: req.body.todo,
       done: req.body.done,
-      // endDate: { type: String },
+      doneBy: req.body.doneBy,
     });
     const updatedTodo = await Todo.find({ id: req.params.todoId });
     res.status(200).json(updatedTodo);

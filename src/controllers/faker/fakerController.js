@@ -195,11 +195,13 @@ export const fakerTodos = async (req, res) => {
       var todo = faker.lorem.sentence();
       var done = faker.datatype.boolean();
       var endDate = makeDate(faker.date.past());
+      var doneBy = createdBy;
 
       var fakeTodo = new Todo({
         id: uuidv4(),
         taskId,
         createdBy,
+        doneBy,
         todo,
         done,
         endDate,
