@@ -36,14 +36,15 @@ export const show = async (req, res) => {
 };
 
 export const update = async (req, res) => {
-  console.log("update todo", req.body);
   const findTodo = Todo.find({ id: req.params.todoId });
+  console.log("before", findTodo);
   try {
-    const updatedTodo = await findTodo.updateOne(findTodo, {
+    const updatedTodoResult = await findTodo.updateOne(findTodo, {
       todo: req.body.todo,
       done: req.body.done,
       // endDate: { type: String },
     });
+    const updatedTodo = await Todo.find({ id: req.params.todoId });
     res.status(200).json(updatedTodo);
   } catch (error) {
     console.error(error);
