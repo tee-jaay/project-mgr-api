@@ -37,11 +37,12 @@ export const show = async (req, res) => {
 
 export const update = async (req, res) => {
   const findTodo = Todo.find({ id: req.params.todoId });
+  const { todo, done, doneBy } = req.body;
   try {
     const updatedTodoResult = await findTodo.updateOne(findTodo, {
-      todo: req.body.todo,
-      done: req.body.done,
-      doneBy: req.body.doneBy,
+      todo,
+      done,
+      doneBy,
     });
     const updatedTodo = await Todo.find({ id: req.params.todoId });
     res.status(200).json(updatedTodo);
