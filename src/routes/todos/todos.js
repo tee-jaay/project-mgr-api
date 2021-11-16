@@ -15,11 +15,11 @@ router.get("/", index);
 // Store
 router.post("/", store);
 // Show
-router.get("/:id", show);
+router.get("/:todoId", show);
 // Update
-router.patch("/:id", update);
+router.patch("/:todoId", update);
 // Destroy
-router.delete("/:id", destroy);
+router.delete("/:todoId", destroy);
 // Get
 router.get("/task/:taskId", todosByTask);
 

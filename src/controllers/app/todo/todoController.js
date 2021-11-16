@@ -28,7 +28,7 @@ export const store = async (req, res) => {
 
 export const show = async (req, res) => {
   try {
-    const getTodo = await Todo.find({ id: req.params.id });
+    const getTodo = await Todo.find({ id: req.params.todoId });
     res.status(200).json(getTodo);
   } catch (err) {
     res.status(500).json(err);
@@ -36,7 +36,8 @@ export const show = async (req, res) => {
 };
 
 export const update = async (req, res) => {
-  const findTodo = Todo.find({ id: req.params.id });
+  console.log("update todo", req.body);
+  const findTodo = Todo.find({ id: req.params.todoId });
   try {
     const updatedTodo = await findTodo.updateOne(findTodo, {
       todo: req.body.todo,
@@ -51,7 +52,8 @@ export const update = async (req, res) => {
 };
 
 export const destroy = (req, res) => {
-  res.send("destroy");
+  id = req.body.todoId;
+  res.send("destroy id # ", id);
 };
 
 export const todosByTask = async (req, res) => {
