@@ -54,8 +54,40 @@ export const show = async (req, res) => {
   }
 };
 
-export const update = (req, res) => {
-  res.send("update");
+export const update = async (req, res) => {
+  console.log("update req.body", req.body);
+  const taskId = req.params.taskId;
+  const findTask = Task.find({ id: taskId });
+  const {
+    title,
+    description,
+    bookmark,
+    status,
+    plannedStart,
+    plannedEnd,
+    actualStart,
+    actualEnd,
+    priority,
+  } = req.body;
+  try {
+    const result = await findTask.updateOne(findTask, {
+      title,
+      description,
+      bookmark,
+      status,
+      plannedStart,
+      plannedEnd,
+      actualStart,
+      actualEnd,
+      priority,
+    });
+    const updatedTask = await Task.findOne({ id: req.params.taskId });
+    console.log("updatedTask", updatedTask);
+    res.status(200).json({ updatedTask });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ update: taskId, message: "Task update failed" });
+  }
 };
 
 export const destroy = (req, res) => {
