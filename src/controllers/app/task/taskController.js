@@ -81,7 +81,8 @@ export const update = async (req, res) => {
       actualEnd,
       priority,
     });
-    const updatedTask = await Task.find({ id: req.params.taskId });
+    const updatedTask = await Task.findOne({ id: req.params.taskId });
+    console.log("updatedTask", updatedTask);
     res.status(200).json({ updatedTask });
   } catch (err) {
     console.error(err);
