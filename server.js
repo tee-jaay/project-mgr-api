@@ -37,6 +37,7 @@ import {
   fakerProfiles,
   fakerTimeSheets,
   fakerDbSeed,
+  fakerTaskMessages,
 } from "./src/controllers/faker/fakerController.js";
 import { tasksByMonth } from "./src/controllers/app/dashboard/tasksGroupByMonth.js";
 
@@ -110,6 +111,7 @@ app.use("/drop/:db", collectionDropOne);
 app.use("/faker-registers", fakerRegisters);
 app.use("/faker-projects", fakerProjects);
 app.use("/faker-tasks", fakerTasks);
+app.use("/faker-tasks-msgs", fakerTaskMessages);
 app.use("/faker-todos", fakerTodos);
 app.use("/faker-issues", fakerIssues);
 app.use("/faker-meetings", fakerMeetings);
@@ -133,9 +135,11 @@ const io = new Server(server, {
 
 io.on("connection", (socket) => {
   console.log("Socket.io connection made successfully");
+
   socket.on("message", (payload) => {
-    console.log("Message received on server: ", payload);
-    io.emit("message", payload);
+    socket.join(payload.taskId);
+
+    io.to(payload.taskId).emit("message", payload);
   });
 });
 // Socket

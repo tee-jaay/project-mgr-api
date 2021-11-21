@@ -28,12 +28,13 @@ export const store = async (req, res) => {
   }
 };
 
+export const update = async (req, res) => {
+  const { messageId } = req.params.messageId;
+  const { ban, bookmark } = req.body;
+  res.status(200).json("update", messageId, ban, bookmark);
+};
+
 export const destroy = async (req, res) => {
   const { messageId } = req.params.messageId;
   res.status(200).json("destroy", messageId);
-};
-
-export const ban = async (req, res) => {
-  const { messageId } = req.params.messageId;
-  res.status(200).json("ban", messageId);
 };

@@ -6,6 +6,7 @@ import faker from "faker";
 import User from "../../models/auth/User.js";
 import Project from "../../models/app/Project.js";
 import Task from "../../models/app/Task.js";
+import TaskChat from "../../models/app/TaskChat.model.js";
 import Todo from "../../models/app/Todo.js";
 import Issue from "../../models/app/Issue.js";
 import Meeting from "../../models/app/Meeting.js";
@@ -181,38 +182,39 @@ export const fakerTasks = async (req, res) => {
   return res.status(201).json("faker tasks created");
 };
 export const fakerTaskMessages = async (req, res) => {
-  var db = mongoose.connection;
-  // get projects
-  var getData = await db.collection("tasks").find().toArray();
+  let db = mongoose.connection;
+  // count tasks
+  var tasksCount = await db.collection("tasks").count();
+  // get tasks
+  let getTasksData = await db.collection("tasks").find().toArray();
 
-  for (let index = 0; index < 2; index++) {
-    for (let i = 0; i < projectsCount; i++) {
-      var taskId = getData[i].id;
-      var createdBy = getData[i].createdBy;
-      var message = faker.lorem.paragraph();
-      var bookmark = faker.datatype.boolean;
-      var filePath = faker.internet.url;
-      var ban = faker.datatype.boolean;
+  for (let index = 0; index < 5; index++) {
+    for (let i = 0; i < tasksCount; i++) {
+      let taskId = getTasksData[i].id;
+      let createdBy = getTasksData[i].createdBy;
+      let message = faker.lorem.paragraph();
+      let bookmark = faker.datatype.boolean();
+      let filePath = faker.internet.url();
+      let ban = faker.datatype.boolean();
 
-      var fakeTaskMessage = new Task({
+      let fakeTaskMessage = new TaskChat({
         id: uuidv4(),
         taskId,
         createdBy,
         message,
         bookmark,
-        role,
         filePath,
         ban,
       });
-      fakeTaskMessage.save((err, data) => {
+      await fakeTaskMessage.save((err, data) => {
         if (err) {
           console.log(err);
         }
       });
     } // for
-  }
+  } // no of fake messages
 
-  return res.status(201).json("faker tasks created");
+  return res.status(201).json("faker task's messages created");
 };
 
 export const fakerTodos = async (req, res) => {
