@@ -180,6 +180,40 @@ export const fakerTasks = async (req, res) => {
 
   return res.status(201).json("faker tasks created");
 };
+export const fakerTaskMessages = async (req, res) => {
+  var db = mongoose.connection;
+  // get projects
+  var getData = await db.collection("tasks").find().toArray();
+
+  for (let index = 0; index < 2; index++) {
+    for (let i = 0; i < projectsCount; i++) {
+      var taskId = getData[i].id;
+      var createdBy = getData[i].createdBy;
+      var message = faker.lorem.paragraph();
+      var bookmark = faker.datatype.boolean;
+      var filePath = faker.internet.url;
+      var ban = faker.datatype.boolean;
+
+      var fakeTaskMessage = new Task({
+        id: uuidv4(),
+        taskId,
+        createdBy,
+        message,
+        bookmark,
+        role,
+        filePath,
+        ban,
+      });
+      fakeTaskMessage.save((err, data) => {
+        if (err) {
+          console.log(err);
+        }
+      });
+    } // for
+  }
+
+  return res.status(201).json("faker tasks created");
+};
 
 export const fakerTodos = async (req, res) => {
   var db = mongoose.connection;
