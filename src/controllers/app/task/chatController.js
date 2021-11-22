@@ -2,10 +2,13 @@ import { v4 as uuidv4 } from "uuid";
 import TaskChat from "../../../models/app/TaskChat.model.js";
 
 export const index = async (req, res) => {
-  console.log("hit here");
-  const { taskId } = req.params.taskId;
-  console.log(taskId);
-  res.status(200).json("all messages by task");
+  const { taskId } = req.params;
+  try {
+    const msgs = await TaskChat.find({ taskId: taskId });
+    res.status(200).json(msgs);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 };
 
 export const store = async (req, res) => {
