@@ -138,7 +138,6 @@ io.on("connection", (socket) => {
 
   socket.on("message", (payload) => {
     socket.join(payload.taskId);
-
     io.to(payload.taskId).emit("message", payload);
   });
 });
