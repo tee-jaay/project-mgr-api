@@ -9,6 +9,7 @@ import projectRoutes from "./src/routes/projects/projects.js";
 import userRoutes from "./src/routes/users/users.js";
 import profileRoutes from "./src/routes/profiles/profiles.js";
 import taskRoutes from "./src/routes/tasks/tasks.js";
+import taskChatRoutes from "./src/routes/tasks/chat.route.js";
 import todoRoutes from "./src/routes/todos/todos.js";
 import commentRoutes from "./src/routes/comments/comments.js";
 import issueRoutes from "./src/routes/issues/issues.js";
@@ -36,6 +37,7 @@ import {
   fakerProfiles,
   fakerTimeSheets,
   fakerDbSeed,
+  fakerTaskMessages,
 } from "./src/controllers/faker/fakerController.js";
 import { tasksByMonth } from "./src/controllers/app/dashboard/tasksGroupByMonth.js";
 
@@ -80,6 +82,7 @@ app.use("/projects", projectRoutes);
 app.use("/projects-by-limit/:limit", byLimit);
 // Task
 app.use("/tasks", taskRoutes);
+app.use("/tasks/chat", taskChatRoutes);
 // Todo
 app.use("/todos", todoRoutes);
 // Comment
@@ -108,6 +111,7 @@ app.use("/drop/:db", collectionDropOne);
 app.use("/faker-registers", fakerRegisters);
 app.use("/faker-projects", fakerProjects);
 app.use("/faker-tasks", fakerTasks);
+app.use("/faker-tasks-msgs", fakerTaskMessages);
 app.use("/faker-todos", fakerTodos);
 app.use("/faker-issues", fakerIssues);
 app.use("/faker-meetings", fakerMeetings);
@@ -120,7 +124,29 @@ app.use("/group-by/tasks/:year", tasksByMonth);
 
 // ---- Routes ----
 
+// Socket
+import { createServer } from "http";
+import { Server } from "socket.io";
+
+const server = createServer(app);
+const io = new Server(server, {
+  cors: { origin: "*", methods: ["GET", "POST"] },
+});
+
+io.on("connection", (socket) => {
+  console.log("Socket.io connection made successfully");
+
+  socket.on("message", (payload) => {
+    socket.join(payload.taskId);
+    io.to(payload.taskId).emit("message", payload);
+  });
+});
+// Socket
+
 // Initiate server
-app.listen(process.env.PORT || 5000, () => {
+server.listen(process.env.PORT || 5000, () => {
   console.log(`Server is running on port ${process.env.PORT}...`);
 });
+// app.listen(process.env.PORT || 5000, () => {
+//   console.log(`Server is running on port ${process.env.PORT}...`);
+// });
