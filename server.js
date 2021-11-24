@@ -6,6 +6,7 @@ import cors from "cors";
 
 import authRoutes from "./src/routes/auth/auth.js";
 import projectRoutes from "./src/routes/projects/projects.js";
+import projectCommentRoutes from "./src/routes/projects/projectComment.route.js";
 import userRoutes from "./src/routes/users/users.js";
 import profileRoutes from "./src/routes/profiles/profiles.js";
 import taskRoutes from "./src/routes/tasks/tasks.js";
@@ -80,6 +81,7 @@ app.use("/profiles", profileRoutes);
 // Project
 app.use("/projects", projectRoutes);
 app.use("/projects-by-limit/:limit", byLimit);
+app.use("/projects/comments", projectCommentRoutes);
 // Task
 app.use("/tasks", taskRoutes);
 app.use("/tasks/chat", taskChatRoutes);
@@ -108,7 +110,7 @@ app.use("/dashboard", dashboardRoutes);
 app.use("/drop/all", collectionDropAll);
 app.use("/drop/:db", collectionDropOne);
 
-app.use("/faker-registers", fakerRegisters);
+app.use("/faker-users", fakerRegisters);
 app.use("/faker-projects", fakerProjects);
 app.use("/faker-tasks", fakerTasks);
 app.use("/faker-tasks-msgs", fakerTaskMessages);

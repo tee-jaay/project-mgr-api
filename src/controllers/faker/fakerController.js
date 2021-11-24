@@ -78,7 +78,28 @@ export const fakerProjects = async (req, res) => {
       var image = faker.image.imageUrl();
       var id = uuidv4();
       var slug = slugify(title, slugifyOptions);
-
+      var comments = [
+        {
+          commentBy: userName,
+          comment: faker.lorem.paragraph(),
+        },
+        {
+          commentBy: userName,
+          comment: faker.lorem.paragraph(),
+        },
+        {
+          commentBy: userName,
+          comment: faker.lorem.paragraph(),
+        },
+        {
+          commentBy: userName,
+          comment: faker.lorem.paragraph(),
+        },
+        {
+          commentBy: userName,
+          comment: faker.lorem.paragraph(),
+        },
+      ];
       var fakeProject = new Project({
         id,
         title,
@@ -90,6 +111,7 @@ export const fakerProjects = async (req, res) => {
         urlOne,
         urlTwo,
         image,
+        comments,
       });
       fakeProject.save((err, data) => {
         if (err) {

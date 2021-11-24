@@ -1,5 +1,10 @@
 import mongoose from "mongoose";
 
+const commentSchema = new mongoose.Schema({
+  commentBy: { type: String },
+  comment: { type: String },
+});
+
 const ProjectSchema = new mongoose.Schema(
   {
     id: { type: String, required: true, unique: true },
@@ -19,6 +24,7 @@ const ProjectSchema = new mongoose.Schema(
       type: String,
       default: "https://loremflickr.com/640/480/laptop",
     },
+    comments: [commentSchema],
   },
   { timestamps: true }
 );
