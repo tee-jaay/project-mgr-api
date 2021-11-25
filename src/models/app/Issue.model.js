@@ -16,7 +16,7 @@ const IssueSchema = new mongoose.Schema(
     priority: { type: String, enum: ["urgent", "low", "medium", "high"] },
     type: {
       type: String,
-      enum: ["bug", "feature", "upgrade", "update", "maintenance"],
+      enum: ["bug", "security", "feature", "upgrade", "update", "maintenance"],
     },
     severity: {
       type: String,

@@ -14,6 +14,7 @@ import taskChatRoutes from "./src/routes/tasks/chat.route.js";
 import todoRoutes from "./src/routes/todos/todos.js";
 import commentRoutes from "./src/routes/comments/comments.js";
 import issueRoutes from "./src/routes/issues/issues.js";
+import issueCommentRoutes from "./src/routes/issues/issueComment.route.js";
 import meetingRoutes from "./src/routes/meetings/meetings.js";
 import timeSheetRoutes from "./src/routes/timeSheets/timeSheets.js";
 import issueAssigneeRoutes from "./src/routes/issueAssignees/issueAssignees.js";
@@ -91,6 +92,7 @@ app.use("/todos", todoRoutes);
 app.use("/comments", commentRoutes);
 // Issue
 app.use("/issues", issueRoutes);
+app.use("/issues/comments", issueCommentRoutes);
 // Meeting
 app.use("/meetings", meetingRoutes);
 // Timesheet
