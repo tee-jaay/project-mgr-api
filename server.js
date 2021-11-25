@@ -6,6 +6,7 @@ import cors from "cors";
 
 import authRoutes from "./src/routes/auth/auth.js";
 import projectRoutes from "./src/routes/projects/projects.js";
+import projectCommentRoutes from "./src/routes/projects/projectComment.route.js";
 import userRoutes from "./src/routes/users/users.js";
 import profileRoutes from "./src/routes/profiles/profiles.js";
 import taskRoutes from "./src/routes/tasks/tasks.js";
@@ -13,6 +14,7 @@ import taskChatRoutes from "./src/routes/tasks/chat.route.js";
 import todoRoutes from "./src/routes/todos/todos.js";
 import commentRoutes from "./src/routes/comments/comments.js";
 import issueRoutes from "./src/routes/issues/issues.js";
+import issueCommentRoutes from "./src/routes/issues/issueComment.route.js";
 import meetingRoutes from "./src/routes/meetings/meetings.js";
 import timeSheetRoutes from "./src/routes/timeSheets/timeSheets.js";
 import issueAssigneeRoutes from "./src/routes/issueAssignees/issueAssignees.js";
@@ -80,6 +82,7 @@ app.use("/profiles", profileRoutes);
 // Project
 app.use("/projects", projectRoutes);
 app.use("/projects-by-limit/:limit", byLimit);
+app.use("/projects/comments", projectCommentRoutes);
 // Task
 app.use("/tasks", taskRoutes);
 app.use("/tasks/chat", taskChatRoutes);
@@ -89,6 +92,7 @@ app.use("/todos", todoRoutes);
 app.use("/comments", commentRoutes);
 // Issue
 app.use("/issues", issueRoutes);
+app.use("/issues/comments", issueCommentRoutes);
 // Meeting
 app.use("/meetings", meetingRoutes);
 // Timesheet
@@ -108,7 +112,7 @@ app.use("/dashboard", dashboardRoutes);
 app.use("/drop/all", collectionDropAll);
 app.use("/drop/:db", collectionDropOne);
 
-app.use("/faker-registers", fakerRegisters);
+app.use("/faker-users", fakerRegisters);
 app.use("/faker-projects", fakerProjects);
 app.use("/faker-tasks", fakerTasks);
 app.use("/faker-tasks-msgs", fakerTaskMessages);

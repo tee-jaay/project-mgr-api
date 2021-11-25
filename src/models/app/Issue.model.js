@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import IssueCommentSchema from "./IssueComment.model.js";
 
 const IssueSchema = new mongoose.Schema(
   {
@@ -8,19 +9,20 @@ const IssueSchema = new mongoose.Schema(
     createdBy: { type: String, required: true },
     title: { type: String, required: true },
     description: { type: String },
-    bookmark: { type: String },
-    status: { type: String, enum: ["open", "closed"] },
+    bookmark: { type: Boolean, default: false },
+    status: { type: String, enum: ["open", "closed"], default: "open" },
     start: { type: String },
     end: { type: String },
     priority: { type: String, enum: ["urgent", "low", "medium", "high"] },
     type: {
       type: String,
-      enum: ["bug", "feature", "upgrade", "update", "maintenance"],
+      enum: ["bug", "security", "feature", "upgrade", "update", "maintenance"],
     },
     severity: {
       type: String,
       enum: ["minor", "major", "moderate", "critical"],
     },
+    comments: [IssueCommentSchema],
   },
   { timestamps: true }
 );

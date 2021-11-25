@@ -82,7 +82,7 @@ export const update = async (req, res) => {
       priority,
     });
     const updatedTask = await Task.findOne({ id: req.params.taskId });
-    console.log("updatedTask", updatedTask);
+
     res.status(200).json({ updatedTask });
   } catch (err) {
     console.error(err);

@@ -10,7 +10,7 @@ import {
 const router = express.Router();
 
 // Index
-// router.get("/", index);
+router.get("/", index);
 // Store
 router.post("/", store);
 // Show

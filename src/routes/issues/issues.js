@@ -13,13 +13,13 @@ const router = express.Router();
 // Index
 router.get("/", index);
 // Store
-router.post("/", store);
+router.post("/:projectId", store);
 // Show
-router.get("/:slug", show);
+router.get("/:issueId", show);
 // Update
-router.patch("/:slug", update);
+router.patch("/:issueId", update);
 // destroy
-router.delete("/:slug", destroy);
+router.delete("/:issueId", destroy);
 // By by project
 router.get("/project/:projectId", issuesByProjectId);
 

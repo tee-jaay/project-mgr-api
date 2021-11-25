@@ -8,7 +8,7 @@ import Project from "../../models/app/Project.js";
 import Task from "../../models/app/Task.js";
 import TaskChat from "../../models/app/TaskChat.model.js";
 import Todo from "../../models/app/Todo.js";
-import Issue from "../../models/app/Issue.js";
+import Issue from "../../models/app/Issue.model.js";
 import Meeting from "../../models/app/Meeting.js";
 import TimeSheet from "../../models/app/TimeSheet.js";
 import moment from "moment";
@@ -78,7 +78,28 @@ export const fakerProjects = async (req, res) => {
       var image = faker.image.imageUrl();
       var id = uuidv4();
       var slug = slugify(title, slugifyOptions);
-
+      var comments = [
+        {
+          commentBy: userName,
+          comment: faker.lorem.paragraph(),
+        },
+        {
+          commentBy: userName,
+          comment: faker.lorem.paragraph(),
+        },
+        {
+          commentBy: userName,
+          comment: faker.lorem.paragraph(),
+        },
+        {
+          commentBy: userName,
+          comment: faker.lorem.paragraph(),
+        },
+        {
+          commentBy: userName,
+          comment: faker.lorem.paragraph(),
+        },
+      ];
       var fakeProject = new Project({
         id,
         title,
@@ -90,6 +111,7 @@ export const fakerProjects = async (req, res) => {
         urlOne,
         urlTwo,
         image,
+        comments,
       });
       fakeProject.save((err, data) => {
         if (err) {
