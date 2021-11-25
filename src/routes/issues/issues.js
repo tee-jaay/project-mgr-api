@@ -13,7 +13,7 @@ const router = express.Router();
 // Index
 router.get("/", index);
 // Store
-router.post("/", store);
+router.post("/:projectId", store);
 // Show
 router.get("/:slug", show);
 // Update

@@ -8,7 +8,7 @@ import Project from "../../models/app/Project.js";
 import Task from "../../models/app/Task.js";
 import TaskChat from "../../models/app/TaskChat.model.js";
 import Todo from "../../models/app/Todo.js";
-import Issue from "../../models/app/Issue.js";
+import Issue from "../../models/app/Issue.model.js";
 import Meeting from "../../models/app/Meeting.js";
 import TimeSheet from "../../models/app/TimeSheet.js";
 import moment from "moment";
