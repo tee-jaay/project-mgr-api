@@ -9,7 +9,7 @@ import Task from "../../models/app/Task.js";
 import TaskChat from "../../models/app/TaskChat.model.js";
 import Todo from "../../models/app/Todo.js";
 import Issue from "../../models/app/Issue.model.js";
-import Meeting from "../../models/app/Meeting.js";
+import Meeting from "../../models/app/Meeting.model.js";
 import TimeSheet from "../../models/app/TimeSheet.js";
 import moment from "moment";
 import Profile from "../../models/user/Profile.js";
@@ -362,6 +362,10 @@ export const fakerMeetings = async (req, res) => {
       var time = faker.datatype.number({ min: 1, max: 23 });
       var duration = faker.datatype.number({ min: 1, max: 15 });
 
+      var location = faker.address.city();
+      var address = faker.address.location();
+      var phone = faker.address.phoneNumber();
+
       var fakeMeeting = new Meeting({
         id: uuidv4(),
         projectId,
@@ -374,6 +378,9 @@ export const fakerMeetings = async (req, res) => {
         date,
         time,
         duration,
+        location,
+        address,
+        phone,
       });
       fakeMeeting.save((err, data) => {
         if (err) {
