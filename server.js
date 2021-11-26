@@ -16,6 +16,7 @@ import commentRoutes from "./src/routes/comments/comments.js";
 import issueRoutes from "./src/routes/issues/issues.js";
 import issueCommentRoutes from "./src/routes/issues/issueComment.route.js";
 import meetingRoutes from "./src/routes/meetings/meetings.route.js";
+import meetingCommentRoutes from "./src/routes/meetings/meetingComments.route.js";
 import timeSheetRoutes from "./src/routes/timeSheets/timeSheets.js";
 import issueAssigneeRoutes from "./src/routes/issueAssignees/issueAssignees.js";
 import projectAssigneeRoutes from "./src/routes/projectAssignees/projectAssignees.js";
@@ -95,6 +96,7 @@ app.use("/issues", issueRoutes);
 app.use("/issues/comments", issueCommentRoutes);
 // Meeting
 app.use("/meetings", meetingRoutes);
+app.use("/meetings/comments", meetingCommentRoutes);
 // Timesheet
 app.use("/timesheets", timeSheetRoutes);
 // Issue Assignee

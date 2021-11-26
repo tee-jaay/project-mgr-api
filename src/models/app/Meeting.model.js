@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import MeetingCommentSchema from "./MeetingComment.model.js";
 
 const MeetingSchema = new mongoose.Schema(
   {
@@ -15,6 +16,7 @@ const MeetingSchema = new mongoose.Schema(
     location: { type: String },
     address: { type: String },
     phone: { type: String },
+    comments: [MeetingCommentSchema],
   },
   { timestamps: true }
 );
