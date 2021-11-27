@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import Meeting from "../../../models/app/Meeting.js";
+import Meeting from "../../../models/app/Meeting.model.js";
 
 export const index = async (req, res) => {
   const meetings = await Meeting.find();
@@ -8,7 +8,6 @@ export const index = async (req, res) => {
 
 export const store = async (req, res) => {
   const {
-    taskId,
     createdBy,
     projectId,
     title,
@@ -18,10 +17,12 @@ export const store = async (req, res) => {
     time,
     duration,
     agenda,
+    location,
+    address,
+    phone,
   } = req.body;
   const newMeeting = new Meeting({
     id: uuidv4(),
-    taskId,
     createdBy,
     projectId,
     title,
@@ -31,6 +32,9 @@ export const store = async (req, res) => {
     time,
     duration,
     agenda,
+    location,
+    address,
+    phone,
   });
   try {
     const savedMeeting = await newMeeting.save();
@@ -43,7 +47,7 @@ export const store = async (req, res) => {
 
 export const show = async (req, res) => {
   try {
-    const getMeeting = await Meeting.find({ slug: req.params.slug });
+    const getMeeting = await Meeting.find({ id: req.params.meetingId });
     res.status(200).json(getMeeting);
   } catch (err) {
     res.status(500).json(err);

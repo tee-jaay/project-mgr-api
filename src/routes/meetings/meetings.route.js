@@ -15,11 +15,11 @@ router.get("/", index);
 // Store
 router.post("/", store);
 // Show
-router.get("/:slug", show);
+router.get("/:meetingId", show);
 // Update
-router.patch("/:slug", update);
+router.patch("/:meetingId", update);
 // destroy
-router.delete("/:slug", destroy);
+router.delete("/:meetingId", destroy);
 // By by project
 router.get("/project/:projectId", meetingsByProjectId);
 

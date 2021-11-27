@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
+import MeetingCommentSchema from "./MeetingComment.model.js";
 
 const MeetingSchema = new mongoose.Schema(
   {
     id: { type: String, required: true, unique: true },
     projectId: { type: String, required: true },
-    taskId: { type: String, },
     createdBy: { type: String, required: true },
     title: { type: String, required: true },
     bookmark: { type: String },
@@ -13,6 +13,10 @@ const MeetingSchema = new mongoose.Schema(
     time: { type: String },
     duration: { type: String },
     agenda: { type: String },
+    location: { type: String },
+    address: { type: String },
+    phone: { type: String },
+    comments: [MeetingCommentSchema],
   },
   { timestamps: true }
 );

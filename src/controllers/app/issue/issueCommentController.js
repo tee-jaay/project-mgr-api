@@ -1,7 +1,6 @@
 import Issue from "../../../models/app/Issue.model.js";
 
 export const create = async (req, res) => {
-  console.log("issue comment", req.body);
   const { issueId } = req.params;
   const { text, commentBy } = req.body;
   try {
@@ -11,7 +10,6 @@ export const create = async (req, res) => {
       commentBy: commentBy,
     });
     const result = await issue.save();
-    console.log(result);
     res.status(200).json(result);
   } catch (err) {
     res.status(500).json(err);

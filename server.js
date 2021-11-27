@@ -15,8 +15,9 @@ import todoRoutes from "./src/routes/todos/todos.js";
 import commentRoutes from "./src/routes/comments/comments.js";
 import issueRoutes from "./src/routes/issues/issues.js";
 import issueCommentRoutes from "./src/routes/issues/issueComment.route.js";
-import meetingRoutes from "./src/routes/meetings/meetings.js";
-import timeSheetRoutes from "./src/routes/timeSheets/timeSheets.js";
+import meetingRoutes from "./src/routes/meetings/meetings.route.js";
+import meetingCommentRoutes from "./src/routes/meetings/meetingComments.route.js";
+import timeSheetRoutes from "./src/routes/timeSheets/timeSheets.route.js";
 import issueAssigneeRoutes from "./src/routes/issueAssignees/issueAssignees.js";
 import projectAssigneeRoutes from "./src/routes/projectAssignees/projectAssignees.js";
 import meetingParticipantRoutes from "./src/routes/meetingParticipants/meetingParticipants.js";
@@ -95,6 +96,7 @@ app.use("/issues", issueRoutes);
 app.use("/issues/comments", issueCommentRoutes);
 // Meeting
 app.use("/meetings", meetingRoutes);
+app.use("/meetings/comments", meetingCommentRoutes);
 // Timesheet
 app.use("/timesheets", timeSheetRoutes);
 // Issue Assignee
@@ -134,7 +136,10 @@ import { Server } from "socket.io";
 
 const server = createServer(app);
 const io = new Server(server, {
-  cors: { origin: "*", methods: ["GET", "POST"] },
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+  },
 });
 
 io.on("connection", (socket) => {
@@ -151,6 +156,3 @@ io.on("connection", (socket) => {
 server.listen(process.env.PORT || 5000, () => {
   console.log(`Server is running on port ${process.env.PORT}...`);
 });
-// app.listen(process.env.PORT || 5000, () => {
-//   console.log(`Server is running on port ${process.env.PORT}...`);
-// });
