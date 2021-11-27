@@ -6,7 +6,7 @@ import {
   update,
   destroy,
   timeSheetsByProjectId,
-} from "../../controllers/app/timeSheet/timesheetController.js";
+} from "../../controllers/app/timeSheet/timesheet.controller.js";
 
 const router = express.Router();
 

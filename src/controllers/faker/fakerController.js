@@ -10,7 +10,7 @@ import TaskChat from "../../models/app/TaskChat.model.js";
 import Todo from "../../models/app/Todo.js";
 import Issue from "../../models/app/Issue.model.js";
 import Meeting from "../../models/app/Meeting.model.js";
-import TimeSheet from "../../models/app/TimeSheet.js";
+import TimeSheet from "../../models/app/TimeSheet.model.js";
 import moment from "moment";
 import Profile from "../../models/user/Profile.js";
 

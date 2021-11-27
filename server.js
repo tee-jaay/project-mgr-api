@@ -17,7 +17,7 @@ import issueRoutes from "./src/routes/issues/issues.js";
 import issueCommentRoutes from "./src/routes/issues/issueComment.route.js";
 import meetingRoutes from "./src/routes/meetings/meetings.route.js";
 import meetingCommentRoutes from "./src/routes/meetings/meetingComments.route.js";
-import timeSheetRoutes from "./src/routes/timeSheets/timeSheets.js";
+import timeSheetRoutes from "./src/routes/timeSheets/timeSheets.route.js";
 import issueAssigneeRoutes from "./src/routes/issueAssignees/issueAssignees.js";
 import projectAssigneeRoutes from "./src/routes/projectAssignees/projectAssignees.js";
 import meetingParticipantRoutes from "./src/routes/meetingParticipants/meetingParticipants.js";
