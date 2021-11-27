@@ -17,7 +17,7 @@ router.post("/", store);
 // Show
 router.get("/:timeSheetId", show);
 // Update
-router.patch("/:timeSheetId", update);
+router.patch("/", update);
 // destroy
 router.delete("/:timeSheetId", destroy);
 // destroy

@@ -16,7 +16,6 @@ export const create = async (req, res) => {
       commentBy: commentBy,
     });
     const result = await project.save();
-    console.log(result);
     res.status(200).json(result);
   } catch (err) {
     res.status(500).json(err);

@@ -34,8 +34,21 @@ export const show = async (req, res) => {
   }
 };
 
-export const update = (req, res) => {
-  res.send("update");
+export const update = async (req, res) => {
+  const { day, time, note, timesheetId } = req.body;
+  console.log(req.body);
+  try {
+    const timeSheet = await TimeSheet.findOne({ id: timesheetId });
+    await timeSheet.logs.push({
+      day: day,
+      time: time,
+      note: note,
+    });
+    const result = await timeSheet.save();
+    res.status(201).json(result);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 };
 
 export const destroy = (req, res) => {
@@ -47,7 +60,7 @@ export const timeSheetsByProjectId = async (req, res) => {
     const timeSheets = await TimeSheet.find({
       projectId: req.params.projectId,
     });
-    // console.log("timeSheets", timeSheets);
+    timeSheets.sort((a, b) => b.createdAt - a.createdAt);
     res.status(200).json(timeSheets);
   } catch (err) {
     res.status(500).json(err);
