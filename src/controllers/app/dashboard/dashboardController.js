@@ -3,7 +3,7 @@ import Task from "../../../models/app/Task.js";
 import Issue from "../../../models/app/Issue.model.js";
 import Meeting from "../../../models/app/Meeting.model.js";
 import Project from "../../../models/app/Project.js";
-import User from "../../../models/auth/User.js";
+import User from "../../../models/auth/User.model.js";
 import Profile from "../../../models/user/Profile.js";
 
 export const index = async (req, res) => {

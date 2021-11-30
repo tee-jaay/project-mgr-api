@@ -1,5 +1,6 @@
 import { v4 as uuid } from "uuid";
 import Profile from "../../models/user/Profile.js";
+import User from "../../models/auth/User.model.js";
 
 export const store = async (req, res) => {
   const profile = new Profile({
@@ -33,15 +34,67 @@ export const store = async (req, res) => {
 
 export const show = async (req, res) => {
   try {
-    const profile = await Profile.find({ _id: req.params.id });
+    const profile = await Profile.findOne({ id: req.params.userId });
     res.status(200).json(profile);
   } catch (err) {
     res.status(500).json(err);
   }
 };
 
-export const update = (req, res) => {
-  res.send("update");
+export const update = async (req, res) => {
+  const {
+    title,
+    bio,
+    headerBg,
+    industry,
+    address,
+    country,
+    phone,
+    favOs,
+    website,
+    facebook,
+    twitter,
+    github,
+    gitlab,
+    instagram,
+    linkedin,
+    pinterest,
+    language,
+    fdotWeek,
+    timezone,
+    sidebar,
+    avatar,
+  } = req.body;
+
+  try {
+    const user = await User.findOne({ id: req.params.userId });
+    user.profile.title = title;
+    user.profile.bio = bio;
+    user.profile.headerBg = headerBg;
+    user.profile.industry = industry;
+    user.profile.address = address;
+    user.profile.country = country;
+    user.profile.phone = phone;
+    user.profile.favOs = favOs;
+    user.profile.website = website;
+    user.profile.facebook = facebook;
+    user.profile.twitter = twitter;
+    user.profile.github = github;
+    user.profile.gitlab = gitlab;
+    user.profile.instagram = instagram;
+    user.profile.linkedin = linkedin;
+    user.profile.pinterest = pinterest;
+    user.profile.language = language;
+    user.profile.fdotWeek = fdotWeek;
+    user.profile.timezone = timezone;
+    user.profile.sidebar = sidebar;
+    user.profile.avatar = avatar;
+
+    const result = await user.save();
+    res.status(200).json(result);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 };
 
 export const destroy = (req, res) => {

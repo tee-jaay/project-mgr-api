@@ -8,7 +8,8 @@ import authRoutes from "./src/routes/auth/auth.js";
 import projectRoutes from "./src/routes/projects/projects.js";
 import projectCommentRoutes from "./src/routes/projects/projectComment.route.js";
 import userRoutes from "./src/routes/users/users.js";
-import profileRoutes from "./src/routes/profiles/profiles.js";
+// import profileRoutes from "./src/routes/profiles/profiles.js";
+import profileRoutes from "./src/routes/users/profile.route.js";
 import taskRoutes from "./src/routes/tasks/tasks.js";
 import taskChatRoutes from "./src/routes/tasks/chat.route.js";
 import todoRoutes from "./src/routes/todos/todos.js";
@@ -75,6 +76,7 @@ app.get("/", (req, res) => {
 });
 // Auth
 app.use("/auth", authRoutes);
+app.use("/users/auth", authRoutes);
 // User
 app.use("/users", userRoutes);
 // Profile

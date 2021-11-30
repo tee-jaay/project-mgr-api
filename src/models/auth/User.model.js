@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import ProfileSchema from "./Profile.model.js";
+import RoleSchema from "./Role.model.js";
 
 const UserSchema = new mongoose.Schema(
   {
@@ -8,11 +10,8 @@ const UserSchema = new mongoose.Schema(
     email: { type: String, required: true, unique: true },
     emailVerifiedAt: { type: String },
     password: { type: String, required: true },
-    role: {
-      type: String,
-      enum: ["user", "admin", "client", "guest", "visitor", "bot"],
-      required: [true, "Invalide user role"],
-    },
+    role: RoleSchema,
+    profile: ProfileSchema,
   },
   { timestamps: true }
 );
