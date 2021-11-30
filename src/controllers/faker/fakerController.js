@@ -464,8 +464,8 @@ export const fakerMeetings = async (req, res) => {
       var duration = faker.datatype.number({ min: 1, max: 15 });
 
       var location = faker.address.city();
-      var address = faker.address.location();
-      var phone = faker.address.phoneNumber();
+      var address = faker.address.streetAddress();
+      var phone = faker.phone.phoneNumber();
 
       var fakeMeeting = new Meeting({
         id: uuidv4(),
