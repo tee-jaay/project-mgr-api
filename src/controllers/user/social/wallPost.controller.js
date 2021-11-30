@@ -1,3 +1,4 @@
+import { v4 as uuid } from "uuid";
 import WallPost from "../../../models/user/social/WallPost.model.js";
 
 export const index = async (req, res) => {
@@ -10,10 +11,17 @@ export const index = async (req, res) => {
 };
 
 export const store = async (req, res) => {
-  console.log(req.params);
-  console.log(req.body);
+  const { userId } = req.params;
+  const { postBy, content } = req.body;
   try {
-    console.log("try block");
+    const newPost = new WallPost({
+      id: uuid(),
+      userId: userId,
+      postBy: postBy,
+      content: content,
+    });
+    const savedWallPost = await newPost.save();
+    res.status(201).json(savedWallPost);
   } catch (error) {
     console.log(error);
   }
