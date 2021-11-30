@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import ProfileSchema from "./Profile.model.js";
+import ProfileSchema from "../profile/Profile.model.js";
 import RoleSchema from "./Role.model.js";
 
 const UserSchema = new mongoose.Schema(

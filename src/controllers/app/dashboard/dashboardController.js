@@ -3,8 +3,8 @@ import Task from "../../../models/app/Task.js";
 import Issue from "../../../models/app/Issue.model.js";
 import Meeting from "../../../models/app/Meeting.model.js";
 import Project from "../../../models/app/Project.js";
-import User from "../../../models/auth/User.model.js";
-import Profile from "../../../models/user/Profile.js";
+import User from "../../../models/user/auth/User.model.js";
+import Profile from "../../../models/user/profile/Profile.js";
 
 export const index = async (req, res) => {
   let data = null;
@@ -47,7 +47,10 @@ export const index = async (req, res) => {
       }
     ).limit(6);
 
-    users = await User.find({}, { id: 1, name: 1, email: 1, role: 1 }).limit(5);
+    users = await User.find(
+      {},
+      { id: 1, name: 1, email: 1, role: 1, profile: 1 }
+    ).limit(5);
 
     lowPriorityTasksCount = await Task.countDocuments({ priority: "Low" });
     mediumPriorityTasksCount = await Task.countDocuments({

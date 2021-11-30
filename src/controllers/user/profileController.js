@@ -1,6 +1,6 @@
 import { v4 as uuid } from "uuid";
-import Profile from "../../models/user/Profile.js";
-import User from "../../models/auth/User.model.js";
+import Profile from "../../models/user/profile/Profile.js";
+import User from "../../models/user/auth/User.model.js";
 
 export const store = async (req, res) => {
   const profile = new Profile({

@@ -3,7 +3,7 @@ import CryptoJS from "crypto-js";
 import { v4 as uuidv4 } from "uuid";
 import slugify from "slugify";
 import faker from "faker";
-import User from "../../models/auth/User.model.js";
+import User from "../../models/user/auth/User.model.js";
 import Project from "../../models/app/Project.js";
 import Task from "../../models/app/Task.js";
 import TaskChat from "../../models/app/TaskChat.model.js";
@@ -12,7 +12,8 @@ import Issue from "../../models/app/Issue.model.js";
 import Meeting from "../../models/app/Meeting.model.js";
 import TimeSheet from "../../models/app/TimeSheet.model.js";
 import moment from "moment";
-import Profile from "../../models/user/Profile.js";
+import Profile from "../../models/user/profile/Profile.js";
+import WallPost from "../../models/user/social/WallPost.model.js";
 
 const makeDate = (val) => {
   let result = moment(val).format("YYYY-MM-DD");
@@ -104,7 +105,7 @@ export const fakerRegisters = async (req, res) => {
     var fdotWeek = faker.date.weekday();
     var timezone = faker.address.timeZone();
     var sidebar = faker.datatype.boolean();
-    var avatar = faker.image.avatar();
+    var avatar = "https://i.pravatar.cc/150/150";
 
     var fakeeUser = new User({
       id: uuidv4(),
@@ -304,6 +305,7 @@ export const fakerTasks = async (req, res) => {
 
   return res.status(201).json("faker tasks created");
 };
+
 export const fakerTaskMessages = async (req, res) => {
   let db = mongoose.connection;
   // count tasks
@@ -626,7 +628,7 @@ export const fakerProfiles = async (req, res) => {
     var fdotWeek = faker.date.weekday();
     var timezone = faker.address.timeZone();
     var sidebar = faker.datatype.boolean();
-    var avatar = faker.image.avatar();
+    var avatar = "https://i.pravatar.cc/150/150";
 
     var fakeProfile = new Profile({
       id,
@@ -666,4 +668,33 @@ export const fakerDbSeed = async (req, res) => {
   await fakerRegisters();
   await fakerProjects();
   console.log("faker db seed");
+};
+
+export const fakerProfileWallposts = async (req, res) => {
+  var db = mongoose.connection;
+  // count users
+  var usersCount = await db.collection("users").count();
+  // get users
+  var getData = await db.collection("users").find().toArray();
+
+  for (let index = 0; index < 3; index++) {
+    for (let i = 0; i < usersCount; i++) {
+      var userId = getData[i].id;
+      var postBy = faker.lorem.sentence();
+      var content = faker.lorem.paragraph();
+
+      var fakeWallPost = new WallPost({
+        id: uuidv4(),
+        userId: userId,
+        postBy: postBy,
+        content: content,
+      });
+      fakeWallPost.save((err, data) => {
+        if (err) {
+          console.log(err);
+        }
+      });
+    }
+  }
+  res.status(201).json("faker profile wall posts created");
 };

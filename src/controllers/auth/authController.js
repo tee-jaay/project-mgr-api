@@ -1,7 +1,7 @@
 import CryptoJS from "crypto-js";
 import jwt from "jsonwebtoken";
 import { v4 as uuid } from "uuid";
-import User from "../../models/auth/User.model.js";
+import User from "../../models/user/auth/User.model.js";
 
 export const register = async (req, res) => {
   const newUser = new User({
