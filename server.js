@@ -8,7 +8,8 @@ import authRoutes from "./src/routes/auth/auth.js";
 import projectRoutes from "./src/routes/projects/projects.js";
 import projectCommentRoutes from "./src/routes/projects/projectComment.route.js";
 import userRoutes from "./src/routes/users/users.js";
-import profileRoutes from "./src/routes/profiles/profiles.js";
+import profileRoutes from "./src/routes/users/profile.route.js";
+import wallPosts from "./src/routes/users/social/wallPosts/wallPosts.route.js";
 import taskRoutes from "./src/routes/tasks/tasks.js";
 import taskChatRoutes from "./src/routes/tasks/chat.route.js";
 import todoRoutes from "./src/routes/todos/todos.js";
@@ -41,6 +42,7 @@ import {
   fakerTimeSheets,
   fakerDbSeed,
   fakerTaskMessages,
+  fakerProfileWallposts,
 } from "./src/controllers/faker/fakerController.js";
 import { tasksByMonth } from "./src/controllers/app/dashboard/tasksGroupByMonth.js";
 
@@ -75,11 +77,13 @@ app.get("/", (req, res) => {
 });
 // Auth
 app.use("/auth", authRoutes);
+app.use("/users/auth", authRoutes);
 // User
 app.use("/users", userRoutes);
 // Profile
 app.use("/profiles", profileRoutes);
-
+// Social
+app.use("/users/socials/wall-posts", wallPosts);
 // Project
 app.use("/projects", projectRoutes);
 app.use("/projects-by-limit/:limit", byLimit);
@@ -123,6 +127,7 @@ app.use("/faker-issues", fakerIssues);
 app.use("/faker-meetings", fakerMeetings);
 app.use("/faker-timesheets", fakerTimeSheets);
 app.use("/faker-profiles", fakerProfiles);
+app.use("/faker-wallposts", fakerProfileWallposts);
 app.use("/faker-db-seed", fakerDbSeed);
 
 app.use("/group-by/tasks/:year", tasksByMonth);

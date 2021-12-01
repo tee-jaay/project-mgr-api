@@ -1,7 +1,7 @@
 import CryptoJS from "crypto-js";
 import jwt from "jsonwebtoken";
 import { v4 as uuid } from "uuid";
-import User from "../../models/auth/User.js";
+import User from "../../models/user/auth/User.model.js";
 
 export const register = async (req, res) => {
   const newUser = new User({
@@ -9,7 +9,7 @@ export const register = async (req, res) => {
     username: req.body.username,
     name: req.body.name,
     email: req.body.email,
-    role: "user",
+    role: { type: req.body.role?.type },
     password: CryptoJS.AES.encrypt(
       req.body.password,
       process.env.JWT_SEC
@@ -51,6 +51,28 @@ export const login = async (req, res) => {
     res.status(200).json({ ...others, accessToken });
   } catch (err) {
     res.status(500).json(err);
+  }
+};
+
+export const passwordUpdate = async (req, res) => {
+  console.log("auth # password update");
+  if (req.body.password) {
+    req.body.password = CryptoJS.AES.encrypt(
+      req.body.password,
+      process.env.JWT_SEC
+    ).toString();
+  }
+  try {
+    const updatedUser = await User.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set: req.body,
+      },
+      { new: true }
+    );
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    res.status(500).json(error);
   }
 };
 

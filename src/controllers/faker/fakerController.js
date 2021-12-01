@@ -3,7 +3,7 @@ import CryptoJS from "crypto-js";
 import { v4 as uuidv4 } from "uuid";
 import slugify from "slugify";
 import faker from "faker";
-import User from "../../models/auth/User.js";
+import User from "../../models/user/auth/User.model.js";
 import Project from "../../models/app/Project.js";
 import Task from "../../models/app/Task.js";
 import TaskChat from "../../models/app/TaskChat.model.js";
@@ -12,7 +12,8 @@ import Issue from "../../models/app/Issue.model.js";
 import Meeting from "../../models/app/Meeting.model.js";
 import TimeSheet from "../../models/app/TimeSheet.model.js";
 import moment from "moment";
-import Profile from "../../models/user/Profile.js";
+import Profile from "../../models/user/profile/Profile.js";
+import WallPost from "../../models/user/social/WallPost.model.js";
 
 const makeDate = (val) => {
   let result = moment(val).format("YYYY-MM-DD");
@@ -25,14 +26,115 @@ export const fakerRegisters = async (req, res) => {
     var randomUsername = faker.internet.userName();
     var randomName = faker.name.findName();
     var randomEmail = faker.internet.email();
-    var allRoles = ["admin", "user", "client", "visitor"];
+    var allRoles = ["user", "admin", "client", "guest", "visitor", "bot"];
     var role = allRoles[(Math.random() * allRoles.length) | 0];
+    var title = faker.name.jobTitle();
+    var bio = faker.lorem.sentence();
+    var OSArr = [
+      "windows 10",
+      "windows 11",
+      "windows 7",
+      "MacOS",
+      "Ubuntu",
+      "KaOS",
+      "Porteus",
+      "Android",
+      "FreeBSD",
+    ];
+    var favOs = OSArr[(Math.random() * OSArr.length) | 0];
+    var website = faker.internet.url();
+    var facebook = faker.internet.url();
+    var twitter = faker.internet.url();
+    var github = faker.internet.url();
+    var gitlab = faker.internet.url();
+    var instagram = faker.internet.url();
+    var linkedin = faker.internet.url();
+    var github = faker.internet.url();
+    var pinterest = faker.internet.url();
+    var industry = faker.company.companyName();
+    var address = faker.address.streetAddress();
+    var country = faker.address.country();
+    var phone = faker.phone.phoneNumber();
+    var langArr = [
+      "az",
+      "ar",
+      "cz",
+      "de",
+      "de_AT",
+      "de_CH",
+      "en",
+      "en_AU",
+      "en_AU_ocker",
+      "en_BORK",
+      "en_CA",
+      "en_GB",
+      "en_IE",
+      "en_IND",
+      "en_US",
+      "en_ZA",
+      "es",
+      "es_MX",
+      "fa",
+      "fi",
+      "fr",
+      "fr_CA",
+      "fr_CH",
+      "ge",
+      "id_ID",
+      "it",
+      "ja",
+      "ko",
+      "nb_NO",
+      "ne",
+      "nl",
+      "nl_BE",
+      "pl",
+      "pt_BR",
+      "pt_PT",
+      "ro",
+      "ru",
+      "sk",
+      "sv",
+      "tr",
+      "uk",
+      "vi",
+      "zh_CN",
+      "zh_TW",
+    ];
+    var language = langArr[(Math.random() * langArr.length) | 0];
+    var fdotWeek = faker.date.weekday();
+    var timezone = faker.address.timeZone();
+    var sidebar = faker.datatype.boolean();
+    var avatar = "https://i.pravatar.cc/150/150";
+
     var fakeeUser = new User({
       id: uuidv4(),
       username: randomUsername + i,
       name: randomName,
       email: i + randomEmail,
-      role,
+      role: { type: role },
+      profile: {
+        title: title,
+        bio: bio,
+        favOs: favOs,
+        website: website,
+        facebook: facebook,
+        twitter: twitter,
+        github: github,
+        gitlab: gitlab,
+        instagram: instagram,
+        linkedin: linkedin,
+        pinterest: pinterest,
+        industry: industry,
+        address: address,
+        country: country,
+        phone: phone,
+        language: language,
+        fdotWeek: fdotWeek,
+        timezone: timezone,
+        sidebar: sidebar,
+        avatar: avatar,
+      },
 
       password: CryptoJS.AES.encrypt(
         randomPassword,
@@ -203,6 +305,7 @@ export const fakerTasks = async (req, res) => {
 
   return res.status(201).json("faker tasks created");
 };
+
 export const fakerTaskMessages = async (req, res) => {
   let db = mongoose.connection;
   // count tasks
@@ -363,8 +466,8 @@ export const fakerMeetings = async (req, res) => {
       var duration = faker.datatype.number({ min: 1, max: 15 });
 
       var location = faker.address.city();
-      var address = faker.address.location();
-      var phone = faker.address.phoneNumber();
+      var address = faker.address.streetAddress();
+      var phone = faker.phone.phoneNumber();
 
       var fakeMeeting = new Meeting({
         id: uuidv4(),
@@ -525,7 +628,7 @@ export const fakerProfiles = async (req, res) => {
     var fdotWeek = faker.date.weekday();
     var timezone = faker.address.timeZone();
     var sidebar = faker.datatype.boolean();
-    var avatar = faker.image.avatar();
+    var avatar = "https://i.pravatar.cc/150/150";
 
     var fakeProfile = new Profile({
       id,
@@ -565,4 +668,33 @@ export const fakerDbSeed = async (req, res) => {
   await fakerRegisters();
   await fakerProjects();
   console.log("faker db seed");
+};
+
+export const fakerProfileWallposts = async (req, res) => {
+  var db = mongoose.connection;
+  // count users
+  var usersCount = await db.collection("users").count();
+  // get users
+  var getData = await db.collection("users").find().toArray();
+
+  for (let index = 0; index < 3; index++) {
+    for (let i = 0; i < usersCount; i++) {
+      var userId = getData[i].id;
+      var postBy = faker.lorem.sentence();
+      var content = faker.lorem.paragraph();
+
+      var fakeWallPost = new WallPost({
+        id: uuidv4(),
+        userId: userId,
+        postBy: postBy,
+        content: content,
+      });
+      fakeWallPost.save((err, data) => {
+        if (err) {
+          console.log(err);
+        }
+      });
+    }
+  }
+  res.status(201).json("faker profile wall posts created");
 };

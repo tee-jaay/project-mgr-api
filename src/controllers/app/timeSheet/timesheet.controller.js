@@ -36,7 +36,6 @@ export const show = async (req, res) => {
 
 export const update = async (req, res) => {
   const { day, time, note, timesheetId } = req.body;
-  console.log(req.body);
   try {
     const timeSheet = await TimeSheet.findOne({ id: timesheetId });
     await timeSheet.logs.push({

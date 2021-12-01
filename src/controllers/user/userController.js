@@ -1,5 +1,5 @@
 import CryptoJS from "crypto-js";
-import User from "../../models/auth/User.js";
+import User from "../../models/user/auth/User.model.js";
 
 export const index = async (req, res) => {
   try {

@@ -40,7 +40,6 @@ export const store = async (req, res) => {
     const savedTask = await newTask.save();
     res.status(201).json(savedTask);
   } catch (err) {
-    console.error(err);
     res.status(500).json(err);
   }
 };
@@ -55,7 +54,6 @@ export const show = async (req, res) => {
 };
 
 export const update = async (req, res) => {
-  console.log("update req.body", req.body);
   const taskId = req.params.taskId;
   const findTask = Task.find({ id: taskId });
   const {
@@ -85,7 +83,6 @@ export const update = async (req, res) => {
 
     res.status(200).json({ updatedTask });
   } catch (err) {
-    console.error(err);
     res.status(500).json({ update: taskId, message: "Task update failed" });
   }
 };

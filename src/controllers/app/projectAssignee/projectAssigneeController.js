@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 import ProjectAssignee from "../../../models/app/ProjectAssignee.js";
 import faker from "faker";
-import User from "../../../models/auth/User.js";
+import User from "../../../models/user/auth/User.model.js";
 import mongoose from "mongoose";
 
 export const index = async (req, res) => {
