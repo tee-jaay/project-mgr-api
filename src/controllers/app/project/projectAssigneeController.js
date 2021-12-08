@@ -6,18 +6,19 @@ export const index = async (req, res) => {
 };
 
 export const store = async (req, res) => {
-  console.log(req.body);
   const { projectId } = req.params;
-  const { userId, userName, userAvatar } = req.body;
+  const { data } = req.body;
   try {
     const project = await Project.findOne({ id: projectId });
-    await project.assignees.push({
-      userId,
-      userName,
-      userAvatar,
+    await data.forEach((element) => {
+      project.assignees.push({
+        userId: element.userId,
+        userName: element.userName,
+        userAvatar: element.userAvatar,
+      });
     });
-    const result = await project.save();
-    res.status(200).json(result);
+    await project.save();
+    res.status(200).json(project);
   } catch (err) {
     res.status(500).json(err);
   }
