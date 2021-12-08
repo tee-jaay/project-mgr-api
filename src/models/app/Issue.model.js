@@ -13,14 +13,20 @@ const IssueSchema = new mongoose.Schema(
     status: { type: String, enum: ["open", "closed"], default: "open" },
     start: { type: String },
     end: { type: String },
-    priority: { type: String, enum: ["urgent", "low", "medium", "high"] },
+    priority: {
+      type: String,
+      enum: ["urgent", "low", "medium", "high"],
+      default: "medium",
+    },
     type: {
       type: String,
       enum: ["bug", "security", "feature", "upgrade", "update", "maintenance"],
+      default: "update",
     },
     severity: {
       type: String,
       enum: ["minor", "major", "moderate", "critical"],
+      default: "moderate",
     },
     comments: [IssueCommentSchema],
   },

@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { ProjectAssigneeSchema } from "./ProjectAssignee.js";
 
 const CommentSchema = new mongoose.Schema({
   commentBy: { type: String },
@@ -25,6 +26,7 @@ const ProjectSchema = new mongoose.Schema(
       default: "https://loremflickr.com/640/480/laptop",
     },
     comments: [CommentSchema],
+    assignees: [ProjectAssigneeSchema],
   },
   { timestamps: true }
 );
