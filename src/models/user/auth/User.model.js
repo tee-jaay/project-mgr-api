@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import ProfileSchema from "../profile/Profile.model.js";
 import RoleSchema from "./Role.model.js";
 
-const UserSchema = new mongoose.Schema(
+export const UserSchema = new mongoose.Schema(
   {
     id: { type: String, required: true, unique: true },
     username: { type: String, required: true, unique: true },

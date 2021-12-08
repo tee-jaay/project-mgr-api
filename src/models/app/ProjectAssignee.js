@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 
-const ProjectAssigneeSchema = mongoose.Schema(
+export const ProjectAssigneeSchema = mongoose.Schema(
   {
-    id: { type: "string", required: true, unique: true },
-    projectId: { type: String, required: true },
-    assigneeId: { type: String, required: true },
+    userId: { type: String, required: true },
+    userName: { type: String, required: true },
+    userAvatar: { type: String },
   },
   { timestamps: true }
 );
