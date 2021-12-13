@@ -7,10 +7,10 @@ export const index = async (req, res) => {
 
 export const store = async (req, res) => {
   const { projectId } = req.params;
-  const { data } = req.body;
+
   try {
     const project = await Project.findOne({ id: projectId });
-    await data.forEach((element) => {
+    await req.body.forEach((element) => {
       project.assignees.push({
         userId: element.userId,
         userName: element.userName,

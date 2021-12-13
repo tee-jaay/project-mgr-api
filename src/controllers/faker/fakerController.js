@@ -25,7 +25,7 @@ export const fakerRegisters = async (req, res) => {
   for (var i = 0; i < 15; i++) {
     var randomUsername = faker.internet.userName();
     var randomName = faker.name.findName();
-    var randomEmail = faker.internet.email();
+    var randomEmail = faker.internet.userName() + i + "@example.com";
     var allRoles = ["user", "admin", "client", "guest", "visitor", "bot"];
     var role = allRoles[(Math.random() * allRoles.length) | 0];
     var title = faker.name.jobTitle();

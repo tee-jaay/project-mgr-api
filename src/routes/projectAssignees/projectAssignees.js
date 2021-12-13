@@ -11,7 +11,7 @@ const router = express.Router();
 // Index
 router.get("/", index);
 // Store
-router.post("/:projectId", store);
+router.patch("/:projectId", store);
 // Update
 router.patch("/:slug", update);
 // destroy
