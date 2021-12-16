@@ -5,14 +5,14 @@ import {
   show,
   update,
   destroy,
-} from "../../controllers/app/projectBudget/projectBudgetController.js";
+} from "../../controllers/app/project/projectBudgetController.js";
 
 const router = express.Router();
 
 // Index
 router.get("/", index);
 // Store
-router.post("/", store);
+router.patch("/:projectId", store);
 // Show
 router.get("/:slug", show);
 // Update

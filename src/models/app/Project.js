@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { ProjectAssigneeSchema } from "./ProjectAssignee.js";
+import { ProjectBudgetSchema } from "./ProjectBudget.js";
 
 const CommentSchema = new mongoose.Schema({
   commentBy: { type: String },
@@ -27,6 +28,7 @@ const ProjectSchema = new mongoose.Schema(
     },
     comments: [CommentSchema],
     assignees: [ProjectAssigneeSchema],
+    budget: [ProjectBudgetSchema],
   },
   { timestamps: true }
 );

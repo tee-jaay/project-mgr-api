@@ -67,8 +67,28 @@ export const show = async (req, res) => {
   }
 };
 
-export const update = (req, res) => {
-  res.send("update");
+export const update = async (req, res) => {
+  const { id } = req.params;
+  const { title, status, description, repoLink, urlOne, urlTwo, image } =
+    req.body;
+  try {
+    await Project.findOneAndUpdate(
+      { id: id },
+      {
+        title: title,
+        status: status,
+        description: description,
+        repoLink: repoLink,
+        urlOne: urlOne,
+        urlTwo: urlTwo,
+        image: image,
+      }
+    );
+    const updatedProject = await Project.findOne({ id: id });
+    res.status(200).json(updatedProject);
+  } catch (error) {
+    res.status(500).json(error);
+  }
 };
 
 export const destroy = (req, res) => {
