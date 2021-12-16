@@ -6,10 +6,11 @@ export const store = async (req, res) => {
   const { projectId } = req.params;
   const { estimate, spent } = req.body;
   try {
-    const project = await Project.findOneAndUpdate(
+    await Project.findOneAndUpdate(
       { id: projectId },
       { budget: { estimate: estimate, spent: spent } }
     );
+    const project = await Project.findOne({ id: projectId });
     res.status(200).json(project);
   } catch (err) {
     res.status(500).json(err);
