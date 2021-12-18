@@ -69,8 +69,9 @@ export const show = async (req, res) => {
 
 export const update = async (req, res) => {
   const { id } = req.params;
-  const { title, status, description, repoLink, urlOne, urlTwo, image } =
-    req.body;
+
+  const { title, status, description, repoLink, image } = req.body;
+
   try {
     await Project.findOneAndUpdate(
       { id: id },
@@ -79,8 +80,6 @@ export const update = async (req, res) => {
         status: status,
         description: description,
         repoLink: repoLink,
-        urlOne: urlOne,
-        urlTwo: urlTwo,
         image: image,
       }
     );
