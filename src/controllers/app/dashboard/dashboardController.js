@@ -8,6 +8,7 @@ import Profile from "../../../models/user/profile/Profile.js";
 
 export const index = async (req, res) => {
   let data = null;
+  let allProjectsCount = null;
   let allTasksCount = null;
   let allIssuesCount = null;
   let allMeetingsCount = null;
@@ -24,6 +25,7 @@ export const index = async (req, res) => {
 
   try {
     today = await moment(new Date()).format("MMMM Do YYYY");
+    allProjectsCount = await Project.countDocuments({});
     allTasksCount = await Task.countDocuments({});
     allMeetingsCount = await Meeting.countDocuments({});
     allIssuesCount = await Issue.countDocuments({});
@@ -73,6 +75,7 @@ export const index = async (req, res) => {
     data = [
       {
         today,
+        allProjectsCount,
         allTasksCount,
         allIssuesCount,
         allMeetingsCount,
