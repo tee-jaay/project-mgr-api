@@ -90,6 +90,18 @@ export const update = async (req, res) => {
   }
 };
 
+export const search = async (req, res) => {
+  const { search: _keyword } = req.body;
+  try {
+    const result = await Project.find({
+      title: new RegExp(_keyword, "i"),
+    });
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
 export const destroy = (req, res) => {
   res.send("destroy");
 };
