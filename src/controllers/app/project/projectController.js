@@ -91,7 +91,7 @@ export const update = async (req, res) => {
 };
 
 export const search = async (req, res) => {
-  const { search: _keyword } = req.body;
+  const { _keyword } = req.params;
   try {
     const result = await Project.find({
       title: new RegExp(_keyword, "i"),

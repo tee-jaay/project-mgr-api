@@ -87,7 +87,7 @@ app.use("/profiles", profileRoutes);
 app.use("/users/socials/wall-posts", wallPosts);
 // Project
 app.use("/projects", projectRoutes);
-app.use("/projects/search", projectSearchRoutes);
+app.use("/projects-search", projectSearchRoutes);
 app.use("/projects-by-limit/:limit", byLimit);
 app.use("/projects/comments", projectCommentRoutes);
 // Task
