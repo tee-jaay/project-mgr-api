@@ -6,6 +6,7 @@ import cors from "cors";
 
 import authRoutes from "./src/routes/auth/auth.js";
 import projectRoutes from "./src/routes/projects/projects.js";
+import projectSearchRoutes from "./src/routes/projects/projectSearch.route.js";
 import projectCommentRoutes from "./src/routes/projects/projectComment.route.js";
 import userRoutes from "./src/routes/users/users.js";
 import profileRoutes from "./src/routes/users/profile.route.js";
@@ -86,6 +87,7 @@ app.use("/profiles", profileRoutes);
 app.use("/users/socials/wall-posts", wallPosts);
 // Project
 app.use("/projects", projectRoutes);
+app.use("/projects-search", projectSearchRoutes);
 app.use("/projects-by-limit/:limit", byLimit);
 app.use("/projects/comments", projectCommentRoutes);
 // Task

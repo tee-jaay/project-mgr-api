@@ -69,8 +69,9 @@ export const show = async (req, res) => {
 
 export const update = async (req, res) => {
   const { id } = req.params;
-  const { title, status, description, repoLink, urlOne, urlTwo, image } =
-    req.body;
+
+  const { title, status, description, repoLink, image } = req.body;
+
   try {
     await Project.findOneAndUpdate(
       { id: id },
@@ -79,13 +80,23 @@ export const update = async (req, res) => {
         status: status,
         description: description,
         repoLink: repoLink,
-        urlOne: urlOne,
-        urlTwo: urlTwo,
         image: image,
       }
     );
     const updatedProject = await Project.findOne({ id: id });
     res.status(200).json(updatedProject);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
+export const search = async (req, res) => {
+  const { _keyword } = req.params;
+  try {
+    const result = await Project.find({
+      title: new RegExp(_keyword, "i"),
+    });
+    res.status(200).json(result);
   } catch (error) {
     res.status(500).json(error);
   }
