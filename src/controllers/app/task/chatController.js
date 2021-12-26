@@ -12,6 +12,7 @@ export const index = async (req, res) => {
 };
 
 export const store = async (req, res) => {
+  console.log("chat # store", req.body);
   const { taskId } = req.params;
   const { createdBy, message, filePath } = req.body;
 
