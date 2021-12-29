@@ -25,6 +25,11 @@ import projectAssigneeRoutes from "./src/routes/projectAssignees/projectAssignee
 import meetingParticipantRoutes from "./src/routes/meetingParticipants/meetingParticipants.js";
 import projectBudgetRoutes from "./src/routes/projectBudgets/projectBudgets.js";
 import dashboardRoutes from "./src/routes/dashboard/dashboard.route.js";
+import homePageRoutes from "./src/routes/pages/homePage.route.js";
+import gdprPageRoutes from "./src/routes/pages/gdprPage.route.js";
+import disclaimerPageRoutes from "./src/routes/pages/disclaimerPage.route.js";
+import privacyPolicyPageRoutes from "./src/routes/pages/privacyPolicyPage.route.js";
+import termsPageRoutes from "./src/routes/pages/termsPage.route.js";
 import { byLimit } from "./src/controllers/app/project/projectController.js";
 
 // ============ faker ============ //
@@ -115,6 +120,16 @@ app.use("/meeting-participants", meetingParticipantRoutes);
 app.use("/project-budgets", projectBudgetRoutes);
 // Dashboard
 app.use("/dashboard", dashboardRoutes);
+// Homepage
+app.use("/homepage", homePageRoutes);
+// Disclaimer
+app.use("/disclaimer", disclaimerPageRoutes);
+// Gdpr
+app.use("/gdpr", gdprPageRoutes);
+// Privacy policy
+app.use("/privacy-policy", privacyPolicyPageRoutes);
+// Terms
+app.use("/terms", termsPageRoutes);
 //
 // ========== faker =========== //
 app.use("/drop/all", collectionDropAll);
