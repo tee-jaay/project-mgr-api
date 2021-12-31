@@ -26,6 +26,7 @@ import meetingParticipantRoutes from "./src/routes/meetingParticipants/meetingPa
 import projectBudgetRoutes from "./src/routes/projectBudgets/projectBudgets.js";
 import dashboardRoutes from "./src/routes/dashboard/dashboard.route.js";
 import homePageRoutes from "./src/routes/pages/homePage.route.js";
+import authPageRoutes from "./src/routes/pages/authPages.route.js";
 import pageRoutes from "./src/routes/pages/page.route.js";
 import { byLimit } from "./src/controllers/app/project/projectController.js";
 
@@ -119,6 +120,8 @@ app.use("/project-budgets", projectBudgetRoutes);
 app.use("/dashboard", dashboardRoutes);
 // Homepage
 app.use("/homepage", homePageRoutes);
+// Authpage
+app.use("/authpage", authPageRoutes);
 // Page
 app.use("/page", pageRoutes);
 //
