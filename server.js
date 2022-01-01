@@ -26,10 +26,8 @@ import meetingParticipantRoutes from "./src/routes/meetingParticipants/meetingPa
 import projectBudgetRoutes from "./src/routes/projectBudgets/projectBudgets.js";
 import dashboardRoutes from "./src/routes/dashboard/dashboard.route.js";
 import homePageRoutes from "./src/routes/pages/homePage.route.js";
-import gdprPageRoutes from "./src/routes/pages/gdprPage.route.js";
-import disclaimerPageRoutes from "./src/routes/pages/disclaimerPage.route.js";
-import privacyPolicyPageRoutes from "./src/routes/pages/privacyPolicyPage.route.js";
-import termsPageRoutes from "./src/routes/pages/termsPage.route.js";
+import authPageRoutes from "./src/routes/pages/authPages.route.js";
+import pageRoutes from "./src/routes/pages/page.route.js";
 import { byLimit } from "./src/controllers/app/project/projectController.js";
 
 // ============ faker ============ //
@@ -122,14 +120,10 @@ app.use("/project-budgets", projectBudgetRoutes);
 app.use("/dashboard", dashboardRoutes);
 // Homepage
 app.use("/homepage", homePageRoutes);
-// Disclaimer
-app.use("/disclaimer", disclaimerPageRoutes);
-// Gdpr
-app.use("/gdpr", gdprPageRoutes);
-// Privacy policy
-app.use("/privacy-policy", privacyPolicyPageRoutes);
-// Terms
-app.use("/terms", termsPageRoutes);
+// Authpage
+app.use("/authpage", authPageRoutes);
+// Page
+app.use("/page", pageRoutes);
 //
 // ========== faker =========== //
 app.use("/drop/all", collectionDropAll);

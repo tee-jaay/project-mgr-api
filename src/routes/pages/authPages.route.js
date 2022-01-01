@@ -3,15 +3,16 @@ import {
   store,
   show,
   update,
-} from "../../controllers/app/page/privacyPolicyPageController.js";
+  upload,
+} from "../../controllers/app/page/authPageController.js";
 
 const router = express.Router();
 
 // Create
-router.post("/", store);
+router.post("/", upload.single("image"), store);
 // Show
 router.get("/", show);
 // Update
-router.patch("/", update);
+router.patch("/:id", update);
 
 export default router;

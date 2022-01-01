@@ -52,7 +52,6 @@ export const store = async (req, res) => {
     const savedProject = await newProject.save();
     res.status(201).json(savedProject);
   } catch (err) {
-    console.error(err);
     res.status(500).json(err);
   }
 };

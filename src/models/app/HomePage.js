@@ -28,6 +28,7 @@ const ToolSchema = new mongoose.Schema({
 
 const HomePageSchema = mongoose.Schema({
   id: { type: String, unique: true, required: true },
+  logo: { type: String },
   about: { type: String },
   features: [FeatureSchema],
   libraries: [LibrarySchema],

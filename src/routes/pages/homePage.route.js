@@ -12,6 +12,6 @@ router.post("/", store);
 // Show
 router.get("/", show);
 // Update
-router.patch("/", update);
+router.patch("/update", update);
 
 export default router;
