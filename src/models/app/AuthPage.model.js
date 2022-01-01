@@ -4,9 +4,8 @@ const imgSchema = new mongoose.Schema({
   imgFor: {
     type: String,
     enum: ["signIn", "signUp", "pwdResetReq", "savePasswd"],
-    required: true,
   },
-  imgUrl: { type: String, required: true },
+  imgUrl: { type: String },
 });
 
 const AuthPageSchema = new mongoose.Schema(

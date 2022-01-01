@@ -51,6 +51,7 @@ export const store = async (req, res) => {
     await uploadToCloudinary(req.file.path, uploadBasePath);
 
     const authPage = AuthPage.find().sort({ $natural: -1 }).limit(1);
+
     await authPage.updateOne({
       $push: {
         backgroundImage: {
@@ -60,15 +61,20 @@ export const store = async (req, res) => {
       },
     });
     const savedAuthPage = await authPage.save();
-    console.log("savedAuthPage", savedAuthPage);
-    res.status(201).json(savedAuthPage);
+    res.status(203).json(savedAuthPage);
   } catch (error) {
     res.status(500).json(error);
   }
 };
 
 export const show = async (req, res) => {
-  res.status(200).json("home show");
+  try {
+    const authPage = await AuthPage.find().sort({ $natural: -1 }).limit(1);
+    console.log(colors.green(authPage));
+    res.status(200).json(authPage);
+  } catch (error) {
+    res.status(500).json(error);
+  }
 };
 
 export const update = async (req, res) => {
