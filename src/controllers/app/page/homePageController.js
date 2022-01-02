@@ -22,19 +22,30 @@ export const show = async (req, res) => {
   res.status(200).json("home show");
 };
 export const update = async (req, res) => {
-  console.log(req.body);
+  const { about } = req.body;
+  const homePageCount = await HomePage.countDocuments();
   try {
     const result = await uploadFileToCloudinary(
       req.file.path,
       "settings/homepage"
     );
-    console.log(colors.blue("result # ", result.secure_url));
 
-    // const homePage = await HomePage.find();
-
-    // console.log(colors("homePage", homePage));
-
-    res.status(202).json(result.secure_url);
+    if (homePageCount === 0) {
+      const homePageObj = new HomePage({
+        id: uuidv4(),
+        logo: result.secure_url,
+        about: about,
+      });
+      const savedObj = await homePageObj.save();
+      res.status(201).json(savedObj);
+    } else {
+      const updated = await HomePage.findOneAndUpdate({
+        about: about,
+      });
+      updated.save();
+      const homePageObj = await HomePage.find().sort({ $natural: -1 }).limit(1);
+      res.status(202).json(homePageObj);
+    }
   } catch (error) {
     res.status(500).json(error);
   }
