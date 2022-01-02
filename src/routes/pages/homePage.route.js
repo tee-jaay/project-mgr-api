@@ -4,6 +4,7 @@ import {
   show,
   update,
 } from "../../controllers/app/page/homePageController.js";
+import { upload } from "../../services/fileUpload.js";
 
 const router = express.Router();
 
@@ -12,6 +13,6 @@ router.post("/", store);
 // Show
 router.get("/", show);
 // Update
-router.patch("/update", update);
+router.patch("/update", upload.single("image"), update);
 
 export default router;

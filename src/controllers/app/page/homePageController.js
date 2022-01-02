@@ -1,5 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
-import HomePage from "../../../models/app/HomePage.js";
+import HomePage from "../../../models/app/HomePage.model.js";
+import colors from "colors";
+import { uploadFileToCloudinary } from "../../../services/fileUpload.js";
 
 export const store = async (req, res) => {
   console.log(req.body);
@@ -21,10 +23,18 @@ export const show = async (req, res) => {
 };
 export const update = async (req, res) => {
   console.log(req.body);
-  const { image } = req.body;
-  const homePage = await HomePage.find();
   try {
-    res.status(202).json(homePage);
+    const result = await uploadFileToCloudinary(
+      req.file.path,
+      "settings/homepage"
+    );
+    console.log(colors.blue("result # ", result.secure_url));
+
+    // const homePage = await HomePage.find();
+
+    // console.log(colors("homePage", homePage));
+
+    res.status(202).json(result.secure_url);
   } catch (error) {
     res.status(500).json(error);
   }
