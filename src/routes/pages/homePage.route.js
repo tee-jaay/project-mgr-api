@@ -20,7 +20,7 @@ router.get("/", show);
 // Update
 router.patch("/update", upload.single("image"), update);
 // Feature
-router.patch("/feature/add", featureAdd);
+router.patch("/feature/add", upload.single("image"), featureAdd);
 // Tool
 router.patch("/tool/add", toolAdd);
 // Server

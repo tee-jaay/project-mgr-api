@@ -1,11 +1,22 @@
-// import Feature from "../../../models/app/Feature.model.js";
-import colors from "colors";
-// import { uploadFileToCloudinary } from "../../../services/fileUpload.js";
+import Feature from "../../../models/app/Feature.model.js";
+import { uploadFileToCloudinary } from "../../../services/fileUpload.js";
 
 export const featureAdd = async (req, res) => {
-  console.log(colors.blue(req.body));
+  const { title, content } = req.body;
+
+  const result = await uploadFileToCloudinary(
+    req.file.path,
+    "settings/feature"
+  );
+  const newFeature = new Feature({
+    title,
+    content,
+    image: result.secure_url,
+  });
+
   try {
-    res.status(201).json(req.body);
+    const savedFeature = await newFeature.save();
+    res.status(201).json(savedFeature);
   } catch (error) {
     res.status(500).json(error);
   }
