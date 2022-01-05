@@ -4,6 +4,7 @@ import colors from "colors";
 import { uploadFileToCloudinary } from "../../../services/fileUpload.js";
 
 export const store = async (req, res) => {};
+
 export const show = async (req, res) => {
   try {
     const homePage = await HomePage.findOne();
@@ -13,6 +14,7 @@ export const show = async (req, res) => {
     res.status(500).json(error);
   }
 };
+
 export const update = async (req, res) => {
   console.log(colors.blue(req.body.feature));
   const { about } = req.body;
@@ -63,35 +65,4 @@ export const update = async (req, res) => {
   } catch (error) {
     res.status(500).json(error);
   }
-};
-
-export const featureAdd = async (req, res) => {
-  const { feature } = req.body;
-
-  try {
-    const homePageObj = await HomePage.find();
-    console.log(colors.grey(homePageObj[0].features));
-    await homePageObj[0].features.unshift({
-      title: feature.title,
-      image: feature.image,
-      description: feature.description,
-    });
-    const savedObj = await homePageObj[0].save();
-    res.status(201).json(savedObj);
-  } catch (error) {
-    console.log(colors.red(error));
-    res.status(500).json(error);
-  }
-};
-
-export const techAdd = async (req, res) => {
-  console.log(req.body);
-};
-
-export const serverAdd = async (req, res) => {
-  console.log(req.body);
-};
-
-export const systemAdd = async (req, res) => {
-  console.log(req.body);
 };
