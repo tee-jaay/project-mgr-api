@@ -4,7 +4,6 @@ import Page from "../../../models/app/Page.model.js";
 export const index = async (req, res) => {
   try {
     const pages = await Page.find();
-    console.log(pages);
     res.status(200).json(pages);
   } catch (error) {
     res.status(500).json(error);
