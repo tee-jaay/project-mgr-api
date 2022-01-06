@@ -9,7 +9,11 @@ import {
   featureAdd,
   featureIndex,
 } from "../../controllers/app/page/featureController.js";
-import { libraryAdd } from "../../controllers/app/page/libraryController.js";
+import {
+  libraryAdd,
+  libraryDestroy,
+  libraryIndex,
+} from "../../controllers/app/page/libraryController.js";
 import { serverAdd } from "../../controllers/app/page/serverController.js";
 import { systemAdd } from "../../controllers/app/page/systemController.js";
 import {
@@ -36,6 +40,8 @@ router.patch("/server/add", serverAdd);
 // System
 router.patch("/system/add", systemAdd);
 // Library
+router.get("/library/index", libraryIndex);
 router.patch("/library/add", libraryAdd);
+router.delete("/library/delete", libraryDestroy);
 
 export default router;
