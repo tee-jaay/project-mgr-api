@@ -42,6 +42,6 @@ router.patch("/system/add", systemAdd);
 // Library
 router.get("/library/index", libraryIndex);
 router.patch("/library/add", libraryAdd);
-router.delete("/library/delete", libraryDestroy);
+router.delete("/library/destroy/:id", libraryDestroy);
 
 export default router;

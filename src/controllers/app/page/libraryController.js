@@ -1,4 +1,5 @@
 import Library from "../../../models/app/Library.model.js";
+import colors from "colors";
 
 export const libraryIndex = async (req, res) => {
   try {
@@ -22,11 +23,10 @@ export const libraryAdd = async (req, res) => {
 };
 
 export const libraryDestroy = async (req, res) => {
-  const { id } = req.body;
-  console.log(id);
+  const { id } = req.params;
   try {
-    const result = await Library.findByIdAndDelete(id);
-    res.status(201).json(result);
+    await Library.findByIdAndDelete(id);
+    res.status(201).json(id);
   } catch (error) {
     res.status(500).json(error);
   }
