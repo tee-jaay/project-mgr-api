@@ -12,7 +12,10 @@ import {
 import { libraryAdd } from "../../controllers/app/page/libraryController.js";
 import { serverAdd } from "../../controllers/app/page/serverController.js";
 import { systemAdd } from "../../controllers/app/page/systemController.js";
-import { toolAdd } from "../../controllers/app/page/toolController.js";
+import {
+  toolAdd,
+  toolIndex,
+} from "../../controllers/app/page/toolController.js";
 
 const router = express.Router();
 
@@ -24,10 +27,10 @@ router.get("/", show);
 router.patch("/update", upload.single("image"), update);
 // Feature index
 router.get("/feature/index", featureIndex);
-// Feature add
 router.patch("/feature/add", upload.single("image"), featureAdd);
 // Tool
-router.patch("/tool/add", toolAdd);
+router.get("/tool/index", toolIndex);
+router.patch("/tool/add", upload.single("image"), toolAdd);
 // Server
 router.patch("/server/add", serverAdd);
 // System
