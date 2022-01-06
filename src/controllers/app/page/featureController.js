@@ -1,6 +1,15 @@
 import Feature from "../../../models/app/Feature.model.js";
 import { uploadFileToCloudinary } from "../../../services/fileUpload.js";
 
+export const featureIndex = async (req, res) => {
+  try {
+    const features = await Feature.find();
+    res.status(200).json(features);
+  } catch (error) {
+    res.status(500).json(500);
+  }
+};
+
 export const featureAdd = async (req, res) => {
   const { title, content } = req.body;
 

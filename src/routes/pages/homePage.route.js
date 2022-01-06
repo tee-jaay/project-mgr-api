@@ -5,7 +5,10 @@ import {
   show,
   update,
 } from "../../controllers/app/page/homePageController.js";
-import { featureAdd } from "../../controllers/app/page/featureController.js";
+import {
+  featureAdd,
+  featureIndex,
+} from "../../controllers/app/page/featureController.js";
 import { libraryAdd } from "../../controllers/app/page/libraryController.js";
 import { serverAdd } from "../../controllers/app/page/serverController.js";
 import { systemAdd } from "../../controllers/app/page/systemController.js";
@@ -19,7 +22,9 @@ router.post("/", store);
 router.get("/", show);
 // Update
 router.patch("/update", upload.single("image"), update);
-// Feature
+// Feature index
+router.get("/feature/index", featureIndex);
+// Feature add
 router.patch("/feature/add", upload.single("image"), featureAdd);
 // Tool
 router.patch("/tool/add", toolAdd);
