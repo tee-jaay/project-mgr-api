@@ -14,7 +14,11 @@ import {
   libraryDestroy,
   libraryIndex,
 } from "../../controllers/app/page/libraryController.js";
-import { serverAdd } from "../../controllers/app/page/serverController.js";
+import {
+  serverAdd,
+  serverDestroy,
+  serverIndex,
+} from "../../controllers/app/page/serverController.js";
 import { systemAdd } from "../../controllers/app/page/systemController.js";
 import {
   toolAdd,
@@ -36,7 +40,9 @@ router.patch("/feature/add", upload.single("image"), featureAdd);
 router.get("/tool/index", toolIndex);
 router.patch("/tool/add", upload.single("image"), toolAdd);
 // Server
+router.get("/server/index", serverIndex);
 router.patch("/server/add", serverAdd);
+router.delete("/server/destroy/:id", serverDestroy);
 // System
 router.patch("/system/add", systemAdd);
 // Library

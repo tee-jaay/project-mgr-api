@@ -26,7 +26,7 @@ export const libraryDestroy = async (req, res) => {
   const { id } = req.params;
   try {
     await Library.findByIdAndDelete(id);
-    res.status(201).json(id);
+    res.status(200).json(id);
   } catch (error) {
     res.status(500).json(error);
   }

@@ -39,7 +39,7 @@ export const update = async (req, res) => {
   const findTodo = Todo.find({ id: req.params.todoId });
   const { todo, done, doneBy } = req.body;
   try {
-    const updatedTodoResult = await findTodo.updateOne(findTodo, {
+    await findTodo.updateOne(findTodo, {
       todo,
       done,
       doneBy,
@@ -70,7 +70,6 @@ export const destroy = async (req, res) => {
 export const todosByTask = async (req, res) => {
   try {
     const todos = await Todo.find({ taskId: req.params.taskId });
-    // todos.sort((a, b) => b.createdAt - a.createdAt);
     res.status(200).json(todos);
   } catch (err) {
     res.status(500).json(err);
