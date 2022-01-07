@@ -1,11 +1,32 @@
-// import Library from "../../../models/app/Library.model.js";
+import Library from "../../../models/app/Library.model.js";
 import colors from "colors";
-// import { uploadFileToCloudinary } from "../../../services/fileUpload.js";
+
+export const libraryIndex = async (req, res) => {
+  try {
+    const libraries = await Library.find();
+    res.status(201).json(libraries);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
 
 export const libraryAdd = async (req, res) => {
-  console.log(colors.blue(req.body));
+  const newLib = new Library({
+    name: req.body.name,
+  });
   try {
-    res.status(201).json(req.body);
+    const savedLib = await newLib.save();
+    res.status(201).json(savedLib);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
+export const libraryDestroy = async (req, res) => {
+  const { id } = req.params;
+  try {
+    await Library.findByIdAndDelete(id);
+    res.status(200).json(id);
   } catch (error) {
     res.status(500).json(error);
   }
