@@ -1,7 +1,6 @@
 import multer from "multer";
 import cloudinary from "cloudinary";
 import AuthPage from "../../../models/app/AuthPage.model.js";
-import colors from "colors";
 
 let imgUrl = "";
 
@@ -70,7 +69,7 @@ export const store = async (req, res) => {
 export const show = async (req, res) => {
   try {
     const authPage = await AuthPage.find().sort({ $natural: -1 }).limit(1);
-    console.log(colors.green(authPage));
+
     res.status(200).json(authPage);
   } catch (error) {
     res.status(500).json(error);

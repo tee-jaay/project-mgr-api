@@ -28,6 +28,7 @@ import dashboardRoutes from "./src/routes/dashboard/dashboard.route.js";
 import homePageRoutes from "./src/routes/pages/homePage.route.js";
 import authPageRoutes from "./src/routes/pages/authPages.route.js";
 import pageRoutes from "./src/routes/pages/page.route.js";
+import frontendRoutes from "./src/routes/frontend/frontend.route.js";
 import { byLimit } from "./src/controllers/app/project/projectController.js";
 
 // ============ faker ============ //
@@ -124,6 +125,8 @@ app.use("/homepage", homePageRoutes);
 app.use("/authpage", authPageRoutes);
 // Page
 app.use("/page", pageRoutes);
+// Site
+app.use("/frontend", frontendRoutes);
 //
 // ========== faker =========== //
 app.use("/drop/all", collectionDropAll);
