@@ -1,6 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
 import HomePage from "../../../models/app/HomePage.model.js";
-import colors from "colors";
 import { uploadFileToCloudinary } from "../../../services/fileUpload.js";
 
 export const store = async (req, res) => {};
@@ -16,15 +15,9 @@ export const show = async (req, res) => {
 };
 
 export const update = async (req, res) => {
-  console.log(colors.blue(req.body.feature));
   const { about } = req.body;
   const homePageCount = await HomePage.countDocuments();
   try {
-    // const result = await uploadFileToCloudinary(
-    //   req.file.path,
-    //   "settings/homepage"
-    // );
-
     if (homePageCount === 0) {
       const result = await uploadFileToCloudinary(
         req.file.path,
@@ -52,7 +45,6 @@ export const update = async (req, res) => {
         updated.save();
       } else {
         const updated = await HomePage.findOneAndUpdate({
-          // logo: "result.secure_url",
           about: about,
           features: [...features, feature],
         });
