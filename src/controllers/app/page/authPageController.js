@@ -1,43 +1,30 @@
+import { v4 as uuidv4 } from "uuid";
 import AuthPage from "../../../models/app/AuthPage.model.js";
 import { uploadFileToCloudinary } from "../../../services/fileUpload.js";
-
-import colors from "colors";
 import { cleanFile } from "../../../services/fileCleanUp.js";
+
+export const index = async (req, res) => {
+  try {
+    const authPages = await AuthPage.find();
+    res.status(200).json(authPages);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
 
 export const store = async (req, res) => {
   const { imgFor } = req.body;
 
+  const result = await uploadFileToCloudinary(req.file.path, "settings/auth");
+  const newAuthPage = new AuthPage({
+    id: uuidv4(),
+    imgFor: imgFor,
+    imgUrl: result.secure_url,
+  });
   try {
-    const result = await uploadFileToCloudinary(req.file.path, "settings/auth");
-
-    const authPageCount = await AuthPage.countDocuments();
-
-    if (authPageCount === 0) {
-      const newAuthPage = new AuthPage({
-        backgroundImage: {
-          imgFor: imgFor,
-          imgUrl: result.secure_url,
-        },
-      });
-      const savedAuthPage = await newAuthPage.save();
-      cleanFile(req.file.path);
-      res.status(201).json(savedAuthPage);
-    } else {
-      const authPage = await AuthPage.find().sort({ $natural: -1 }).limit(1);
-
-      await authPage.updateOne({
-        $push: {
-          backgroundImage: {
-            imgFor: imgFor,
-            imgUrl: result.secure_url,
-          },
-        },
-      });
-      const savedAuthPage = await authPage.save();
-      console.log(colors.blue(savedAuthPage));
-      cleanFile(req.file.path);
-      res.status(203).json(savedAuthPage);
-    }
+    const savedAuthPage = await newAuthPage.save();
+    cleanFile(req.file.path);
+    res.status(201).json(savedAuthPage);
   } catch (error) {
     res.status(500).json(error);
   }
