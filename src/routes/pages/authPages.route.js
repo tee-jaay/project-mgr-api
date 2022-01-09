@@ -3,8 +3,8 @@ import {
   store,
   show,
   update,
-  upload,
 } from "../../controllers/app/page/authPageController.js";
+import { upload } from "../../services/fileUpload.js";
 
 const router = express.Router();
 

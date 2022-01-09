@@ -1,66 +1,43 @@
-import multer from "multer";
-import cloudinary from "cloudinary";
 import AuthPage from "../../../models/app/AuthPage.model.js";
+import { uploadFileToCloudinary } from "../../../services/fileUpload.js";
 
-let imgUrl = "";
-
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploads");
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname);
-  },
-});
-
-export const upload = multer({ storage: storage });
-
-const uploadToCloudinary = (localFilePath, uploadBasePath) => {
-  cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_CLOUDNAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
-    secure: true,
-  });
-
-  var uploadResult = cloudinary.v2.uploader.upload(
-    localFilePath,
-    {
-      resource_type: "image",
-      folder: uploadBasePath,
-      chunk_size: 6000000,
-    },
-    function (error, result) {
-      return result.secure_url;
-    }
-  );
-  uploadResult
-    .then((res) => {
-      imgUrl = res.secure_url;
-    })
-    .catch((err) => console.error(err));
-  return uploadResult;
-};
+import colors from "colors";
+import { cleanFile } from "../../../services/fileCleanUp.js";
 
 export const store = async (req, res) => {
   const { imgFor } = req.body;
-  var uploadBasePath = `${process.env.APP_NAME}/settings/authpage`;
 
   try {
-    await uploadToCloudinary(req.file.path, uploadBasePath);
+    const result = await uploadFileToCloudinary(req.file.path, "settings/auth");
 
-    const authPage = AuthPage.find().sort({ $natural: -1 }).limit(1);
+    const authPageCount = await AuthPage.countDocuments();
 
-    await authPage.updateOne({
-      $push: {
+    if (authPageCount === 0) {
+      const newAuthPage = new AuthPage({
         backgroundImage: {
           imgFor: imgFor,
-          imgUrl: imgUrl,
+          imgUrl: result.secure_url,
         },
-      },
-    });
-    const savedAuthPage = await authPage.save();
-    res.status(203).json(savedAuthPage);
+      });
+      const savedAuthPage = await newAuthPage.save();
+      cleanFile(req.file.path);
+      res.status(201).json(savedAuthPage);
+    } else {
+      const authPage = await AuthPage.find().sort({ $natural: -1 }).limit(1);
+
+      await authPage.updateOne({
+        $push: {
+          backgroundImage: {
+            imgFor: imgFor,
+            imgUrl: result.secure_url,
+          },
+        },
+      });
+      const savedAuthPage = await authPage.save();
+      console.log(colors.blue(savedAuthPage));
+      cleanFile(req.file.path);
+      res.status(203).json(savedAuthPage);
+    }
   } catch (error) {
     res.status(500).json(error);
   }
