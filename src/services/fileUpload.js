@@ -1,8 +1,14 @@
+import fs from "fs";
 import multer from "multer";
 import cloudinary from "cloudinary";
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
+    const dir = "./uploads";
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir);
+      // console.log("Directory is created.");
+    }
     cb(null, "uploads");
   },
   filename: function (req, file, cb) {

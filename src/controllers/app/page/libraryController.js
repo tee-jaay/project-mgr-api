@@ -16,7 +16,10 @@ export const libraryAdd = async (req, res) => {
   });
   try {
     const savedLib = await newLib.save();
-    res.status(201).json(savedLib);
+
+    const libs = await Library.find();
+
+    res.status(201).json(libs);
   } catch (error) {
     res.status(500).json(error);
   }

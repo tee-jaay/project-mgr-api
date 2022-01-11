@@ -1,16 +1,13 @@
 import mongoose from "mongoose";
 
-const imgSchema = new mongoose.Schema({
-  imgFor: {
-    type: String,
-    enum: ["signIn", "signUp", "pwdResetReq", "savePasswd"],
-  },
-  imgUrl: { type: String },
-});
-
 const AuthPageSchema = new mongoose.Schema(
   {
-    backgroundImage: [imgSchema],
+    id: { type: String, unique: true },
+    imgFor: {
+      type: String,
+      enum: ["signIn", "signUp", "pwdResetReq", "savePasswd"],
+    },
+    imgUrl: { type: String },
   },
   { timestamps: true }
 );

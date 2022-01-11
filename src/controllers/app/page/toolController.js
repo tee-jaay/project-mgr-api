@@ -24,7 +24,8 @@ export const toolAdd = async (req, res) => {
     });
     const savedTool = await newTool.save();
     cleanFile(req.file.path);
-    res.status(201).json(savedTool);
+    const tools = await Tool.find();
+    res.status(201).json(tools);
   } catch (error) {
     res.status(500).json(error);
   }
