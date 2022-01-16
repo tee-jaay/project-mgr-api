@@ -25,9 +25,10 @@ export const featureAdd = async (req, res) => {
   });
 
   try {
-    const savedFeature = await newFeature.save();
+    await newFeature.save();
     cleanFile(req.file.path);
-    res.status(201).json(savedFeature);
+    const features = await Feature.find();
+    res.status(201).json(features);
   } catch (error) {
     res.status(500).json(error);
   }
