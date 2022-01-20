@@ -23,9 +23,8 @@ export const toolAdd = async (req, res) => {
       image: result.secure_url,
     });
     const savedTool = await newTool.save();
-    cleanFile(req.file.path);
-    const tools = await Tool.find();
-    res.status(201).json(tools);
+    cleanFile(req.file.path);    
+    res.status(201).json(savedTool);
   } catch (error) {
     res.status(500).json(error);
   }
