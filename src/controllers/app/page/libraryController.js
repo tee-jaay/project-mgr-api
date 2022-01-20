@@ -4,7 +4,7 @@ import colors from "colors";
 export const libraryIndex = async (req, res) => {
   try {
     const libraries = await Library.find();
-    res.status(201).json(libraries);
+    res.status(200).json(libraries);
   } catch (error) {
     res.status(500).json(error);
   }
@@ -16,10 +16,7 @@ export const libraryAdd = async (req, res) => {
   });
   try {
     const savedLib = await newLib.save();
-
-    const libs = await Library.find();
-
-    res.status(201).json(libs);
+    res.status(201).json(savedLib);
   } catch (error) {
     res.status(500).json(error);
   }
