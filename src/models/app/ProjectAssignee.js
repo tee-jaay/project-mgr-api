@@ -4,6 +4,7 @@ export const ProjectAssigneeSchema = mongoose.Schema(
   {
     userId: { type: String, required: true },
     userName: { type: String, required: true },
+    userEmail: { type: String },
     userAvatar: { type: String },
   },
   { timestamps: true }

@@ -19,6 +19,7 @@ import issueRoutes from "./src/routes/issues/issues.js";
 import issueCommentRoutes from "./src/routes/issues/issueComment.route.js";
 import meetingRoutes from "./src/routes/meetings/meetings.route.js";
 import meetingCommentRoutes from "./src/routes/meetings/meetingComments.route.js";
+import messageRoutes from "./src/routes/message/message.route.js";
 import timeSheetRoutes from "./src/routes/timeSheets/timeSheets.route.js";
 import issueAssigneeRoutes from "./src/routes/issueAssignees/issueAssignees.js";
 import projectAssigneeRoutes from "./src/routes/projectAssignees/projectAssignees.js";
@@ -31,6 +32,7 @@ import pageRoutes from "./src/routes/pages/page.route.js";
 import frontendRoutes from "./src/routes/frontend/frontend.route.js";
 import { byLimit } from "./src/controllers/app/project/projectController.js";
 
+import { tasksByMonth } from "./src/controllers/app/dashboard/tasksGroupByMonth.js";
 // ============ faker ============ //
 import {
   collectionDropOne,
@@ -49,7 +51,6 @@ import {
   fakerTaskMessages,
   fakerProfileWallposts,
 } from "./src/controllers/faker/fakerController.js";
-import { tasksByMonth } from "./src/controllers/app/dashboard/tasksGroupByMonth.js";
 
 // ============ faker ============ //
 
@@ -127,7 +128,8 @@ app.use("/authpage", authPageRoutes);
 app.use("/page", pageRoutes);
 // Site
 app.use("/frontend", frontendRoutes);
-//
+// Message
+app.use("/message", messageRoutes);
 // ========== faker =========== //
 app.use("/drop/all", collectionDropAll);
 app.use("/drop/:db", collectionDropOne);
