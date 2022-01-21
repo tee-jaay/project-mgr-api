@@ -7,15 +7,18 @@ export const sendEmails = async (req,res) => {
   const {subject, content, projectId} = req.body;
 
   let recipients = [];
+  let result = ''
 
   try {
     const project = await Project.find({id:projectId})
     const assignees = await project[0].assignees
     await assignees.forEach((item, i) => {
       recipients.push(item.userEmail)
-    });    
-    await axios.post('https://infinite-cliffs-84448.herokuapp.com/email',{subject,recipients,content})
-    return res.status(200).json(recipients);
+    });
+    await axios
+      .post(`${process.env.MESSAGE_SERVER}/email`,{subject,email:recipients,content})
+      .then((res)=>result=res.data);
+    return res.status(200).json(result);
   } catch (e) {
     return res.status(500).json(e.message);
   }
