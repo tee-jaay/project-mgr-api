@@ -15,6 +15,7 @@ export const store = async (req, res) => {
         userId: element.userId,
         userName: element.userName,
         userAvatar: element.userAvatar,
+        userEmail: element.userEmail,
       });
     });
     await project.save();
