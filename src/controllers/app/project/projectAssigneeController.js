@@ -7,10 +7,13 @@ export const index = async (req, res) => {
 
 export const store = async (req, res) => {
   const { projectId } = req.params;
+  const assigneesArr = req.body;
+  // filter assignees list to unique users only
+  const uniqueAssigneesArr = [...assigneesArr.reduce((map,obj)=>map.set(obj.userId,obj),new Map()).values()];
 
   try {
-    const project = await Project.findOne({ id: projectId });
-    await req.body.forEach((element) => {
+    const project = await Project.findOne({ id: projectId });    
+    await uniqueAssigneesArr.forEach((element) => {
       project.assignees.push({
         userId: element.userId,
         userName: element.userName,

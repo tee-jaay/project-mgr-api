@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import { v4 as uuid } from "uuid";
 import User from "../../models/user/auth/User.model.js";
 
-export const register = async (req, res) => {
+export const register = async (req, res) => {  
   const newUser = new User({
     id: uuid(),
     username: req.body.username,
