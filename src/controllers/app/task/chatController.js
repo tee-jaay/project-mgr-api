@@ -5,6 +5,7 @@ export const index = async (req, res) => {
   const { taskId } = req.params;
   try {
     const msgs = await TaskChat.find({ taskId: taskId });
+    console.log(msgs);
     res.status(200).json(msgs);
   } catch (err) {
     res.status(500).json(err);
