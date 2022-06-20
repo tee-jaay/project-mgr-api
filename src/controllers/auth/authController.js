@@ -23,34 +23,38 @@ export const register = async (req, res) => {
   }
 };
 
-export const login = async (req, res) => {
+export const login = async (req, res) => {  
   try {
-    const user = await User.findOne({ email: req.body.email });
-    !user && res.status(401).json("Wrong credentials!");
+    const user = await User.findOne({ email: req.body.email });    
 
-    const hashedPassword = CryptoJS.AES.decrypt(
-      user.password,
-      process.env.JWT_SEC
-    );
-    const OriginalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
+    if (!user) {
+      return res.status(401).json("Wrong credentials!");
+    } else {
+      const hashedPassword = CryptoJS.AES.decrypt(
+        user.password,
+        process.env.JWT_SEC
+      );
+      const OriginalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
 
-    OriginalPassword !== req.body.password &&
-      res.status(401).json("Wrong credentials!");
+      if (OriginalPassword !== req.body.password) {
+        return res.status(401).json("Wrong credentials!");
+      } else {
+        const accessToken = jwt.sign(
+          {
+            id: user.id,
+            role: user.role,
+          },
+          process.env.JWT_SEC,
+          { expiresIn: "3d" }
+        );
 
-    const accessToken = jwt.sign(
-      {
-        id: user.id,
-        role: user.role,
-      },
-      process.env.JWT_SEC,
-      { expiresIn: "3d" }
-    );
+        const { email, ...others } = user._doc;
 
-    const { email, ...others } = user._doc;
-
-    res.status(200).json({ ...others, accessToken });
+        return res.status(200).json({ ...others, accessToken });        
+      }
+    }
   } catch (err) {
-    res.status(500).json(err);
+    return res.status(500).json(err);
   }
 };
 
