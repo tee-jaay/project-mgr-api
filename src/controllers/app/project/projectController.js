@@ -17,7 +17,7 @@ export const byLimit = async (req, res) => {
   res.status(200).json(projects);
 };
 
-export const store = async (req, res) => {
+export const store = async (req, res, next) => {
   const slugifyOptions = {
     replacement: "-",
     remove: /[*+~.()'"!:@]/g,
