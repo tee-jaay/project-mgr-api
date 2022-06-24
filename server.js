@@ -1,8 +1,9 @@
+import dotenv from "dotenv";
 import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
-import dotenv from "dotenv";
 import cors from "cors";
+import sApp from './src/app/app.js';
 
 import authRoutes from "./src/routes/auth/auth.js";
 import projectRoutes from "./src/routes/projects/projects.js";
@@ -34,23 +35,23 @@ import { byLimit } from "./src/controllers/app/project/projectController.js";
 
 import { tasksByMonth } from "./src/controllers/app/dashboard/tasksGroupByMonth.js";
 // ============ faker ============ //
-import {
-  collectionDropOne,
-  collectionDropAll,
-} from "./src/controllers/faker/collectionDrop.js";
-import {
-  fakerRegisters,
-  fakerProjects,
-  fakerTasks,
-  fakerTodos,
-  fakerIssues,
-  fakerMeetings,
-  fakerProfiles,
-  fakerTimeSheets,
-  fakerDbSeed,
-  fakerTaskMessages,
-  fakerProfileWallposts,
-} from "./src/controllers/faker/fakerController.js";
+// import {
+//   collectionDropOne,
+//   collectionDropAll,
+// } from "./src/controllers/faker/collectionDrop.js";
+// import {
+//   fakerRegisters,
+//   fakerProjects,
+//   fakerTasks,
+//   fakerTodos,
+//   fakerIssues,
+//   fakerMeetings,
+//   fakerProfiles,
+//   fakerTimeSheets,
+//   fakerDbSeed,
+//   fakerTaskMessages,
+//   fakerProfileWallposts,
+// } from "./src/controllers/faker/fakerController.js";
 
 // ============ faker ============ //
 
@@ -131,22 +132,22 @@ app.use("/frontend", frontendRoutes);
 // Message
 app.use("/message", messageRoutes);
 // ========== faker =========== //
-app.use("/drop/all", collectionDropAll);
-app.use("/drop/:db", collectionDropOne);
+// app.use("/drop/all", collectionDropAll);
+// app.use("/drop/:db", collectionDropOne);
 
-app.use("/faker-users", fakerRegisters);
-app.use("/faker-projects", fakerProjects);
-app.use("/faker-tasks", fakerTasks);
-app.use("/faker-tasks-msgs", fakerTaskMessages);
-app.use("/faker-todos", fakerTodos);
-app.use("/faker-issues", fakerIssues);
-app.use("/faker-meetings", fakerMeetings);
-app.use("/faker-timesheets", fakerTimeSheets);
-app.use("/faker-profiles", fakerProfiles);
-app.use("/faker-wallposts", fakerProfileWallposts);
-app.use("/faker-db-seed", fakerDbSeed);
+// app.use("/faker-users", fakerRegisters);
+// app.use("/faker-projects", fakerProjects);
+// app.use("/faker-tasks", fakerTasks);
+// app.use("/faker-tasks-msgs", fakerTaskMessages);
+// app.use("/faker-todos", fakerTodos);
+// app.use("/faker-issues", fakerIssues);
+// app.use("/faker-meetings", fakerMeetings);
+// app.use("/faker-timesheets", fakerTimeSheets);
+// app.use("/faker-profiles", fakerProfiles);
+// app.use("/faker-wallposts", fakerProfileWallposts);
+// app.use("/faker-db-seed", fakerDbSeed);
 
-app.use("/group-by/tasks/:year", tasksByMonth);
+// app.use("/group-by/tasks/:year", tasksByMonth);
 // ========== faker =========== //
 
 // ---- Routes ----
@@ -155,7 +156,8 @@ app.use("/group-by/tasks/:year", tasksByMonth);
 import { createServer } from "http";
 import { Server } from "socket.io";
 
-const server = createServer(app);
+const server = createServer(sApp);
+// const server = createServer(app);
 const io = new Server(server, {
   cors: {
     origin: "*",
