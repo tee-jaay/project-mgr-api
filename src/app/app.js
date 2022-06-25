@@ -32,6 +32,7 @@ import frontendRoutes from "../routes/frontend/frontend.route.js";
 import { byLimit } from "../controllers/app/project/projectController.js";
 
 import { tasksByMonth } from "../controllers/app/dashboard/tasksGroupByMonth.js";
+import { verifyLogin } from './middleware.js';
 
 
 // ============ faker ============ //
@@ -64,54 +65,56 @@ app.use([
     express.json()
 ]);
 
+
+// ---- Routes ----
+// Root
+app.get("/", (_req, res) => {
+    res.send('Welcome to the "tackeon" app\'s Express.js powered api.');
+});
+
 app.get('/health', (_req, res) => {
     res.status(200).json({ message: 'Success' });
 });
 
-// ---- Routes ----
-// Root
-app.get("/", (req, res) => {
-    res.send('Welcome to the "tackeon" app\'s Express.js powered api.');
-});
 // Auth
 app.use("/auth", authRoutes);
 app.use("/users/auth", authRoutes);
 // User
-app.use("/users", userRoutes);
+app.use("/users", verifyLogin, userRoutes);
 // Profile
-app.use("/profiles", profileRoutes);
+app.use("/profiles", verifyLogin, profileRoutes);
 // Social
-app.use("/users/socials/wall-posts", wallPosts);
+app.use("/users/socials/wall-posts", verifyLogin, wallPosts);
 // Project
-app.use("/projects", projectRoutes);
-app.use("/projects-search", projectSearchRoutes);
-app.use("/projects-by-limit/:limit", byLimit);
-app.use("/projects/comments", projectCommentRoutes);
+app.use("/projects", verifyLogin, projectRoutes);
+app.use("/projects-search", verifyLogin, projectSearchRoutes);
+app.use("/projects-by-limit/:limit", verifyLogin, byLimit);
+app.use("/projects/comments", verifyLogin, projectCommentRoutes);
 // Task
-app.use("/tasks", taskRoutes);
-app.use("/tasks/chat", taskChatRoutes);
+app.use("/tasks", verifyLogin, taskRoutes);
+app.use("/tasks/chat", verifyLogin, taskChatRoutes);
 // Todo
-app.use("/todos", todoRoutes);
+app.use("/todos", verifyLogin, todoRoutes);
 // Comment
-app.use("/comments", commentRoutes);
+app.use("/comments", verifyLogin, commentRoutes);
 // Issue
-app.use("/issues", issueRoutes);
-app.use("/issues/comments", issueCommentRoutes);
+app.use("/issues", verifyLogin, issueRoutes);
+app.use("/issues/comments", verifyLogin, issueCommentRoutes);
 // Meeting
-app.use("/meetings", meetingRoutes);
-app.use("/meetings/comments", meetingCommentRoutes);
+app.use("/meetings", verifyLogin, meetingRoutes);
+app.use("/meetings/comments", verifyLogin, meetingCommentRoutes);
 // Timesheet
-app.use("/timesheets", timeSheetRoutes);
+app.use("/timesheets", verifyLogin, timeSheetRoutes);
 // Issue Assignee
-app.use("/issue-assignees", issueAssigneeRoutes);
+app.use("/issue-assignees", verifyLogin, issueAssigneeRoutes);
 // Project Assignee
-app.use("/project-assignees", projectAssigneeRoutes);
+app.use("/project-assignees", verifyLogin, projectAssigneeRoutes);
 // Meeting Participant
-app.use("/meeting-participants", meetingParticipantRoutes);
+app.use("/meeting-participants", verifyLogin, meetingParticipantRoutes);
 // Project Budget
-app.use("/project-budgets", projectBudgetRoutes);
+app.use("/project-budgets", verifyLogin, projectBudgetRoutes);
 // Dashboard
-app.use("/dashboard", dashboardRoutes);
+app.use("/dashboard", verifyLogin, dashboardRoutes);
 // Homepage
 app.use("/homepage", homePageRoutes);
 // Authpage
@@ -121,7 +124,7 @@ app.use("/page", pageRoutes);
 // Site
 app.use("/frontend", frontendRoutes);
 // Message
-app.use("/message", messageRoutes);
+app.use("/message", verifyLogin, messageRoutes);
 // ========== faker =========== //
 // app.use("/drop/all", collectionDropAll);
 // app.use("/drop/:db", collectionDropOne);

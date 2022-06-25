@@ -6,14 +6,13 @@ import {
   update,
   destroy,
 } from "../../controllers/app/project/projectController.js";
-import { verifyToken } from "../../middlewares/verifyToken.js";
 
 const router = express.Router();
 
 // Index
 router.get("/", index);
 // Store
-router.post("/", verifyToken, store);
+router.post("/", store);
 // Show
 router.get("/:id", show);
 // Update
