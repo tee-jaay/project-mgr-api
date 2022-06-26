@@ -33,6 +33,7 @@ import { byLimit } from "../controllers/app/project/projectController.js";
 
 import { tasksByMonth } from "../controllers/app/dashboard/tasksGroupByMonth.js";
 import { verifyLogin } from './middleware.js';
+import { verifyTokenAndAdmin } from '../middlewares/verifyToken.js';
 
 
 // ============ faker ============ //
@@ -69,7 +70,7 @@ app.use([
 // ---- Routes ----
 // Root
 app.get("/", (_req, res) => {
-    res.send('Welcome to the "tackeon" app\'s Express.js powered api.');
+    res.send('"projeqts" api.');
 });
 
 app.get('/health', (_req, res) => {
@@ -116,7 +117,7 @@ app.use("/project-budgets", verifyLogin, projectBudgetRoutes);
 // Dashboard
 app.use("/dashboard", verifyLogin, dashboardRoutes);
 // Homepage
-app.use("/homepage", homePageRoutes);
+app.use("/homepage", verifyTokenAndAdmin, homePageRoutes);
 // Authpage
 app.use("/authpage", authPageRoutes);
 // Page
