@@ -1,7 +1,7 @@
 import CryptoJS from "crypto-js";
 import User from "../../models/user/auth/User.model.js";
 
-export const index = async (req, res) => {
+export const index = async (_req, res) => {
   try {
     const users = await User.find();
     res.status(200).json(users);

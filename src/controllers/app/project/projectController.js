@@ -1,8 +1,8 @@
-import { v4 as uuidv4 } from "uuid";
+import { nanoid } from "nanoid";
 import slugify from "slugify";
 import Project from "../../../models/app/Project.js";
 
-export const index = async (req, res) => {
+export const index = async (_req, res) => {
   const projects = await Project.find({});
   res.status(200).json(projects);
 };
@@ -17,7 +17,7 @@ export const byLimit = async (req, res) => {
   res.status(200).json(projects);
 };
 
-export const store = async (req, res, next) => {
+export const store = async (req, res, _next) => {
   const slugifyOptions = {
     replacement: "-",
     remove: /[*+~.()'"!:@]/g,
@@ -37,7 +37,7 @@ export const store = async (req, res, next) => {
     image,
   } = req.body;
   const newProject = new Project({
-    id: uuidv4(),
+    id: nanoid(),
     title,
     slug: title.length > 0 ? slugify(title, slugifyOptions) : "no-slug",
     createdBy,
@@ -101,6 +101,6 @@ export const search = async (req, res) => {
   }
 };
 
-export const destroy = (req, res) => {
-  res.send("destroy");
+export const destroy = (_req, res) => {
+  res.send("Todo: destroy");
 };
