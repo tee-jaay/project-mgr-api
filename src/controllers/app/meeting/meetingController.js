@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from "uuid";
+import { nanoid } from "nanoid";
 import Meeting from "../../../models/app/Meeting.model.js";
 
 export const index = async (req, res) => {
@@ -22,7 +22,7 @@ export const store = async (req, res) => {
     phone,
   } = req.body;
   const newMeeting = new Meeting({
-    id: uuidv4(),
+    id: nanoid(),
     createdBy,
     projectId,
     title,

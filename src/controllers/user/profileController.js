@@ -1,10 +1,10 @@
-import { v4 as uuid } from "uuid";
+import { nanoid } from "nanoid";
 import Profile from "../../models/user/profile/Profile.js";
 import User from "../../models/user/auth/User.model.js";
 
 export const store = async (req, res) => {
   const profile = new Profile({
-    id: uuid(),
+    id: nanoid(),
     userId: req.body.userId,
     title: req.body.title,
     industry: req.body.industry,
@@ -97,7 +97,7 @@ export const update = async (req, res) => {
   }
 };
 
-export const destroy = (req, res) => {
+export const destroy = (_req, res) => {
   res.send("destroy");
 };
 

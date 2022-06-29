@@ -1,7 +1,7 @@
-import { v4 as uuidv4 } from "uuid";
+import { nanoid } from "nanoid";
 import Task from "../../../models/app/Task.js";
 
-export const index = async (req, res) => {
+export const index = async (_req, res) => {
   const tasks = await Task.find();
   res.status(200).json(tasks);
 };
@@ -22,7 +22,7 @@ export const store = async (req, res) => {
     color,
   } = req.body;
   const newTask = new Task({
-    id: uuidv4(),
+    id: nanoid(),
     projectId,
     createdBy,
     title,
@@ -87,7 +87,7 @@ export const update = async (req, res) => {
   }
 };
 
-export const destroy = (req, res) => {
+export const destroy = (_req, res) => {
   res.send(`destroy`);
 };
 

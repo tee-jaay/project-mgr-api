@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import CryptoJS from "crypto-js";
-import { v4 as uuidv4 } from "uuid";
+import { nanoid } from "nanoid";
 import slugify from "slugify";
 import faker from "faker";
 import User from "../../models/user/auth/User.model.js";
@@ -20,7 +20,7 @@ const makeDate = (val) => {
   return result;
 };
 
-export const fakerRegisters = async (req, res) => {
+export const fakerRegisters = async (_req, res) => {
   var randomPassword = "654321";
   for (var i = 0; i < 15; i++) {
     var randomUsername = faker.internet.userName();
@@ -108,7 +108,7 @@ export const fakerRegisters = async (req, res) => {
     var avatar = "https://i.pravatar.cc/150/150";
 
     var fakeeUser = new User({
-      id: uuidv4(),
+      id: nanoid(),
       username: randomUsername + i,
       name: randomName,
       email: i + randomEmail,
@@ -150,7 +150,7 @@ export const fakerRegisters = async (req, res) => {
   return res.status(201).json("faker users created");
 };
 
-export const fakerProjects = async (req, res) => {
+export const fakerProjects = async (_req, res) => {
   var db = mongoose.connection;
   // count users
   var usersCount = await db.collection("users").count();
@@ -178,7 +178,7 @@ export const fakerProjects = async (req, res) => {
       var urlOne = faker.internet.url();
       var urlTwo = faker.internet.url();
       var image = faker.image.imageUrl();
-      var id = uuidv4();
+      var id = nanoid();
       var slug = slugify(title, slugifyOptions);
       var comments = [
         {
@@ -225,7 +225,7 @@ export const fakerProjects = async (req, res) => {
   res.status(201).json("faker projects created");
 };
 
-export const fakerTasks = async (req, res) => {
+export const fakerTasks = async (_req, res) => {
   var db = mongoose.connection;
   // count projects
   var projectsCount = await db.collection("projects").count();
@@ -279,7 +279,7 @@ export const fakerTasks = async (req, res) => {
       let year = yearArr[(Math.random() * yearArr.length) | 0];
 
       var fakeTask = new Task({
-        id: uuidv4(),
+        id: nanoid(),
         projectId,
         createdBy,
         title,
@@ -306,7 +306,7 @@ export const fakerTasks = async (req, res) => {
   return res.status(201).json("faker tasks created");
 };
 
-export const fakerTaskMessages = async (req, res) => {
+export const fakerTaskMessages = async (_req, res) => {
   let db = mongoose.connection;
   // count tasks
   var tasksCount = await db.collection("tasks").count();
@@ -323,7 +323,7 @@ export const fakerTaskMessages = async (req, res) => {
       let ban = faker.datatype.boolean();
 
       let fakeTaskMessage = new TaskChat({
-        id: uuidv4(),
+        id: nanoid(),
         taskId,
         createdBy,
         message,
@@ -342,7 +342,7 @@ export const fakerTaskMessages = async (req, res) => {
   return res.status(201).json("faker task's messages created");
 };
 
-export const fakerTodos = async (req, res) => {
+export const fakerTodos = async (_req, res) => {
   var db = mongoose.connection;
   // count tasks
   var taskCount = await db.collection("tasks").count();
@@ -359,7 +359,7 @@ export const fakerTodos = async (req, res) => {
       var doneBy = createdBy;
 
       var fakeTodo = new Todo({
-        id: uuidv4(),
+        id: nanoid(),
         taskId,
         createdBy,
         doneBy,
@@ -411,7 +411,7 @@ export const fakerIssues = async (req, res) => {
       var issueType = issueTypeArr[(Math.random() * issueTypeArr.length) | 0];
 
       var fakeIssue = new Issue({
-        id: uuidv4(),
+        id: nanoid(),
         taskId: req.body.taskId,
         projectId,
         createdBy,
@@ -436,7 +436,7 @@ export const fakerIssues = async (req, res) => {
   res.status(201).json("faker issues created");
 };
 
-export const fakerMeetings = async (req, res) => {
+export const fakerMeetings = async (_req, res) => {
   var db = mongoose.connection;
   // count projects
   var projectsCount = await db.collection("projects").count();
@@ -470,7 +470,7 @@ export const fakerMeetings = async (req, res) => {
       var phone = faker.phone.phoneNumber();
 
       var fakeMeeting = new Meeting({
-        id: uuidv4(),
+        id: nanoid(),
         projectId,
         taskId,
         createdBy,
@@ -496,7 +496,7 @@ export const fakerMeetings = async (req, res) => {
   res.send("faker meetings");
 };
 
-export const fakerTimeSheets = async (req, res) => {
+export const fakerTimeSheets = async (_req, res) => {
   var db = mongoose.connection;
   // count projects
   var projectsCount = await db.collection("projects").count();
@@ -515,7 +515,7 @@ export const fakerTimeSheets = async (req, res) => {
       var note = faker.lorem.paragraph();
 
       var fakeTimeSheet = new TimeSheet({
-        id: uuidv4(),
+        id: nanoid(),
         projectId,
         taskId,
         createdBy,
@@ -536,7 +536,7 @@ export const fakerTimeSheets = async (req, res) => {
   res.send("faker timesheets");
 };
 
-export const fakerProfiles = async (req, res) => {
+export const fakerProfiles = async (_req, res) => {
   var db = mongoose.connection;
   // count users
   var usersCount = await db.collection("users").count();
@@ -544,7 +544,7 @@ export const fakerProfiles = async (req, res) => {
   var getData = await db.collection("users").find().toArray();
 
   for (let i = 0; i < usersCount; i++) {
-    var id = uuidv4();
+    var id = nanoid();
     var userId = getData[i].id;
     var title = faker.name.jobTitle();
     var bio = faker.lorem.sentence();
@@ -684,7 +684,7 @@ export const fakerProfileWallposts = async (req, res) => {
       var content = faker.lorem.paragraph();
 
       var fakeWallPost = new WallPost({
-        id: uuidv4(),
+        id: nanoid(),
         userId: userId,
         postBy: postBy,
         content: content,

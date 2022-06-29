@@ -1,11 +1,11 @@
+import { nanoid } from "nanoid";
 import CryptoJS from "crypto-js";
 import jwt from "jsonwebtoken";
-import { v4 as uuid } from "uuid";
 import User from "../../models/user/auth/User.model.js";
 
-export const register = async (req, res) => {  
+export const register = async (req, res) => {
   const newUser = new User({
-    id: uuid(),
+    id: nanoid(),
     username: req.body.username,
     name: req.body.name,
     email: req.body.email,
@@ -23,9 +23,9 @@ export const register = async (req, res) => {
   }
 };
 
-export const login = async (req, res) => {  
+export const login = async (req, res) => {
   try {
-    const user = await User.findOne({ email: req.body.email });    
+    const user = await User.findOne({ email: req.body.email });
 
     if (!user) {
       return res.status(401).json("Wrong credentials!");
@@ -50,7 +50,7 @@ export const login = async (req, res) => {
 
         const { email, ...others } = user._doc;
 
-        return res.status(200).json({ ...others, accessToken });        
+        return res.status(200).json({ ...others, accessToken });
       }
     }
   } catch (err) {
@@ -80,6 +80,6 @@ export const passwordUpdate = async (req, res) => {
   }
 };
 
-export const logout = (req, res) => {
+export const logout = (_req, res) => {
   res.send("logout");
 };
