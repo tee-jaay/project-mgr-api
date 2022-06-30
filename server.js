@@ -28,9 +28,10 @@ const server = createServer(app);
 // Initialize app
 
 // Socket
+const origin = process.env.CLIENT_ORIGIN;
 const io = new Server(server, {
   cors: {
-    origin: "*",
+    origin: origin,
     methods: ["GET", "POST"],
   },
 });

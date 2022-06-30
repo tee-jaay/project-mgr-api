@@ -4,6 +4,12 @@ import jwt from "jsonwebtoken";
 import User from "../../models/user/auth/User.model.js";
 
 export const register = async (req, res) => {
+  if (process.env.USER_REGISTRAION !== "enabled") {
+    console.log("User registration", process.env.USER_REGISTRAION);
+    return res.status(400).json({
+      message: "User registration is disabled"
+    });
+  }
   const newUser = new User({
     id: nanoid(),
     username: req.body.username,
