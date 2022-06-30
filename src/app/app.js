@@ -70,7 +70,7 @@ app.use([
 // ---- Routes ----
 // Root
 app.get("/", (_req, res) => {
-    res.send('"projeqts" api.');
+    res.send('Project mamager api.');
 });
 
 app.get('/health', (_req, res) => {
