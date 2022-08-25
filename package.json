@@ -50,6 +50,6 @@
   },
   "devDependencies": {
     "mongoose-simple-random": "^0.4.1",
-    "nodemon": "^2.0.13"
+    "nodemon": "^2.0.16"
   }
 }
