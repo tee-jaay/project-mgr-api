@@ -3,7 +3,7 @@ import CryptoJS from "crypto-js";
 import jwt from "jsonwebtoken";
 import User from "../../models/user/auth/User.model.js";
 
-export const register = async (req, res) => {
+export const register = async (req, res, next) => {
   if (process.env.USER_REGISTRAION !== "enabled") {
     return res.status(400).json({
       message: "User registration is disabled"
@@ -24,11 +24,12 @@ export const register = async (req, res) => {
     const savedUser = await newUser.save();
     res.status(201).json(savedUser);
   } catch (err) {
-    res.status(500).json(err);
+    console.log(err.message);
+    next(err);
   }
 };
 
-export const login = async (req, res) => {
+export const login = async (req, res, next) => {
   try {
     const user = await User.findOne({ email: req.body.email });
 
@@ -59,11 +60,12 @@ export const login = async (req, res) => {
       }
     }
   } catch (err) {
-    return res.status(500).json(err);
+    console.log(err.message);
+    next(err);
   }
 };
 
-export const passwordUpdate = async (req, res) => {
+export const passwordUpdate = async (req, res, next) => {
   console.log("auth # password update");
   if (req.body.password) {
     req.body.password = CryptoJS.AES.encrypt(
@@ -80,8 +82,9 @@ export const passwordUpdate = async (req, res) => {
       { new: true }
     );
     res.status(200).json(updatedUser);
-  } catch (error) {
-    res.status(500).json(error);
+  } catch (err) {
+    console.log(err.message);
+    next(err);
   }
 };
 
