@@ -3,7 +3,7 @@ import slugify from "slugify";
 import Project from "../../../models/app/Project.js";
 
 export const index = async (_req, res) => {
-  const projects = await Project.find({});
+  const projects = await Project.find({}).select(["-_id", "-__v"]);
   res.status(200).json(projects);
 };
 
@@ -11,7 +11,7 @@ export const byLimit = async (req, res) => {
   const limit = req.params.limit;
   const projects = await Project.find(
     {},
-    { id: 1, title: 1, status: 1, image: 1 },
+    { _id: 0, id: 1, title: 1, status: 1, image: 1 },
     { sort: { createdAt: -1 } }
   ).limit(parseInt(limit));
   res.status(200).json(projects);
@@ -57,9 +57,9 @@ export const store = async (req, res, _next) => {
 };
 
 export const show = async (req, res) => {
-  const { id } = req.params;
+  const { projectId } = req.params;
   try {
-    const getProject = await Project.find({ id: id });
+    const getProject = await Project.find({ id: projectId }).select(["-_id", "-__v"]);
     res.status(200).json(getProject);
   } catch (err) {
     res.status(500).json(err);
@@ -67,13 +67,13 @@ export const show = async (req, res) => {
 };
 
 export const update = async (req, res) => {
-  const { id } = req.params;
+  const { projectId } = req.params;
 
   const { title, status, description, repoLink, image } = req.body;
 
   try {
     await Project.findOneAndUpdate(
-      { id: id },
+      { id: projectId },
       {
         title: title,
         status: status,
@@ -82,7 +82,7 @@ export const update = async (req, res) => {
         image: image,
       }
     );
-    const updatedProject = await Project.findOne({ id: id });
+    const updatedProject = await Project.findOne({ id: id }).select(["-_id", "-__v"]);
     res.status(200).json(updatedProject);
   } catch (error) {
     res.status(500).json(error);
@@ -94,7 +94,7 @@ export const search = async (req, res) => {
   try {
     const result = await Project.find({
       title: new RegExp(_keyword, "i"),
-    });
+    }).select(["-_id", "-__v"]);
     res.status(200).json(result);
   } catch (error) {
     res.status(500).json(error);

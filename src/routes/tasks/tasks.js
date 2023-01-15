@@ -16,12 +16,12 @@ router.get("/", index);
 // Store
 router.post("/", verifyTokenAndAdmin, store);
 // Show
-router.get("/:taskId", show);
+router.get("/taskId/:taskId", show);
 // Update
-router.patch("/:taskId", verifyTokenAndAdmin, update);
+router.patch("/taskId/:taskId", verifyTokenAndAdmin, update);
 // Destroy
-router.delete("/:taskId", verifyTokenAndAdmin, destroy);
+router.delete("/taskId/:taskId", verifyTokenAndAdmin, destroy);
 // Tasks by project
-router.get("/project/:projectId", tasksByProjectId);
+router.get("/projectId/:projectId", tasksByProjectId);
 
 export default router;

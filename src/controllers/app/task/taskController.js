@@ -1,8 +1,9 @@
 import { nanoid } from "nanoid";
 import Task from "../../../models/app/Task.js";
 
-export const index = async (_req, res) => {
-  const tasks = await Task.find();
+export const index = async (req, res) => {
+  console.log(req.params);
+  const tasks = await Task.find().select(["-_id", "-__v"]);
   res.status(200).json(tasks);
 };
 
@@ -46,7 +47,7 @@ export const store = async (req, res) => {
 
 export const show = async (req, res) => {
   try {
-    const getTask = await Task.find({ id: req.params.taskId });
+    const getTask = await Task.find({ id: req.params.taskId }).select(["-_id", "-__v"]);
     res.status(200).json(getTask);
   } catch (err) {
     res.status(500).json(err);
@@ -79,7 +80,7 @@ export const update = async (req, res) => {
       actualEnd,
       priority,
     });
-    const updatedTask = await Task.findOne({ id: req.params.taskId });
+    const updatedTask = await Task.findOne({ id: req.params.taskId }).select(["-_id", "-__v"]);
 
     res.status(200).json({ updatedTask });
   } catch (err) {
@@ -92,8 +93,10 @@ export const destroy = (_req, res) => {
 };
 
 export const tasksByProjectId = async (req, res) => {
+  console.log(req.params);
   try {
-    const tasks = await Task.find({ projectId: req.params.projectId });
+    const tasks = await Task.find({ projectId: req.params.projectId }).select(["-_id", "-__v"]);
+    console.log(tasks);
     tasks.sort((a, b) => b.createdAt - a.createdAt);
     res.status(200).json(tasks);
   } catch (err) {

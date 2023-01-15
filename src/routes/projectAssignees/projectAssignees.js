@@ -12,10 +12,10 @@ const router = express.Router();
 // Index
 router.get("/", index);
 // Store
-router.patch("/:projectId", verifyTokenAndAdmin, store);
+router.patch("/projectId/:projectId", verifyTokenAndAdmin, store);
 // Update
-router.patch("/:slug", verifyTokenAndAdmin, update);
+router.patch("/projectId/:projectId", verifyTokenAndAdmin, update);
 // destroy
-router.delete("/:slug", verifyTokenAndAdmin, destroy);
+router.delete("/projectId/:projectId", verifyTokenAndAdmin, destroy);
 
 export default router;
