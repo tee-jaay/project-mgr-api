@@ -103,7 +103,6 @@ app.use("/page", pageRoutes);
 app.use("/frontend", frontendRoutes);
 // Message
 app.use("/message", verifyLogin, messageRoutes);
-
 // ---- Routes ----
 app.use((_req, _res, next) => {
     const error = new Error('Resource Not Found');

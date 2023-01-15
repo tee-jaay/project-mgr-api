@@ -1,90 +1,47 @@
 import moment from "moment";
-import Task from "../../../models/app/Task.js";
-import Issue from "../../../models/app/Issue.model.js";
-import Meeting from "../../../models/app/Meeting.model.js";
-import Project from "../../../models/app/Project.js";
-import User from "../../../models/user/auth/User.model.js";
+import allProjectsCount from "./inc/allProjectsCount.js";
+import allTasksCount from "./inc/allTasksCount.js";
+import allIssuesCount from './inc/allIssuesCount.js';
+import allMeetingsCount from "./inc/allMeetingsCount.js";
+import recentProjects from "./inc/recentProjects.js";
+import latestOpenIssues from "./inc/latestOpenIssues.js";
+import tasksCountByPriority from "./inc/tasksCountByPriority.js";
+import users from "./inc/users.js";
 
-export const index = async (req, res) => {
-  let data = null;
-  let allProjectsCount = null;
-  let allTasksCount = null;
-  let allIssuesCount = null;
-  let allMeetingsCount = null;
-  let today = null;
-  let recentProjects = null;
-  let latestOpenIssues = null;
-  let users = null;
-  let lowPriorityTasksCount = "";
-  let mediumPriorityTasksCount = "";
-  let highPriorityTasksCount = "";
-  let criticalPriorityTasksCount = "";
-  let priorities = [];
-  let taskStatuses = [];
+// Fetch various data for the dashboard stats
+export const index = async (_req, res) => {
+  let data = {};
+  let today = "";
+  let _allProjectsCount = 0;
+  let _allTasksCount = 0;
+  let _allIssuesCount = 0;
+  let _allMeetingsCount = 0;
+  let _recentProjects = [];
+  let _latestOpenIssues = [];
+  let _users = [];
+  let _tasksCountByPriority = [];
 
+  today = moment(new Date()).format("MMMM Do YYYY").toString();
+  _allProjectsCount = (await allProjectsCount());
+  _allTasksCount = (await allTasksCount());
+  _allIssuesCount = (await allIssuesCount());
+  _allMeetingsCount = (await allMeetingsCount());
+  _recentProjects = (await recentProjects());
+  _latestOpenIssues = (await latestOpenIssues());
+  _users = (await users());
+  _tasksCountByPriority = (await tasksCountByPriority());
   try {
-    today = await moment(new Date()).format("MMMM Do YYYY");
-    allProjectsCount = await Project.countDocuments({});
-    allTasksCount = await Task.countDocuments({});
-    allMeetingsCount = await Meeting.countDocuments({});
-    allIssuesCount = await Issue.countDocuments({});
-    recentProjects = await Project.find(
-      {},
-      { _id: 0, id: 1, title: 1, status: 1 },
-      { sort: { createdAt: -1 } }
-    ).limit(5);
-    latestOpenIssues = await Issue.find(
-      { status: "open" },
-      {
-        _id: 0,
-        id: 1,
-        projectId: 1,
-        title: 1,
-        status: 1,
-        type: 1,
-        severity: 1,
-        createdBy: 1,
-        createdAt: 1,
-      }
-    ).limit(6);
-
-    users = await User.find(
-      {},
-      { id: 1, name: 1, email: 1, role: 1, profile: 1 }
-    ).limit(5);
-
-    lowPriorityTasksCount = await Task.countDocuments({ priority: "Low" });
-    mediumPriorityTasksCount = await Task.countDocuments({
-      priority: "Medium",
-    });
-    highPriorityTasksCount = await Task.countDocuments({ priority: "High" });
-    criticalPriorityTasksCount = await Task.countDocuments({
-      priority: "Critical",
-    });
-    priorities.push(
-      lowPriorityTasksCount,
-      mediumPriorityTasksCount,
-      highPriorityTasksCount,
-      criticalPriorityTasksCount
-    );
-
-    let taskStatusReview = await Task.countDocuments({ status: "review" });
-    taskStatuses.push(["review", taskStatusReview]);
-
-    data = [
-      {
-        today,
-        allProjectsCount,
-        allTasksCount,
-        allIssuesCount,
-        allMeetingsCount,
-        recentProjects,
-        latestOpenIssues,
-        users,
-        priorities,
-        taskStatuses,
-      },
-    ][0];
+    data = {
+      today,
+      allProjectsCount: _allProjectsCount,
+      allTasksCount: _allTasksCount,
+      allIssuesCount: _allIssuesCount,
+      allMeetingsCount: _allMeetingsCount,
+      recentProjects: _recentProjects,
+      latestOpenIssues: _latestOpenIssues,
+      users: _users,
+      tasksCountByPriority: _tasksCountByPriority,
+    };
     res.status(200).json(data);
   } catch (err) {
     res.status(500).json(err);
