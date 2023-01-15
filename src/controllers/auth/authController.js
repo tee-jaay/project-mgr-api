@@ -1,7 +1,7 @@
-import { nanoid } from "nanoid";
 import CryptoJS from "crypto-js";
 import jwt from "jsonwebtoken";
 import User from "../../models/user/auth/User.model.js";
+import generateUUID from "../../services/generateUUID.js";
 
 export const register = async (req, res, next) => {
   if (process.env.USER_REGISTRAION !== "enabled") {
@@ -10,7 +10,7 @@ export const register = async (req, res, next) => {
     });
   }
   const newUser = new User({
-    id: nanoid(),
+    id: generateUUID(),
     username: req.body.username,
     name: req.body.name,
     email: req.body.email,

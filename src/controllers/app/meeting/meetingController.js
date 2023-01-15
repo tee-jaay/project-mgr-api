@@ -1,5 +1,5 @@
-import { nanoid } from "nanoid";
 import Meeting from "../../../models/app/Meeting.model.js";
+import generateUUID from "../../../services/generateUUID.js";
 
 export const index = async (req, res) => {
   const meetings = await Meeting.find();
@@ -22,7 +22,7 @@ export const store = async (req, res) => {
     phone,
   } = req.body;
   const newMeeting = new Meeting({
-    id: nanoid(),
+    id: generateUUID(),
     createdBy,
     projectId,
     title,

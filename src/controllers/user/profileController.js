@@ -1,10 +1,10 @@
-import { nanoid } from "nanoid";
 import Profile from "../../models/user/profile/Profile.js";
 import User from "../../models/user/auth/User.model.js";
+import generateUUID from "../../services/generateUUID.js";
 
 export const store = async (req, res) => {
   const profile = new Profile({
-    id: nanoid(),
+    id: generateUUID(),
     userId: req.body.userId,
     title: req.body.title,
     industry: req.body.industry,

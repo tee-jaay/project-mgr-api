@@ -1,5 +1,5 @@
-import { v4 as uuid } from "uuid";
 import WallPost from "../../../models/user/social/WallPost.model.js";
+import generateUUID from "../../../services/generateUUID.js";
 
 export const index = async (req, res) => {
   try {
@@ -15,7 +15,7 @@ export const store = async (req, res) => {
   const { postBy, content } = req.body;
   try {
     const newPost = new WallPost({
-      id: uuid(),
+      id: generateUUID(),
       userId: userId,
       postBy: postBy,
       content: content,

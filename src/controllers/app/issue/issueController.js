@@ -1,5 +1,5 @@
-import { v4 as uuidv4 } from "uuid";
 import Issue from "../../../models/app/Issue.model.js";
+import generateUUID from "../../../services/generateUUID.js";
 
 export const index = async (req, res) => {
   const issues = await Issue.find();
@@ -21,7 +21,7 @@ export const store = async (req, res) => {
     severity,
   } = req.body;
   const newIssue = new Issue({
-    id: uuidv4(),
+    id: generateUUID(),
     projectId,
     createdBy,
     title,

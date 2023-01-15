@@ -1,7 +1,7 @@
-import { v4 as uuidv4 } from "uuid";
 import AuthPage from "../../../models/app/AuthPage.model.js";
 import { uploadFileToCloudinary } from "../../../services/fileUpload.js";
 import { cleanFile } from "../../../services/fileCleanUp.js";
+import generateUUID from "../../../services/generateUUID.js";
 
 export const index = async (req, res) => {
   try {
@@ -17,7 +17,7 @@ export const store = async (req, res) => {
 
   const result = await uploadFileToCloudinary(req.file.path, "settings/auth");
   const newAuthPage = new AuthPage({
-    id: uuidv4(),
+    id: generateUUID(),
     imgFor: imgFor,
     imgUrl: result.secure_url,
   });

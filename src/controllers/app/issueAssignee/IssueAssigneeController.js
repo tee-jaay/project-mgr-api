@@ -1,7 +1,5 @@
-import { v4 as uuidv4 } from "uuid";
 import IssueAssignee from "../../../models/app/IssueAssignee.js";
-import faker from "faker";
-import mongoose from "mongoose";
+import generateUUID from "../../../services/generateUUID.js";
 
 export const index = async (req, res) => {
   const issueAssignees = await IssueAssignee.find();
@@ -11,7 +9,7 @@ export const index = async (req, res) => {
 export const store = async (req, res) => {
   const { issueId, assigneeId } = req.body;
   const newissueAssignee = new IssueAssignee({
-    id: uuidv4(),
+    id: generateUUID(),
     issueId,
     assigneeId,
   });
@@ -26,7 +24,7 @@ export const store = async (req, res) => {
 
 export const show = async (req, res) => {
   try {
-    const IssueAssignee = await IssueAssignee.find({ slug: req.params.slug });
+    const IssueAssignee = await IssueAssignee.find({ slug: req.params.slug }).select(["-_id", "-__v"]);
     res.status(200).json(IssueAssignee);
   } catch (err) {
     res.status(500).json(err);

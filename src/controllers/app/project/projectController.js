@@ -1,6 +1,6 @@
-import { nanoid } from "nanoid";
 import slugify from "slugify";
 import Project from "../../../models/app/Project.js";
+import generateUUID from "../../../services/generateUUID.js";
 
 export const index = async (_req, res) => {
   const projects = await Project.find({}).select(["-_id", "-__v"]);
@@ -37,7 +37,7 @@ export const store = async (req, res, _next) => {
     image,
   } = req.body;
   const newProject = new Project({
-    id: nanoid(),
+    id: generateUUID(),
     title,
     slug: title.length > 0 ? slugify(title, slugifyOptions) : "no-slug",
     createdBy,

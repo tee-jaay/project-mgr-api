@@ -1,5 +1,5 @@
-import { nanoid } from "nanoid";
 import Task from "../../../models/app/Task.js";
+import generateUUID from "../../../services/generateUUID.js";
 
 export const index = async (req, res) => {
   console.log(req.params);
@@ -23,7 +23,7 @@ export const store = async (req, res) => {
     color,
   } = req.body;
   const newTask = new Task({
-    id: nanoid(),
+    id: generateUUID(),
     projectId,
     createdBy,
     title,

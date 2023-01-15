@@ -1,5 +1,5 @@
-import { v4 as uuidv4 } from "uuid";
 import Todo from "../../../models/app/Todo.js";
+import generateUUID from "../../../services/generateUUID.js";
 
 export const index = async (req, res) => {
   const todos = await Todo.find();
@@ -10,7 +10,7 @@ export const store = async (req, res) => {
   const { taskId, createdBy, todo, done, endDate } = req.body;
 
   const newTodo = new Todo({
-    id: uuidv4(),
+    id: generateUUID(),
     taskId,
     createdBy,
     todo,
