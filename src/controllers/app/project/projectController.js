@@ -58,6 +58,7 @@ export const store = async (req, res, _next) => {
 
 export const show = async (req, res) => {
   const { projectId } = req.params;
+  console.log(projectId);
   try {
     const getProject = await Project.find({ id: projectId }).select(["-_id", "-__v"]);
     res.status(200).json(getProject);
