@@ -12,6 +12,6 @@ router.get("/", index);
 // Store
 router.post("/", store);
 // Create
-router.patch("/:projectId", create);
+router.patch("/projectId/:projectId", create);
 
 export default router;
