@@ -17,6 +17,7 @@ if (process.env.MONGO_NETWORK === "localnet") {
   DB_CONN_URI = `mongodb+srv://${process.env.MONGO_USR}:${process.env.MONGO_PWD}@${process.env.MONGO_CLUSTER}.mongodb.net/${process.env.MONGO_DB}?${process.env.MONGO_OPT}`;
 }
 
+mongoose.set('strictQuery', false);
 mongoose
   .connect(DB_CONN_URI)
   .then(() => console.log("Database connection successful"))

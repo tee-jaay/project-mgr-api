@@ -9,12 +9,12 @@ import {
 const router = express.Router();
 
 // Index by task
-router.get("/:taskId", index);
+router.get("/taskId/:taskId", index);
 // Store
-router.post("/:taskId", store);
+router.post("/taskId/:taskId", store);
 // Update
-router.patch("/:messageId", update);
+router.patch("/messageId/:messageId", update);
 // Destroy
-router.delete("/:messageId", destroy);
+router.delete("/messageId/:messageId", destroy);
 
 export default router;

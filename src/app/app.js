@@ -30,32 +30,8 @@ import authPageRoutes from "../routes/pages/authPages.route.js";
 import pageRoutes from "../routes/pages/page.route.js";
 import frontendRoutes from "../routes/frontend/frontend.route.js";
 import { byLimit } from "../controllers/app/project/projectController.js";
-
-import { tasksByMonth } from "../controllers/app/dashboard/tasksGroupByMonth.js";
 import { verifyLogin } from './middleware.js';
 import { verifyTokenAndAdmin } from '../middlewares/verifyToken.js';
-
-
-// ============ faker ============ //
-// import {
-//   collectionDropOne,
-//   collectionDropAll,
-// } from "./src/controllers/faker/collectionDrop.js";
-// import {
-//   fakerRegisters,
-//   fakerProjects,
-//   fakerTasks,
-//   fakerTodos,
-//   fakerIssues,
-//   fakerMeetings,
-//   fakerProfiles,
-//   fakerTimeSheets,
-//   fakerDbSeed,
-//   fakerTaskMessages,
-//   fakerProfileWallposts,
-// } from "./src/controllers/faker/fakerController.js";
-
-// ============ faker ============ //
 
 const app = express();
 
@@ -90,30 +66,31 @@ app.use("/users/socials/wall-posts", verifyLogin, wallPosts);
 app.use("/projects", verifyLogin, projectRoutes);
 app.use("/projects-search", verifyLogin, projectSearchRoutes);
 app.use("/projects-by-limit/:limit", verifyLogin, byLimit);
-app.use("/projects/comments", verifyLogin, projectCommentRoutes);
+app.use("/projects-comments", verifyLogin, projectCommentRoutes);
 // Task
-app.use("/tasks", verifyLogin, taskRoutes);
-app.use("/tasks/chat", verifyLogin, taskChatRoutes);
+app.use("/projects-tasks", verifyLogin, taskRoutes);
+// Chat
+app.use("/projects-tasks-chat", verifyLogin, taskChatRoutes);
 // Todo
-app.use("/todos", verifyLogin, todoRoutes);
+app.use("/projects-tasks-todos", verifyLogin, todoRoutes);
 // Comment
-app.use("/comments", verifyLogin, commentRoutes);
+app.use("/projects-comments", verifyLogin, commentRoutes);
 // Issue
-app.use("/issues", verifyLogin, issueRoutes);
-app.use("/issues/comments", verifyLogin, issueCommentRoutes);
+app.use("/projects-issues", verifyLogin, issueRoutes);
+app.use("/projects-issues/comments", verifyLogin, issueCommentRoutes);
 // Meeting
-app.use("/meetings", verifyLogin, meetingRoutes);
-app.use("/meetings/comments", verifyLogin, meetingCommentRoutes);
+app.use("/projects-meetings", verifyLogin, meetingRoutes);
+app.use("/projects-meetings/comments", verifyLogin, meetingCommentRoutes);
 // Timesheet
-app.use("/timesheets", verifyLogin, timeSheetRoutes);
+app.use("/projects-timesheets", verifyLogin, timeSheetRoutes);
 // Issue Assignee
-app.use("/issue-assignees", verifyLogin, issueAssigneeRoutes);
+app.use("/projects-issue-assignees", verifyLogin, issueAssigneeRoutes);
 // Project Assignee
-app.use("/project-assignees", verifyLogin, projectAssigneeRoutes);
+app.use("/projects-assignees", verifyLogin, projectAssigneeRoutes);
 // Meeting Participant
 app.use("/meeting-participants", verifyLogin, meetingParticipantRoutes);
 // Project Budget
-app.use("/project-budgets", verifyLogin, projectBudgetRoutes);
+app.use("/projects-budgets", verifyLogin, projectBudgetRoutes);
 // Dashboard
 app.use("/dashboard", verifyLogin, dashboardRoutes);
 // Homepage
@@ -126,27 +103,7 @@ app.use("/page", pageRoutes);
 app.use("/frontend", frontendRoutes);
 // Message
 app.use("/message", verifyLogin, messageRoutes);
-// ========== faker =========== //
-// app.use("/drop/all", collectionDropAll);
-// app.use("/drop/:db", collectionDropOne);
-
-// app.use("/faker-users", fakerRegisters);
-// app.use("/faker-projects", fakerProjects);
-// app.use("/faker-tasks", fakerTasks);
-// app.use("/faker-tasks-msgs", fakerTaskMessages);
-// app.use("/faker-todos", fakerTodos);
-// app.use("/faker-issues", fakerIssues);
-// app.use("/faker-meetings", fakerMeetings);
-// app.use("/faker-timesheets", fakerTimeSheets);
-// app.use("/faker-profiles", fakerProfiles);
-// app.use("/faker-wallposts", fakerProfileWallposts);
-// app.use("/faker-db-seed", fakerDbSeed);
-
-// app.use("/group-by/tasks/:year", tasksByMonth);
-// ========== faker =========== //
-
 // ---- Routes ----
-
 app.use((_req, _res, next) => {
     const error = new Error('Resource Not Found');
     error.status = 404;

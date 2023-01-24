@@ -1,5 +1,5 @@
-import { v4 as uuidv4 } from "uuid";
 import TimeSheet from "../../../models/app/TimeSheet.model.js";
+import generateUUID from "../../../services/generateUUID.js";
 
 export const index = async (req, res) => {
   const timesheets = await TimeSheet.find();
@@ -9,7 +9,7 @@ export const index = async (req, res) => {
 export const store = async (req, res) => {
   const { projectId, task, taskId, createdBy, title } = req.body;
   const newTimeSheet = new TimeSheet({
-    id: uuidv4(),
+    id: generateUUID(),
     projectId,
     task,
     taskId,

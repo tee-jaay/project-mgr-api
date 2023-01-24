@@ -1,5 +1,5 @@
-import { nanoid } from 'nanoid';
 import TaskChat from "../../../models/app/TaskChat.model.js";
+import generateUUID from '../../../services/generateUUID.js';
 
 export const index = async (req, res) => {
   const { taskId } = req.params;
@@ -17,7 +17,7 @@ export const store = async (req, res) => {
   const { createdBy, message, filePath } = req.body;
 
   const newTaskChat = new TaskChat({
-    id: nanoid(),
+    id: generateUUID(),
     taskId,
     createdBy,
     message,

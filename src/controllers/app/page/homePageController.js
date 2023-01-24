@@ -1,9 +1,9 @@
-import { v4 as uuidv4 } from "uuid";
 import HomePage from "../../../models/app/HomePage.model.js";
 import { cleanFile } from "../../../services/fileCleanUp.js";
 import { uploadFileToCloudinary } from "../../../services/fileUpload.js";
+import generateUUID from "../../../services/generateUUID.js";
 
-export const store = async (req, res) => {};
+export const store = async (req, res) => { };
 
 export const show = async (req, res) => {
   try {
@@ -25,7 +25,7 @@ export const update = async (req, res) => {
         "settings/homepage"
       );
       const homePageObj = new HomePage({
-        id: uuidv4(),
+        id: generateUUID(),
         logo: result.secure_url,
         about: about,
         features: [...features, feature],

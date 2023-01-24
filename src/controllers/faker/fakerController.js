@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import CryptoJS from "crypto-js";
-import { nanoid } from "nanoid";
 import slugify from "slugify";
 import faker from "faker";
 import User from "../../models/user/auth/User.model.js";
@@ -14,6 +13,7 @@ import TimeSheet from "../../models/app/TimeSheet.model.js";
 import moment from "moment";
 import Profile from "../../models/user/profile/Profile.js";
 import WallPost from "../../models/user/social/WallPost.model.js";
+import generateUUID from "../../services/generateUUID.js";
 
 const makeDate = (val) => {
   let result = moment(val).format("YYYY-MM-DD");
@@ -108,7 +108,7 @@ export const fakerRegisters = async (_req, res) => {
     var avatar = "https://i.pravatar.cc/150/150";
 
     var fakeeUser = new User({
-      id: nanoid(),
+      id: generateUUID(),
       username: randomUsername + i,
       name: randomName,
       email: i + randomEmail,
@@ -178,7 +178,7 @@ export const fakerProjects = async (_req, res) => {
       var urlOne = faker.internet.url();
       var urlTwo = faker.internet.url();
       var image = faker.image.imageUrl();
-      var id = nanoid();
+      var id = generateUUID();
       var slug = slugify(title, slugifyOptions);
       var comments = [
         {
@@ -279,7 +279,7 @@ export const fakerTasks = async (_req, res) => {
       let year = yearArr[(Math.random() * yearArr.length) | 0];
 
       var fakeTask = new Task({
-        id: nanoid(),
+        id: generateUUID(),
         projectId,
         createdBy,
         title,
@@ -323,7 +323,7 @@ export const fakerTaskMessages = async (_req, res) => {
       let ban = faker.datatype.boolean();
 
       let fakeTaskMessage = new TaskChat({
-        id: nanoid(),
+        id: generateUUID(),
         taskId,
         createdBy,
         message,
@@ -359,7 +359,7 @@ export const fakerTodos = async (_req, res) => {
       var doneBy = createdBy;
 
       var fakeTodo = new Todo({
-        id: nanoid(),
+        id: generateUUID(),
         taskId,
         createdBy,
         doneBy,
@@ -411,7 +411,7 @@ export const fakerIssues = async (req, res) => {
       var issueType = issueTypeArr[(Math.random() * issueTypeArr.length) | 0];
 
       var fakeIssue = new Issue({
-        id: nanoid(),
+        id: generateUUID(),
         taskId: req.body.taskId,
         projectId,
         createdBy,
@@ -470,7 +470,7 @@ export const fakerMeetings = async (_req, res) => {
       var phone = faker.phone.phoneNumber();
 
       var fakeMeeting = new Meeting({
-        id: nanoid(),
+        id: generateUUID(),
         projectId,
         taskId,
         createdBy,
@@ -515,7 +515,7 @@ export const fakerTimeSheets = async (_req, res) => {
       var note = faker.lorem.paragraph();
 
       var fakeTimeSheet = new TimeSheet({
-        id: nanoid(),
+        id: generateUUID(),
         projectId,
         taskId,
         createdBy,
@@ -544,7 +544,7 @@ export const fakerProfiles = async (_req, res) => {
   var getData = await db.collection("users").find().toArray();
 
   for (let i = 0; i < usersCount; i++) {
-    var id = nanoid();
+    var id = generateUUID();
     var userId = getData[i].id;
     var title = faker.name.jobTitle();
     var bio = faker.lorem.sentence();
@@ -684,7 +684,7 @@ export const fakerProfileWallposts = async (req, res) => {
       var content = faker.lorem.paragraph();
 
       var fakeWallPost = new WallPost({
-        id: nanoid(),
+        id: generateUUID(),
         userId: userId,
         postBy: postBy,
         content: content,

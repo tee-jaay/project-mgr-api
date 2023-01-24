@@ -1,5 +1,5 @@
-import { v4 as uuidv4 } from "uuid";
 import Page from "../../../models/app/Page.model.js";
+import generateUUID from "../../../services/generateUUID.js";
 
 export const index = async (req, res) => {
   try {
@@ -13,7 +13,7 @@ export const index = async (req, res) => {
 export const store = async (req, res) => {
   const { title, subTitle, content, pageType } = req.body;
   const newPage = new Page({
-    id: uuidv4(),
+    id: generateUUID(),
     title,
     subTitle,
     content,
