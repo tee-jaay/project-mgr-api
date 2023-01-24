@@ -15,10 +15,10 @@ router.get("/", index);
 // Store
 router.post("/", verifyTokenAndAdmin, store);
 // Show
-router.get("/:id", show);
+router.get("/:projectId", show);
 // Update
-router.patch("/:id", verifyTokenAndAdmin, update);
+router.patch("/:projectId", verifyTokenAndAdmin, update);
 // destroy
-router.delete("/:id", verifyTokenAndAdmin, destroy);
+router.delete("/:projectId", verifyTokenAndAdmin, destroy);
 
 export default router;
