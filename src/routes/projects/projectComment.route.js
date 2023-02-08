@@ -10,7 +10,7 @@ const router = express.Router();
 // Index
 router.get("/", index);
 // Store
-router.post("/", store);
+router.post("/projectId/:projectId", store);
 // Create
 router.patch("/projectId/:projectId", create);
 
