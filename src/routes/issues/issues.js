@@ -21,6 +21,6 @@ router.patch("/:issueId", update);
 // destroy
 router.delete("/:issueId", destroy);
 // By by project
-router.get("/project/:projectId", issuesByProjectId);
+router.get("/projectId/:projectId", issuesByProjectId);
 
 export default router;

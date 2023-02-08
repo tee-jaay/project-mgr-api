@@ -22,6 +22,6 @@ router.patch("/", update);
 // destroy
 router.delete("/:timeSheetId", destroy);
 // destroy
-router.get("/project/:projectId", timeSheetsByProjectId);
+router.get("/projectId/:projectId", timeSheetsByProjectId);
 
 export default router;

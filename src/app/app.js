@@ -74,7 +74,7 @@ app.use("/projects-tasks-chat", verifyLogin, taskChatRoutes);
 // Todo
 app.use("/projects-tasks-todos", verifyLogin, todoRoutes);
 // Comment
-app.use("/projects-comments", verifyLogin, commentRoutes);
+app.use("/projects-tasks-comments", verifyLogin, commentRoutes);
 // Issue
 app.use("/projects-issues", verifyLogin, issueRoutes);
 app.use("/projects-issues/comments", verifyLogin, issueCommentRoutes);

@@ -21,6 +21,6 @@ router.patch("/:meetingId", update);
 // destroy
 router.delete("/:meetingId", destroy);
 // By by project
-router.get("/project/:projectId", meetingsByProjectId);
+router.get("/projectId/:projectId", meetingsByProjectId);
 
 export default router;
