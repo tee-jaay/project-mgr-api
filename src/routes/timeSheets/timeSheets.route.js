@@ -14,14 +14,14 @@ const router = express.Router();
 // Index
 router.get("/", index);
 // Store
-router.post("/", verifyTokenAndAdmin, store);
+router.post("/projectId/:projectId", verifyTokenAndAdmin, store);
 // Show
 router.get("/:timeSheetId", show);
 // Update
 router.patch("/", update);
-// destroy
+// Destroy
 router.delete("/:timeSheetId", destroy);
-// destroy
+// Fetch
 router.get("/projectId/:projectId", timeSheetsByProjectId);
 
 export default router;
