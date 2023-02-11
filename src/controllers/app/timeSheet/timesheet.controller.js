@@ -7,7 +7,8 @@ export const index = async (req, res) => {
 };
 
 export const store = async (req, res) => {
-  const { projectId, task, taskId, createdBy, title } = req.body;
+  const {projectId} = req.params;
+  const { task, taskId, createdBy, title } = req.body;
   const newTimeSheet = new TimeSheet({
     id: generateUUID(),
     projectId,
