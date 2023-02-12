@@ -16,11 +16,11 @@ router.get("/", index);
 // Store
 router.post("/projectId/:projectId", verifyTokenAndAdmin, store);
 // Show
-router.get("/:timeSheetId", show);
+router.get("/timeSheetId/:timeSheetId", show);
 // Update
-router.patch("/:timeSheetId", update);
+router.patch("/timeSheetId/:timeSheetId", update);
 // Destroy
-router.delete("/:timeSheetId", destroy);
+router.delete("/timeSheetId/:timeSheetId", destroy);
 // Fetch
 router.get("/projectId/:projectId", timeSheetsByProjectId);
 
