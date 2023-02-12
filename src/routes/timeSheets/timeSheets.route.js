@@ -18,7 +18,7 @@ router.post("/projectId/:projectId", verifyTokenAndAdmin, store);
 // Show
 router.get("/:timeSheetId", show);
 // Update
-router.patch("/", update);
+router.patch("/:timeSheetId", update);
 // Destroy
 router.delete("/:timeSheetId", destroy);
 // Fetch
