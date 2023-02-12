@@ -7,9 +7,9 @@ export const index = async (req, res) => {
 };
 
 export const store = async (req, res) => {
+  const {projectId} = req.params;
   const {
-    createdBy,
-    projectId,
+    createdBy,    
     title,
     bookmark,
     status,
