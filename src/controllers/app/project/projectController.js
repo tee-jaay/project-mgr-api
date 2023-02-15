@@ -82,7 +82,7 @@ export const update = async (req, res) => {
         image: image,
       }
     );
-    const updatedProject = await Project.findOne({ id: id }).select(["-_id", "-__v"]);
+    const updatedProject = await Project.findOne({ id: projectId }).select(["-_id", "-__v"]);
     res.status(200).json(updatedProject);
   } catch (error) {
     res.status(500).json(error);
