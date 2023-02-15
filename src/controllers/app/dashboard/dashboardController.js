@@ -31,12 +31,13 @@ export const index = async (_req, res) => {
   _users = (await users());
   _tasksCountByPriority = (await tasksCountByPriority());
   try {
-    data = {
-      today,
-      allProjectsCount: _allProjectsCount,
-      allTasksCount: _allTasksCount,
-      allIssuesCount: _allIssuesCount,
-      allMeetingsCount: _allMeetingsCount,
+    data = {    
+      statData:[
+        {'projects':_allProjectsCount},
+        {'tasks':_allTasksCount},
+        {'issues':_allIssuesCount},
+        {'meetings':_allMeetingsCount},
+      ],  
       recentProjects: _recentProjects,
       latestOpenIssues: _latestOpenIssues,
       users: _users,
